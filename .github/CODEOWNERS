@@ -1,18 +1,12 @@
-# Placeholders until the vidmoat GitHub organisation and its teams exist.
-# The last matching pattern wins.
+# One maintainer for now. When the vidmoat organisation has teams, split this
+# by domain: community reviewers for /skills/community/, a team per core
+# domain, and a security team on anything that executes (scripts, tools,
+# workflows, the plugin manifest). The last matching pattern wins.
 
-*                                   @vidmoat/maintainers
-
-# Community skills: any community reviewer; promotion to core needs the domain team.
-/skills/community/                  @vidmoat/community-reviewers
-
-# Core skills, by domain.
-/skills/core/caption-styling/       @vidmoat/captions-maintainers
-/skills/core/audio-ducking/         @vidmoat/audio-maintainers
-
-# Anything that executes needs a security reviewer as well (listed last so it wins).
-/skills/**/scripts/                 @vidmoat/maintainers @vidmoat/security
-/tools/                             @vidmoat/maintainers @vidmoat/security
-/.github/                           @vidmoat/maintainers @vidmoat/security
-/.claude-plugin/                    @vidmoat/maintainers @vidmoat/security
-/SECURITY.md                        @vidmoat/security
+*                                   @fredabila
+/skills/community/                  @fredabila
+/skills/**/scripts/                 @fredabila
+/tools/                             @fredabila
+/.github/                           @fredabila
+/.claude-plugin/                    @fredabila
+/SECURITY.md                        @fredabila
