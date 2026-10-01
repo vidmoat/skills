@@ -1,0 +1,55 @@
+{
+  "skill_name": "caption-styling",
+  "trigger_cases": [
+    { "id": "t1", "query": "add subtitles to my tiktok, it's a 1080x1920 talking head and people watch with sound off", "should_trigger": true },
+    { "id": "t2", "query": "My captions keep getting hidden behind the like and comment buttons on Reels. Where should they go?", "should_trigger": true },
+    { "id": "t3", "query": "a client (university) says our lecture videos fail their accessibility review because the subtitles are too fast. what limits should we use?", "should_trigger": true },
+    { "id": "t4", "query": "can you burn this srt into the mp4 with ffmpeg so it looks clean, white text on a dark box", "should_trigger": true },
+    { "id": "t5", "query": "put the words I'm saying on screen like those viral clips, big bold text, one word highlighted at a time", "should_trigger": true },
+    { "id": "t6", "query": "here's captions.vtt from our YouTube video, is it any good? some cues feel like they flash by", "should_trigger": true },
+    { "id": "t7", "query": "Transcribe this interview.mp3 and give me a plain text transcript with speaker names", "should_trigger": false, "near_miss": true, "note": "transcription, not caption styling" },
+    { "id": "t8", "query": "translate my english .srt file into spanish, keep the same timings", "should_trigger": false, "near_miss": true, "note": "translation of subtitle text" },
+    { "id": "t9", "query": "design an animated lower third with my name and job title that slides in", "should_trigger": false, "near_miss": true, "note": "motion title, not captions" },
+    { "id": "t10", "query": "write a catchy caption for my instagram post about our new coffee blend", "should_trigger": false, "near_miss": true, "note": "social post copy, a different meaning of caption" },
+    { "id": "t11", "query": "compress this 4K video so it's under 50MB for email", "should_trigger": false },
+    { "id": "t12", "query": "the music is drowning out my voice in this vlog, can you fix the mix", "should_trigger": false }
+  ],
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm posting a 1080x1920 talking-head clip to TikTok and Reels. Give me the exact caption style to use: font size in pixels, how many characters per line, how long each caption should stay up, and where on the frame to put them so app buttons don't cover them.",
+      "expected_output": "Concrete pixel and timing values: a size around 64 to 72 px for sentence captions (or about 140 to 150 px for 1 to 3 word captions), roughly 28 to 32 characters per line, at most 2 lines, at most 17 characters per second, 1 to 6 seconds per cue, and placement inside a centred 900x1400 safe box clear of the bottom app UI.",
+      "assertions": [
+        "Gives a specific font size in pixels between 60 and 150 px and explains which caption style it applies to",
+        "Limits captions to at most 2 lines",
+        "States a reading speed limit of about 17 characters per second (or an equivalent words-per-minute figure of about 160 to 180)",
+        "Places captions inside a cross-platform safe area (a centred box of about 900x1400 or explicit margins that keep text out of roughly the bottom 400 px)",
+        "Recommends a dark plate, outline or shadow behind light text for contrast over footage"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Check this caption file before I burn it in and tell me exactly what to fix. It's for a 30 fps vertical video.",
+      "files": ["evals/files/podcast-clip.srt"],
+      "expected_output": "A cue-by-cue list of problems: cue 1 far too long and fast and needs splitting into several cues; cue 2 is a one-frame flash; cue 3 has three lines and overlaps cue 4; cue 4 stays up too long. Each comes with a concrete fix.",
+      "assertions": [
+        "Identifies that cue 1 is too long or too fast and says to split it into multiple cues rather than shrinking the text",
+        "Identifies that cue 2 is on screen far too briefly (well under 1 second)",
+        "Identifies that cue 3 has three lines and/or overlaps the start of cue 4",
+        "Identifies that cue 4 stays on screen too long (over 6 seconds)"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write me the ffmpeg command and subtitle file to burn captions onto a 1080x1920 video at about 68 pixel text with a semi-transparent black box behind it, and highlight the word 'week' in orange in the line: I lost four thousand pounds in a single week.",
+      "expected_output": "An ASS file with PlayResX 1080 and PlayResY 1920 so sizes are pixels, a plate made with BorderStyle 3 using OutlineColour with partial alpha, the highlight applied on a separate text layer above the plate (or otherwise avoiding per-run boxes), a manual line break, and a working ffmpeg subtitles command.",
+      "assertions": [
+        "Sets PlayResX to 1080 and PlayResY to 1920 or otherwise explains how to convert pixel sizes for libass",
+        "Uses BorderStyle 3 with the box colour in OutlineColour and a partial alpha value",
+        "Avoids putting the colour override on the same line as the plate box, for example by drawing the plate on a separate layer",
+        "Breaks the sentence into two lines manually so no line runs off the frame",
+        "Provides an ffmpeg command that uses the subtitles filter"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  pull_request:
+    # labeled/unlabeled so a maintainer applying "allowed-tools-approved" re-runs the lint.
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint skills
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Reference validator from the Agent Skills project. Pin AGENTSKILLS_REF to a
+      # reviewed commit SHA once the repository is public (see docs/testing.md).
+      - name: Install skills-ref
+        env:
+          AGENTSKILLS_REF: main
+        run: python -m pip install --disable-pip-version-check "git+https://github.com/agentskills/agentskills.git@${AGENTSKILLS_REF}#subdirectory=skills-ref"
+
+      - name: skills-ref validate (every skill)
+        run: |
+          status=0
+          for dir in skills/core/*/ skills/community/*/; do
+            [ -f "${dir}SKILL.md" ] || continue
+            echo "::group::${dir}"
+            skills-ref validate "${dir}" || status=1
+            echo "::endgroup::"
+          done
+          exit $status
+
+      - name: Repository linter
+        env:
+          SKILLS_LINT_LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
+        run: node tools/lint-skills.mjs
+
+  catalogue:
+    name: Catalogue is fresh
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node tools/catalogue.mjs --check
+
+  tool-tests:
+    name: Linter and script tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install ffmpeg (exercises the real ducking test)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - run: node --test

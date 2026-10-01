@@ -1,0 +1,37 @@
+name: Gotcha report
+description: A concrete correction learned from a real failure, for a skill's Gotchas section.
+labels: ["gotcha", "triage"]
+body:
+  - type: input
+    id: skill
+    attributes:
+      label: Skill
+      placeholder: audio-ducking
+    validations:
+      required: true
+  - type: textarea
+    id: assumption
+    attributes:
+      label: What a reasonable agent (or person) assumed
+      placeholder: That amix keeps each input at the level it was given.
+    validations:
+      required: true
+  - type: textarea
+    id: reality
+    attributes:
+      label: What is actually true
+      placeholder: amix scales every input down by the number of inputs, and ramps the others up when one ends.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: How you found out
+      description: The failure you saw, and the measurement, command output or source that confirms it. Include tool and OS versions.
+    validations:
+      required: true
+  - type: textarea
+    id: fix
+    attributes:
+      label: The correction
+      description: One or two sentences an agent can act on.

@@ -1,0 +1,86 @@
+name: Release
+
+# Tag a release with `git tag -s v2026.10.01 && git push origin v2026.10.01`.
+# This builds a zip of the tagged tree, publishes its sha256, creates a GitHub
+# release, and moves the `stable` branch to the tag. Pushes to main move
+# `latest`. Branch protection must allow this workflow to update both branches
+# (see docs/consuming.md), and nobody else.
+
+on:
+  push:
+    tags: ["v*"]
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  latest:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Move latest to main
+        run: git push origin "HEAD:refs/heads/latest" --force
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Gate on lint and catalogue
+        run: |
+          node tools/lint-skills.mjs
+          node tools/catalogue.mjs --check
+
+      - name: Build archive and checksum
+        id: build
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          SHA="$(git rev-parse HEAD)"
+          ZIP="vidmoat-skills-${TAG}.zip"
+          git archive --format=zip --prefix="vidmoat-skills/" -o "$ZIP" "$TAG"
+          sha256sum "$ZIP" > SHA256SUMS
+          echo "zip=$ZIP" >> "$GITHUB_OUTPUT"
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+          echo "sum=$(cut -d' ' -f1 SHA256SUMS)" >> "$GITHUB_OUTPUT"
+
+      - name: Skill versions in this release
+        run: |
+          {
+            echo "Commit: ${{ steps.build.outputs.sha }}"
+            echo "Archive sha256: ${{ steps.build.outputs.sum }}"
+            echo
+            echo "| Skill | Tier | Version |"
+            echo "| --- | --- | --- |"
+            for f in skills/*/*/SKILL.md; do
+              tier=$(echo "$f" | cut -d/ -f2)
+              name=$(sed -n 's/^name: //p' "$f" | head -1)
+              ver=$(sed -n 's/^  version: "\{0,1\}\([^"]*\)"\{0,1\}$/\1/p' "$f" | head -1)
+              echo "| $name | $tier | $ver |"
+            done
+            echo
+            echo "See CHANGELOG.md for details and docs/consuming.md for how to pin this release."
+          } > NOTES.md
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" "${{ steps.build.outputs.zip }}" SHA256SUMS --title "$GITHUB_REF_NAME" --notes-file NOTES.md --verify-tag
+
+      - name: Move stable to the tag
+        run: git push origin "${{ steps.build.outputs.sha }}:refs/heads/stable" --force

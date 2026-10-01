@@ -1,0 +1,47 @@
+name: New skill
+description: Propose a skill before writing it, so we can agree the scope.
+labels: ["new-skill", "triage"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Proposed name
+      description: Lowercase letters, digits and hyphens. Must not contain claude, anthropic or vidmoat.
+      placeholder: subtitle-translation-timing
+    validations:
+      required: true
+  - type: textarea
+    id: task
+    attributes:
+      label: What task does it cover?
+      description: One coherent unit of work. What will an agent do with it?
+    validations:
+      required: true
+  - type: textarea
+    id: failure
+    attributes:
+      label: What goes wrong today without it?
+      description: Real examples of an agent getting this wrong, with the prompt and the bad output.
+    validations:
+      required: true
+  - type: textarea
+    id: prompts
+    attributes:
+      label: Example prompts
+      description: Three or more real prompts that should load the skill, and two that look similar but should not.
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Where the guidance comes from
+      description: Standards, measurements, production experience. Numbers need a source or a measurement.
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: Ground rules
+      options:
+        - label: Any scripts will use the standard library only, with no network access and no package installs.
+          required: true
+        - label: I will sign off my commits under the Developer Certificate of Origin.
+          required: true

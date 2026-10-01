@@ -1,0 +1,11 @@
+Vidmoat Skills
+Copyright 2026 Buzz Innovations Ltd and Vidmoat Skills contributors
+
+This repository is dual-licensed by path:
+  - Code (skills/**/scripts/**, tools/**, .github/** and other code files)
+    is licensed under the Apache License, Version 2.0 (see LICENSE).
+  - Skill prose, evals and documentation are licensed under the
+    Creative Commons Attribution 4.0 International License (see LICENSE-CONTENT).
+
+"Vidmoat" and the Vidmoat logo are trademarks and are not licensed under
+either licence. See TRADEMARKS.md.

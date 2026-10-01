@@ -1,0 +1,42 @@
+name: Bug in a skill
+description: A skill gives wrong guidance, a recipe fails, or it loads when it should not (or does not load when it should).
+labels: ["bug", "triage"]
+body:
+  - type: input
+    id: skill
+    attributes:
+      label: Skill and version
+      placeholder: caption-styling 1.0.0
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind of problem
+      options:
+        - Wrong or outdated guidance
+        - A command or script fails
+        - Loaded when it should not have
+        - Did not load when it should have
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: prompt
+    attributes:
+      label: Prompt and client
+      description: What you asked, and which agent and model you used.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should have happened, and how you know
+    validations:
+      required: true

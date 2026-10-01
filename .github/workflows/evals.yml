@@ -1,0 +1,72 @@
+name: Evals
+
+# Runs evals/evals.json for skills against a model. Costs money, so:
+#  - pull requests evaluate only the skills they change;
+#  - every run is capped by EVAL_MAX_CALLS and EVAL_MAX_USD (repository variables);
+#  - forks get no secrets, so the runner prints "skipped" and passes. Maintainers
+#    run evals for fork PRs with workflow_dispatch after reading the change.
+# Never switch this to pull_request_target: that would run fork code with secrets.
+
+on:
+  pull_request:
+    paths:
+      - "skills/**"
+  workflow_dispatch:
+    inputs:
+      skills:
+        description: "Space-separated skill folder names (empty = all)"
+        required: false
+        default: ""
+  schedule:
+    - cron: "17 5 * * 1" # weekly, catches model drift
+
+permissions:
+  contents: read
+
+concurrency:
+  group: evals-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  evals:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      EVAL_MODEL: ${{ vars.EVAL_MODEL }}
+      EVAL_MAX_CALLS: ${{ vars.EVAL_MAX_CALLS || '150' }}
+      EVAL_MAX_USD: ${{ vars.EVAL_MAX_USD || '3' }}
+      EVAL_PRICE_IN: ${{ vars.EVAL_PRICE_IN || '4' }}
+      EVAL_PRICE_OUT: ${{ vars.EVAL_PRICE_OUT || '20' }}
+      EVAL_TRIGGER_RUNS: ${{ vars.EVAL_TRIGGER_RUNS || '1' }}
+      EVAL_MIN_TRIGGER_ACCURACY: ${{ vars.EVAL_MIN_TRIGGER_ACCURACY || '0.7' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Evaluate changed skills (pull request)
+        if: github.event_name == 'pull_request'
+        run: node tools/run-evals.mjs --changed "${{ github.event.pull_request.base.sha }}"
+
+      - name: Evaluate requested skills (manual)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          SKILLS: ${{ inputs.skills }}
+        run: node tools/run-evals.mjs $SKILLS
+
+      - name: Evaluate all core skills (weekly)
+        if: github.event_name == 'schedule'
+        run: node tools/run-evals.mjs $(ls skills/core)
+
+      - name: Keep the report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-results
+          path: eval-results/
+          if-no-files-found: ignore
+          retention-days: 30

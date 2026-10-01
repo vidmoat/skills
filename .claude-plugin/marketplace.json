@@ -1,0 +1,29 @@
+{
+  "name": "vidmoat-skills",
+  "owner": {
+    "name": "Vidmoat",
+    "url": "https://github.com/vidmoat"
+  },
+  "description": "Open video-editing craft as Agent Skills: captions, audio, colour, pacing and more. Works with any editor or with ffmpeg.",
+  "plugins": [
+    {
+      "name": "vidmoat-core",
+      "displayName": "Vidmoat core skills",
+      "description": "Maintainer-curated video editing skills with evals. The only set Vidmoat production loads.",
+      "source": "./",
+      "strict": false,
+      "category": "video",
+      "tags": [
+        "video",
+        "editing",
+        "captions",
+        "audio",
+        "skills"
+      ],
+      "skills": [
+        "./skills/core/audio-ducking",
+        "./skills/core/caption-styling"
+      ]
+    }
+  ]
+}

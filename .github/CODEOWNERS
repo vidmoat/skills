@@ -1,0 +1,18 @@
+# Placeholders until the vidmoat GitHub organisation and its teams exist.
+# The last matching pattern wins.
+
+*                                   @vidmoat/maintainers
+
+# Community skills: any community reviewer; promotion to core needs the domain team.
+/skills/community/                  @vidmoat/community-reviewers
+
+# Core skills, by domain.
+/skills/core/caption-styling/       @vidmoat/captions-maintainers
+/skills/core/audio-ducking/         @vidmoat/audio-maintainers
+
+# Anything that executes needs a security reviewer as well (listed last so it wins).
+/skills/**/scripts/                 @vidmoat/maintainers @vidmoat/security
+/tools/                             @vidmoat/maintainers @vidmoat/security
+/.github/                           @vidmoat/maintainers @vidmoat/security
+/.claude-plugin/                    @vidmoat/maintainers @vidmoat/security
+/SECURITY.md                        @vidmoat/security

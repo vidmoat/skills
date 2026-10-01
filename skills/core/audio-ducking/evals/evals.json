@@ -1,0 +1,56 @@
+{
+  "skill_name": "audio-ducking",
+  "trigger_cases": [
+    { "id": "t1", "query": "the background music in my vlog is way too loud, you can barely hear me talk. how do I fix it in premiere?", "should_trigger": true },
+    { "id": "t2", "query": "I have voiceover.wav and bed.mp3, mix them with ffmpeg so the music dips whenever I'm speaking", "should_trigger": true },
+    { "id": "t3", "query": "how many dB below the narration should a music bed sit for a documentary?", "should_trigger": true },
+    { "id": "t4", "query": "Our podcast intro music fights the host's voice. Also what loudness should the final episode be?", "should_trigger": true },
+    { "id": "t5", "query": "my youtube video sounds quieter than everyone else's and the music pumps up and down between sentences", "should_trigger": true },
+    { "id": "t6", "query": "here are whisper segments for my narration, can you make volume keyframes so the song drops under each line?", "should_trigger": true },
+    { "id": "t7", "query": "remove the background noise and hiss from this zoom recording", "should_trigger": false, "near_miss": true, "note": "noise reduction, not ducking" },
+    { "id": "t8", "query": "compose a 30 second lo-fi music bed for my cooking video", "should_trigger": false, "near_miss": true, "note": "music generation" },
+    { "id": "t9", "query": "cut my montage to the beat of this song, 128 bpm", "should_trigger": false, "near_miss": true, "note": "cutting to music, not mixing" },
+    { "id": "t10", "query": "transcribe the narration track and give me timestamps for each sentence", "should_trigger": false, "near_miss": true, "note": "transcription only" },
+    { "id": "t11", "query": "convert this .mov to .mp4 for the web", "should_trigger": false },
+    { "id": "t12", "query": "add burned-in subtitles to my reel", "should_trigger": false }
+  ],
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm making a YouTube explainer. I have narration.wav and music.mp3. Give me the exact settings for the music under my voice: how much quieter, how fast it should dip and come back, and what loudness the final video should be.",
+      "expected_output": "Specific values: music 12 to 18 dB under the voice, about 10 dB of duck that starts just before speech (or a sidechain with 30 to 80 ms attack and 250 to 700 ms release), holding through short pauses, and a final master of about -14 LUFS integrated with true peak at or below -1 dBTP.",
+      "assertions": [
+        "Gives a numeric level for the music relative to the voice in the range of 12 to 18 dB, or a duck depth between 6 and 12 dB",
+        "Gives numeric timing for the dip and recovery (attack or ramp-down in tens to low hundreds of ms, release or ramp-up in the hundreds of ms)",
+        "Says to stay ducked through short pauses between phrases (or otherwise addresses pumping)",
+        "States a final loudness target of about -14 LUFS integrated for YouTube",
+        "States a true peak ceiling of about -1 dBTP"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Here are the speech segments from my narration. Give me the volume keyframes for the music track (time and gain) so it ducks 10 dB under the voice without bouncing between the first two sentences.",
+      "files": ["evals/files/narration-segments.json"],
+      "expected_output": "Keyframes that ramp down shortly before 2.1 s, stay down through the 0.4 s pause between 5.8 s and 6.2 s, come back up after about 9.4 s, then duck again before 14.0 s and release after 17.3 s.",
+      "assertions": [
+        "Starts lowering the music before 2.1 s, so the first word is not masked",
+        "Does not bring the music back up between 5.8 s and 6.2 s (the first two sentences stay under one continuous duck)",
+        "Returns the music to full level somewhere between 9.4 s and 11 s",
+        "Ducks again before or at 14.0 s and releases after 17.3 s",
+        "Uses a duck depth of 10 dB as requested"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write the ffmpeg command to mix voice.wav and music.wav so the music ducks under the voice, then master the result to -16 LUFS for a podcast. I don't have timestamps for the speech.",
+      "expected_output": "A sidechain compressor chain with the voice split to feed both the mix and the key input, amix with normalize=0, then a two-pass loudnorm at I=-16 with linear=true using measured values, and an explicit output sample rate.",
+      "assertions": [
+        "Uses sidechaincompress with the voice as the key (sidechain) input, using asplit or an equivalent to also send the voice to the mix",
+        "Uses amix with normalize=0 or explains that amix otherwise rescales the inputs",
+        "Uses two-pass loudnorm with measured values from the first pass and linear=true",
+        "Targets -16 LUFS integrated",
+        "Sets an output sample rate such as -ar 48000 after loudnorm"
+      ]
+    }
+  ]
+}

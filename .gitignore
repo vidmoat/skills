@@ -1,0 +1,8 @@
+node_modules/
+eval-results/
+*-workspace/
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+Thumbs.db
