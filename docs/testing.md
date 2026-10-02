@@ -29,7 +29,8 @@ in `.github/workflows/ci.yml` once the repository is public.
 
 ## 2. Evals (costs money, before merge)
 
-`tools/run-evals.mjs` reads each skill's `evals/evals.json` and runs:
+`tools/run-evals.mjs` reads each skill's `evals/evals.json` and runs the
+cases against OpenAI or Anthropic (see "Providers" below):
 
 - **Trigger cases.** The model sees a catalogue of every skill in this
   repository plus seven realistic decoys (transcription, colour grading,
@@ -44,14 +45,43 @@ in `.github/workflows/ci.yml` once the repository is public.
   pass rate for both and the delta.
 
 ```bash
-export ANTHROPIC_API_KEY=...            # without it the runner skips and exits 0
-npm run evals:dry                        # plan and call count only
+export OPENAI_API_KEY=...               # or ANTHROPIC_API_KEY; with neither the runner skips and exits 0
+npm run evals:dry                        # plan, call count and provider; no network
 npm run evals -- caption-styling         # one skill
 node tools/run-evals.mjs --changed main  # skills changed since main
 EVAL_TRIGGER_RUNS=3 npm run evals -- audio-ducking   # steadier trigger rates
 ```
 
-Results print as a summary and are written to `eval-results/report.json`.
+Results print as a summary and are written to `eval-results/report.json`
+(with the provider and model that produced them).
+
+Skills in `skills/vidmoat/` (the skills the Vidmoat editor loads) carry no
+`evals/`, because the product format has no place for them: the product
+repository evaluates them with its own trigger suite and replay evals on
+every import. The runner skips them.
+
+### Providers
+
+| Keys in the environment | Provider used |
+| --- | --- |
+| `OPENAI_API_KEY` (with or without `ANTHROPIC_API_KEY`) | OpenAI, Responses API |
+| only `ANTHROPIC_API_KEY` | Anthropic, Messages API |
+| neither | none: "skipped", exit 0 |
+
+`EVAL_PROVIDER=openai` or `EVAL_PROVIDER=anthropic` forces one; if its key is
+missing the run is skipped and the message names the missing variable. Key
+values are never printed. The prompts, the trigger rule (loaded in at least
+half the runs), the grader prompt and the pass rates are the same code for
+both providers, and `tools/test/tools.test.mjs` proves it: the same scripted
+answers through a mocked OpenAI and a mocked Anthropic endpoint give an
+identical report. Only the request and the response parsing differ.
+
+Reasoning effort is `low` for trigger and grading calls and `medium` for
+answers on both: `output_config.effort` for Anthropic, `reasoning.effort` for
+OpenAI reasoning models (`gpt-5*`, `o*`; other OpenAI models get no effort
+field). An `EVAL_MODEL` from the other provider's family (`claude-...` with
+OpenAI, `gpt-...` with Anthropic) fails at once instead of spending a run on
+404s.
 
 A run **fails** when trigger accuracy is below `EVAL_MIN_TRIGGER_ACCURACY`
 (default 0.7), when the skill makes output pass rates worse than the baseline,
@@ -62,21 +92,26 @@ incomplete.
 
 | Variable | Default | Meaning |
 | --- | --- | --- |
-| `EVAL_MODEL` | `claude-opus-5-5` | Model for answering, triggering and grading |
+| `EVAL_PROVIDER` | by key, OpenAI first | `openai` or `anthropic` |
+| `EVAL_MODEL` | `gpt-5.1` (OpenAI), `claude-opus-5-5` (Anthropic) | Model for answering, triggering and grading |
 | `EVAL_MAX_CALLS` | 150 | Hard ceiling on API calls per run |
 | `EVAL_MAX_USD` | 3 | Stop once estimated spend passes this |
-| `EVAL_PRICE_IN`, `EVAL_PRICE_OUT` | 4, 20 | Dollars per million tokens, for the estimate |
+| `EVAL_PRICE_IN`, `EVAL_PRICE_OUT` | 1.25, 10 (OpenAI); 4, 20 (Anthropic) | Dollars per million tokens, for the estimate |
 | `EVAL_TRIGGER_RUNS` | 1 | Runs per trigger query (3 is better, triples the cost) |
-| `EVAL_FALLBACKS` | on | Set `0` to disable server-side refusal fallbacks |
+| `EVAL_FALLBACKS` | on | Anthropic only: set `0` to disable server-side refusal fallbacks |
 
 A seed skill has 12 trigger cases and 3 output cases: 12 + 3 x 4 = 24 calls
-per skill at one trigger run. Set the price variables to match the model you
-choose, or the dollar cap will be wrong.
+per skill at one trigger run. The price defaults are the default models' list
+prices; when you set `EVAL_MODEL`, set the price variables to match, or the
+dollar cap will be wrong.
 
 In CI (`.github/workflows/evals.yml`) pull requests evaluate only the skills
 they change; a weekly scheduled run evaluates every core skill to catch
-model drift; maintainers can run any set by hand. Pull requests from forks do
-not receive the API key, so the job prints "skipped" and passes; a maintainer
+model drift; maintainers can run any set by hand. The workflow passes both
+secrets, `OPENAI_API_KEY` and `ANTHROPIC_API_KEY`, and the `EVAL_PROVIDER`,
+`EVAL_MODEL` and price repository variables; leave a variable empty for the
+default. Pull requests from forks do not receive the keys, so the job prints
+"skipped" and passes; a maintainer
 runs it with **Run workflow** after reading the change. The workflow uses
 `pull_request`, never `pull_request_target`, so fork code never runs with
 secrets.

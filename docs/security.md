@@ -19,7 +19,7 @@ This model draws on the Cloud Security Alliance's research note on
 | Escaping the folder | Symlinks or `../` links pulling in files from elsewhere | SK022, SK014 |
 | Smuggled binaries | Executables in `references/` | SK021, SK020 size limits |
 | Over-broad tool grants | `allowed-tools: Bash(*)` pre-approves anything | SK019: needs the `allowed-tools-approved` label in community; warning and review in core |
-| Impersonation | A community skill named `vidmoat-...` or `claude-...` to borrow trust | SK005; TRADEMARKS.md |
+| Impersonation | A core or community skill named `vidmoat-...` or `claude-...` to borrow trust | SK005 (only `skills/vidmoat/` may use the name); TRADEMARKS.md |
 | CI secret theft | Fork PR code running with the eval API key | `pull_request` only, never `pull_request_target`; forks skip evals; minimal `permissions` |
 | Supply chain drift | A consumer tracks a branch and receives an unreviewed change | Releases with sha256; consumers pin a commit or digest (docs/consuming.md) |
 
@@ -30,8 +30,10 @@ can phrase an injection that no regex matches. The controls that hold are:
 
 1. **Human review of every changed line** in a skill, by a CODEOWNER, with
    scripts and workflows needing a second, security reviewer.
-2. **Tiering**: only `skills/core/` reaches Vidmoat production, and only after
-   a maintainer promotes it.
+2. **Tiering**: only `skills/core/` reaches Vidmoat production from here, and
+   only after a maintainer promotes it. A change to `skills/vidmoat/` reaches
+   production only when a maintainer imports the reviewed commit into the
+   product repository (a reviewed change there) and deploys it.
 3. **Pinning**: production loads a verified commit or digest, so nothing
    reaches it between reviews.
 4. **Least privilege at run time**: consumers should run skill scripts without

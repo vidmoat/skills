@@ -13,7 +13,8 @@ the same evals. They differ from `skills/core/` in two ways:
 
 1. Open a **New skill** issue to agree the scope.
 2. Create `skills/community/<name>/` with `SKILL.md` and `evals/evals.json`.
-   The name must not contain `vidmoat`, `claude` or `anthropic`.
+   The name must not contain `vidmoat`, `claude` or `anthropic` (only the
+   official product skills in `skills/vidmoat/` may use the Vidmoat name).
 3. Run `npm test` and fix what it reports, then run `npm run catalogue` so the
    README table and the marketplace list include your skill.
 4. Open a pull request with signed-off commits.

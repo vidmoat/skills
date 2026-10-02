@@ -64,6 +64,18 @@ export function makeSkill(root, tier, name, opts = {}) {
   return dir;
 }
 
+/** A product-format skill in skills/vidmoat/: no evals/, owner and category metadata. */
+export function makeVidmoatSkill(root, name, opts = {}) {
+  const dir = path.join(root, 'skills', 'vidmoat', name);
+  fs.mkdirSync(path.join(dir, 'references'), { recursive: true });
+  fs.mkdirSync(path.join(dir, 'scripts'), { recursive: true });
+  const md = skillMd({ name, ...opts }).replace('  author: test', `  owner: "vidmoat"\n  category: "${opts.category ?? 'craft'}"`);
+  fs.writeFileSync(path.join(dir, 'SKILL.md'), md);
+  fs.writeFileSync(path.join(dir, 'references', 'guide.md'), '# Guide\n\nPlace widgets inside the safe box.\n');
+  fs.writeFileSync(path.join(dir, 'scripts', 'check.py'), 'import sys\nprint("ok")\nsys.exit(0)\n');
+  return dir;
+}
+
 export function rules(findings, level = 'error') {
   return findings.filter((f) => f.level === level).map((f) => f.rule);
 }

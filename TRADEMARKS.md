@@ -26,9 +26,10 @@ and CC-BY-4.0 excludes trademark rights in section 2(b)(2).
 
 ## Inside this repository
 
-- Community skill names must not contain `vidmoat` (the linter enforces this
-  as rule SK005). Only maintainer-curated core skills carry the Vidmoat name or
-  `author: vidmoat`.
+- Only the official product skills in `skills/vidmoat/` (the skills the
+  Vidmoat editor loads) may carry the Vidmoat name in a skill name. Core and
+  community skill names must not contain `vidmoat` (the linter enforces this
+  as rule SK005). Maintainer-curated core skills may carry `author: vidmoat`.
 - Skill names must also not contain `claude` or `anthropic`, which are
   trademarks of Anthropic, PBC.
 

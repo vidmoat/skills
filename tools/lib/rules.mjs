@@ -33,7 +33,27 @@ export const RULES = {
   SK025: 'no instruction patterns associated with prompt injection or exfiltration',
   SK026: 'no download-and-execute pipelines anywhere',
   SK027: 'skill names must be unique across tiers',
-  SK028: 'skills/ may only contain core/ and community/',
+  SK028: 'skills/ may only contain core/, community/ and vidmoat/',
+  SK029: 'vidmoat-tier skills follow the product format so they can be imported back',
+};
+
+// The tiers, in catalogue order. `vidmoat` holds the official Vidmoat product
+// skills. This repository is their master copy: the product imports them
+// byte-for-byte at a pinned commit into its skills/<name>/ (its
+// ops/skills-import.mts), so they must also pass the product's validator.
+// See docs/product-import.md.
+export const TIERS = ['core', 'community', 'vidmoat'];
+
+// Product skill categories (the product's src/lib/skills/format.ts).
+export const PRODUCT_CATEGORIES = new Set(['specialist', 'craft', 'reference', 'manual']);
+
+// SK025 exemptions for the vidmoat tier ONLY, by exact sentence. Each one was
+// read by a maintainer and is not what the pattern is for. Any other wording,
+// and the same sentence in any other tier, still fails.
+//  - talking-head: an honesty rule (do not claim a loudness target that peak
+//    normalisation cannot reach), not concealment of an action from the user.
+export const VIDMOAT_REVIEWED_SENTENCES = {
+  'talking-head/SKILL.md': ['Never tell the user their audio is at a loudness target.'],
 };
 
 export const ALLOWED_FIELDS = new Set(['name', 'description', 'license', 'compatibility', 'metadata', 'allowed-tools']);
@@ -58,6 +78,10 @@ export const LIMITS = {
 
 const NAME_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const SEMVER_RE = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$/;
+// Product descriptions may say when with a moment ("Use at the start of a
+// session"). Accepted in the vidmoat tier only, where the product validator
+// has already required a when clause.
+const VIDMOAT_WHEN_RE = /\buse (at|before|after|during) (the )?(start|end|beginning)\b/i;
 const WHEN_RE = /\b(use (this|it|when|for|whenever|if|on)\b|use this skill|when (the user|a user|users|you|someone|asked|working|editing|making|adding|mixing)\b|whenever\b|trigger(s|ed)? (on|when)\b|even if\b)/i;
 
 const TEXT_EXT = new Set(['.md', '.txt', '.json', '.yaml', '.yml', '.py', '.sh', '.bash', '.zsh', '.js', '.mjs', '.cjs',
@@ -222,11 +246,15 @@ function validateEvals(evalsPath, rel, name, skillDir, findings) {
 /**
  * Lint one skill folder.
  * @param {string} skillDir absolute path
- * @param {{tier: 'core'|'community', labels?: string[], relBase?: string}} opts
+ * @param {{tier: 'core'|'community'|'vidmoat', labels?: string[], relBase?: string, coreNames?: Set<string>}} opts
+ *   coreNames: the core skills in the repository (vidmoat tier: a product
+ *   skill links references/<core-name>.md, which the product build merges in).
  */
 export function lintSkill(skillDir, opts) {
   const { tier, labels = [] } = opts;
+  const vidmoat = tier === 'vidmoat';
   const relBase = opts.relBase ?? path.dirname(path.dirname(path.dirname(skillDir)));
+  const coreNames = opts.coreNames ?? new Set();
   const relSkill = path.relative(relBase, skillDir).split(path.sep).join('/');
   const findings = [];
   const folder = path.basename(skillDir);
@@ -258,13 +286,19 @@ export function lintSkill(skillDir, opts) {
       const idx = text.search(REMOTE_EXEC_RE);
       findings.push(finding('SK026', 'error', relFile, 'download piped into an interpreter', lineOf(text, idx)));
     }
+    if (vidmoat && text.includes('\u2014')) {
+      findings.push(finding('SK029', 'error', relFile, 'em dash; the product format refuses them (use a comma, colon or full stop)', lineOf(text, text.indexOf('\u2014'))));
+    }
     if (ext === '.md') {
       const c = text.indexOf('<!--');
       if (c !== -1) findings.push(finding('SK016', 'error', relFile, 'HTML comment found; comments are invisible to reviewers but read by models', lineOf(text, c)));
     }
     if (ext === '.md' || f.rel.startsWith('references/') || f.rel.startsWith('scripts/')) {
+      const reviewed = vidmoat ? (VIDMOAT_REVIEWED_SENTENCES[`${folder}/${f.rel}`] ?? []) : [];
+      let scanned = text;
+      for (const sentence of reviewed) scanned = scanned.split(sentence).join(' '.repeat(sentence.length));
       for (const [re, label] of SUSPICIOUS_PATTERNS) {
-        const m = re.exec(text);
+        const m = re.exec(scanned);
         if (m) findings.push(finding('SK025', 'error', relFile, `${label}: "${m[0].slice(0, 60)}"`, lineOf(text, m.index)));
       }
     }
@@ -283,6 +317,22 @@ export function lintSkill(skillDir, opts) {
           if (re.test(ln) || re.test(flat)) findings.push(finding('SK018', 'error', relFile, `package install (${label})`, idx + 1));
         }
       });
+    }
+  }
+  if (vidmoat) {
+    for (const f of files) {
+      if (f.symlink || f.rel === 'SKILL.md') continue;
+      const parts = f.rel.split('/');
+      const ok = parts.length === 2 && (
+        (parts[0] === 'references' && parts[1].endsWith('.md'))
+        || (parts[0] === 'scripts' && /\.(mjs|js|py|sh)$/.test(parts[1]))
+        || parts[0] === 'assets');
+      if (!ok) {
+        const why = parts[0] === 'evals'
+          ? 'vidmoat-tier skills carry no evals/: their trigger cases and evals live in the product repository'
+          : 'the product format allows only SKILL.md, references/*.md, scripts/*.{mjs,js,py,sh} and assets/, one level deep';
+        findings.push(finding('SK029', 'error', `${relSkill}/${f.rel}`, why));
+      }
     }
   }
   if (total > LIMITS.skillTotalBytes) findings.push(finding('SK020', 'error', relSkill, `skill folder is ${total} bytes; limit is ${LIMITS.skillTotalBytes}`));
@@ -320,11 +370,12 @@ export function lintSkill(skillDir, opts) {
       findings.push(finding('SK003', 'error', relMd, `name "${name}" must be 1-64 chars of a-z, 0-9 and single hyphens, not starting or ending with a hyphen`, keyLines.name));
     }
     if (name !== folder) findings.push(finding('SK004', 'error', relMd, `name "${name}" must equal folder name "${folder}"`, keyLines.name));
+    // "vidmoat" is reserved for the official product skills in skills/vidmoat/.
     const reserved = ['claude', 'anthropic'];
-    if (tier === 'community') reserved.push('vidmoat');
+    if (!vidmoat) reserved.push('vidmoat');
     for (const word of reserved) {
       if (name.includes(word)) {
-        findings.push(finding('SK005', 'error', relMd, `name must not contain "${word}"${word === 'vidmoat' ? ' in community skills (see TRADEMARKS.md)' : ''}`, keyLines.name));
+        findings.push(finding('SK005', 'error', relMd, `name must not contain "${word}"${word === 'vidmoat' ? ` in ${tier} skills; only the official product skills in skills/vidmoat/ may (see TRADEMARKS.md)` : ''}`, keyLines.name));
       }
     }
   }
@@ -339,7 +390,8 @@ export function lintSkill(skillDir, opts) {
     } else if (len > LIMITS.descriptionWarn) {
       findings.push(finding('SK006', 'warning', relMd, `description is ${len} chars; it loads for every session, so aim for under ${LIMITS.descriptionWarn}`, keyLines.description));
     }
-    if (!WHEN_RE.test(desc)) {
+    const saysWhen = WHEN_RE.test(desc) || (vidmoat && VIDMOAT_WHEN_RE.test(desc));
+    if (!saysWhen) {
       findings.push(finding('SK007', 'error', relMd, 'description must say WHEN to use the skill (for example "Use when the user...")', keyLines.description));
     }
     const firstWhen = desc.search(WHEN_RE);
@@ -366,6 +418,10 @@ export function lintSkill(skillDir, opts) {
     for (const [k, v] of Object.entries(metadata)) {
       if (typeof v !== 'string') findings.push(finding('SK009', 'error', relMd, `metadata.${k} must be a string`, keyLines.metadata));
     }
+    if (vidmoat) {
+      if (typeof metadata.owner !== 'string' || !metadata.owner) findings.push(finding('SK029', 'error', relMd, 'metadata.owner is required in the product format', keyLines.metadata));
+      if (!PRODUCT_CATEGORIES.has(metadata.category)) findings.push(finding('SK029', 'error', relMd, `metadata.category must be one of ${[...PRODUCT_CATEGORIES].join(', ')}`, keyLines.metadata));
+    }
     if (typeof metadata.version !== 'string' || !SEMVER_RE.test(metadata.version)) {
       findings.push(finding('SK010', 'error', relMd, `metadata.version must be a quoted semver string such as "1.0.0" (got ${JSON.stringify(metadata.version)})`, keyLines.metadata));
     }
@@ -383,8 +439,12 @@ export function lintSkill(skillDir, opts) {
   const tokens = estimateTokens(body);
   if (tokens > LIMITS.skillMdTokens) findings.push(finding('SK012', 'warning', relMd, `body is about ${tokens} tokens; aim for under ${LIMITS.skillMdTokens}`));
 
+  // A product reference skill (the editing glossary) is a term list with no
+  // procedure to get wrong; the product holds it to a machine check of every
+  // term instead. Every other skill, in every tier, needs Gotchas.
+  const gotchaExempt = vidmoat && metadata && typeof metadata === 'object' && metadata.category === 'reference';
   const gotchas = /^#{2,3}\s+Gotchas\b[^\n]*\n([\s\S]*?)(?=^#{1,3}\s|(?![\s\S]))/im.exec(body);
-  if (!gotchas || !/^\s*[-*]\s+\S|^\s*\d+\.\s+\S/m.test(gotchas[1])) {
+  if (!gotchaExempt && (!gotchas || !/^\s*[-*]\s+\S|^\s*\d+\.\s+\S/m.test(gotchas[1]))) {
     findings.push(finding('SK024', 'error', relMd, 'add a "## Gotchas" section listing concrete corrections from real failures'));
   }
 
@@ -405,6 +465,10 @@ export function lintSkill(skillDir, opts) {
         continue;
       }
       if (!fs.existsSync(resolved)) {
+        // vidmoat tier: references/<core-skill>.md is that core skill, which the
+        // product build merges into this skill (one skill per topic).
+        const merged = vidmoat && isSkillMd && /^references\/([a-z0-9-]+)\.md$/.exec(relToSkill);
+        if (merged && coreNames.has(merged[1])) continue;
         findings.push(finding('SK014', 'error', relFile, `link target "${t.target}" does not exist`, line));
         continue;
       }
@@ -423,8 +487,12 @@ export function lintSkill(skillDir, opts) {
   }
 
   // ---- evals -----------------------------------------------------------
+  // vidmoat tier: none here (SK029 refuses an evals/ folder); the product
+  // repository evaluates its skills (trigger suite and replay evals).
   const evalsPath = path.join(skillDir, 'evals', 'evals.json');
-  if (!fs.existsSync(evalsPath)) {
+  if (vidmoat) {
+    // nothing to validate
+  } else if (!fs.existsSync(evalsPath)) {
     findings.push(finding('SK023', 'error', `${relSkill}/evals/evals.json`, 'missing evals/evals.json (trigger cases and output cases are required)'));
   } else if (typeof name === 'string') {
     validateEvals(evalsPath, `${relSkill}/evals/evals.json`, name, skillDir, findings);
@@ -443,12 +511,14 @@ export function lintRepo(root, { labels = [], only = null } = {}) {
     return { skills, findings };
   }
   for (const ent of fs.readdirSync(skillsRoot, { withFileTypes: true })) {
-    if (ent.isDirectory() && (ent.name === 'core' || ent.name === 'community')) continue;
+    if (ent.isDirectory() && TIERS.includes(ent.name)) continue;
     if (ent.isFile() && ent.name === 'README.md') continue;
-    findings.push(finding('SK028', 'error', `skills/${ent.name}`, 'only skills/core/, skills/community/ and skills/README.md are allowed here'));
+    findings.push(finding('SK028', 'error', `skills/${ent.name}`, 'only skills/core/, skills/community/, skills/vidmoat/ and skills/README.md are allowed here'));
   }
+  const coreDir = path.join(skillsRoot, 'core');
+  const coreNames = new Set(fs.existsSync(coreDir) ? fs.readdirSync(coreDir, { withFileTypes: true }).filter((e) => e.isDirectory()).map((e) => e.name) : []);
   const seen = new Map();
-  for (const tier of ['core', 'community']) {
+  for (const tier of TIERS) {
     const tierDir = path.join(skillsRoot, tier);
     if (!fs.existsSync(tierDir)) continue;
     for (const ent of fs.readdirSync(tierDir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
@@ -457,7 +527,7 @@ export function lintRepo(root, { labels = [], only = null } = {}) {
       if (!ent.isDirectory()) { findings.push(finding('SK028', 'error', `skills/${tier}/${ent.name}`, 'only skill folders (and README.md) belong in a tier folder')); continue; }
       if (only && !only.includes(ent.name)) continue;
       const dir = path.join(tierDir, ent.name);
-      const res = lintSkill(dir, { tier, labels, relBase: root });
+      const res = lintSkill(dir, { tier, labels, relBase: root, coreNames });
       findings.push(...res.findings);
       skills.push({ tier, folder: ent.name, dir, name: res.name, meta: res.meta });
       if (seen.has(res.name)) {

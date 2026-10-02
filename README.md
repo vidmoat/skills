@@ -45,9 +45,19 @@ _No community skills yet. See [CONTRIBUTING.md](CONTRIBUTING.md) to propose one.
 
 <!-- catalogue:end -->
 
-`core` skills are curated by maintainers and are the only skills Vidmoat's
-product loads. `community` skills are contributed by anyone, reviewed and
-linted the same way, and never loaded automatically by Vidmoat.
+This repository is the single source for every Vidmoat skill. `core` skills
+are curated by maintainers and tool-agnostic. `community` skills are
+contributed by anyone, reviewed and linted the same way, and never loaded
+automatically by Vidmoat. `vidmoat` skills are the ones the Vidmoat editor
+loads (its specialists, its editing craft and its MCP manual): they name
+Vidmoat's editing commands, and the craft in them carries to any editor.
+
+The editor loads `core` and `vidmoat` skills from a pinned, reviewed commit of
+this repository. A pull request merged here reaches the editor when a
+maintainer imports that commit into the product (a reviewed change there) and
+it ships with the next deploy; nothing is fetched at run time. See
+[CONTRIBUTING.md](CONTRIBUTING.md#the-vidmoat-tier) and
+[docs/product-import.md](docs/product-import.md).
 
 ## Install
 
@@ -61,7 +71,8 @@ linted the same way, and never loaded automatically by Vidmoat.
 From a shell: `claude plugin marketplace add vidmoat/skills`. To stay on
 released versions only, add `vidmoat/skills#stable` instead. Community skills
 are a separate plugin, `vidmoat-community@vidmoat-skills`, so you opt in to
-them deliberately.
+them deliberately, and so are the official product skills,
+`vidmoat-editor@vidmoat-skills` (most useful with the Vidmoat MCP server).
 
 To use a single skill without the plugin system, copy its folder into
 `.claude/skills/` in your project or `~/.claude/skills/` for every project.
