@@ -93,7 +93,7 @@ incomplete.
 | Variable | Default | Meaning |
 | --- | --- | --- |
 | `EVAL_PROVIDER` | by key, OpenAI first | `openai` or `anthropic` |
-| `EVAL_MODEL` | `gpt-5.1` (OpenAI), `claude-opus-5-5` (Anthropic) | Model for answering, triggering and grading |
+| `EVAL_MODEL` | `gpt-5.6-luna` (OpenAI, the model Vidmoat itself uses), `claude-opus-5-5` (Anthropic) | Model for answering, triggering and grading |
 | `EVAL_MAX_CALLS` | 150 | Hard ceiling on API calls per run |
 | `EVAL_MAX_USD` | 3 | Stop once estimated spend passes this |
 | `EVAL_PRICE_IN`, `EVAL_PRICE_OUT` | 1.25, 10 (OpenAI); 4, 20 (Anthropic) | Dollars per million tokens, for the estimate |

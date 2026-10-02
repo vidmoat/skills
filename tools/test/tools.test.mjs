@@ -177,7 +177,7 @@ test('evals: a forced provider without its key skips and names the missing key, 
 test('evals: dry run with a key reports the provider and model, not the key', () => {
   const r = node(['tools/run-evals.mjs', '--dry-run'], { env: noKeysEnv({ OPENAI_API_KEY: 'sk-test-not-real' }) });
   assert.equal(r.status, 0, r.stderr);
-  assert.match(r.stdout, /Provider: openai, model gpt-5\.1/);
+  assert.match(r.stdout, /Provider: openai, model gpt-5\.6-luna/);
   assert.doesNotMatch(r.stdout + r.stderr, /sk-test-not-real/);
 });
 

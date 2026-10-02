@@ -20,7 +20,7 @@
 //
 // Cost controls (env):
 //   EVAL_PROVIDER     openai | anthropic (default: whichever key is present, OpenAI first)
-//   EVAL_MODEL        model id (default gpt-5.1 for OpenAI, claude-opus-5-5 for Anthropic)
+//   EVAL_MODEL        model id (default gpt-5.6-luna for OpenAI, claude-opus-5-5 for Anthropic)
 //   EVAL_MAX_CALLS    hard ceiling on API calls per run (default 150)
 //   EVAL_MAX_USD      stop once estimated spend passes this (default 3)
 //   EVAL_PRICE_IN     $ per million input tokens  (default: the default model's list price)
@@ -46,7 +46,7 @@ const FALLBACK_MODELS = new Set(['claude-opus-5-5', 'claude-opus-5', 'claude-fab
 // Defaults per provider. Prices are dollars per million tokens for the default
 // model, used only for the spend estimate; set EVAL_PRICE_IN/OUT with EVAL_MODEL.
 export const PROVIDERS = {
-  openai: { keyEnv: 'OPENAI_API_KEY', defaultModel: 'gpt-5.1', priceIn: 1.25, priceOut: 10, family: /^(gpt-|o\d|chatgpt-)/i },
+  openai: { keyEnv: 'OPENAI_API_KEY', defaultModel: 'gpt-5.6-luna', priceIn: 1.25, priceOut: 10, family: /^(gpt-|o\d|chatgpt-)/i },
   anthropic: { keyEnv: 'ANTHROPIC_API_KEY', defaultModel: 'claude-opus-5-5', priceIn: 4, priceOut: 20, family: /^claude-/i },
 };
 
