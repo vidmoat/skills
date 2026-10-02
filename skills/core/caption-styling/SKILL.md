@@ -4,7 +4,7 @@ description: Style, time and place captions and subtitles so they read on a phon
 license: CC-BY-4.0 for this text, Apache-2.0 for scripts
 compatibility: Tool-agnostic guidance. The checker needs Python 3.8 or newer (standard library only). Burn-in recipes use ffmpeg built with libass.
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   author: vidmoat
   domain: captions
 ---
@@ -24,22 +24,26 @@ Use these unless the user or their style guide says otherwise.
 | Setting | Default | Why |
 | --- | --- | --- |
 | Lines per cue | 2 at most | A third line covers the subject and is not read in time. |
-| Characters per line | 42 on landscape 16:9; on vertical 9:16, whatever fits the safe width at your size, usually 28 to 32 | Longer lines force eye travel, and on vertical they run off the frame. |
+| Characters per line | 42 on landscape 16:9; on vertical 9:16, whatever fits the safe width at your size: about 32 at 64 px, 28 at 72 px (mixed case) | Longer lines force eye travel, and on vertical they run off the frame. |
 | Reading speed | 17 characters per second at most (about 160 to 180 words a minute) | Broadcast practice; WCAG sets no speed, so this is the working standard. |
 | Cue duration | 1 s minimum, 6 s maximum | Under 1 s is a flicker; over 6 s viewers re-read. |
 | Gap between cues | 0 or at least 2 frames | A 1-frame gap reads as a flash. |
-| Position | Bottom centre, inside the safe zone | Move to the top when the lower third holds a face, burned-in text or app UI. |
-| Size, sentence subtitles | Landscape: 4.5 to 5% of frame height (49 to 54 px at 1080p). Vertical: 64 to 72 px on 1080x1920 | Readable at arm's length, and 28 to 32 characters still fit the 900 px safe width. |
-| Size, punchy short-form captions (1 to 3 words) | About 140 to 150 px on 1080x1920, at most about 14 characters per line | These are graphic elements, not subtitles. |
+| Position | Bottom centre, inside the safe zone; on 1080x1920, text stays above the bottom 420 px (22% of height) | That clears both TikTok and Reels. Move to the top when the lower third holds a face, burned-in text or app UI. |
+| Size, sentence subtitles | Landscape: 4.5 to 5% of frame height (49 to 54 px at 1080p). Vertical: 64 to 72 px on 1080x1920 | Readable at arm's length, and the line lengths above still fit the 900 px safe width. |
+| Size, punchy short-form captions (1 to 3 words) | About 140 to 150 px on 1080x1920, at most about 14 characters per line in mixed case, 11 in capitals | These are graphic elements, not subtitles. |
+
+| Colour | Off-white `#F2F2F2` on a 70 to 80% opaque dark plate, or a 3 to 5 px dark outline plus soft shadow | Contrast against moving footage cannot be measured frame by frame; a plate guarantees WCAG 4.5:1. |
+| Fonts | One heavy sans-serif (bold or semibold); never more than two families in a video | Thin weights vanish after compression. |
+| Word highlight (karaoke) | One accent colour on the active word only, and it must clear 4.5:1 too | A second colour for "emphasis" makes viewers hunt for meaning. |
 
 **Fit check before rendering.** A bold Arial-class sans in mixed case
 averages 0.44 of the font size per character (measured, spaces included); all
 caps averages 0.55; condensed faces about 0.35. So a line is roughly
-`characters x 0.44 x font_px` wide. At 96 px, a 27-character line is about
-1,140 px and runs off a 1080 px frame. Confirm with a rendered frame.
-| Colour | Off-white `#F2F2F2` on a 70 to 80% opaque dark plate, or a 3 to 5 px dark outline plus soft shadow | Contrast against moving footage cannot be measured frame by frame; a plate guarantees WCAG 4.5:1. |
-| Fonts | One heavy sans-serif (bold or semibold); never more than two families in a video | Thin weights vanish after compression. |
-| Word highlight (karaoke) | One accent colour on the active word only, and it must clear 4.5:1 too | A second colour for "emphasis" makes viewers hunt for meaning. |
+`characters x factor x font_px` wide, and it must fit the safe width (900 px
+on 1080x1920, 90% of the width on landscape), not the frame. At 96 px, a
+27-character mixed-case line is about 27 x 0.44 x 96 = 1,140 px: wider than
+the whole 1080 px frame. The factors are averages for the faces they were
+measured on (see Gotchas), so confirm with a rendered frame.
 
 Platform pixel safe zones and how to derive the safe box for any canvas are in
 [references/platform-safe-zones.md](references/platform-safe-zones.md). Read it
@@ -72,7 +76,8 @@ before placing captions on vertical video.
 
    It checks line count, line length, characters per second, duration, gaps
    and overlaps, and exits non-zero on errors. Add `--json` for a machine
-   report.
+   report. Its default line limit is 32 characters, the vertical and
+   accessibility figure; pass `--max-chars 42` for landscape subtitles.
 8. **Look at rendered frames**, not settings: the first cue, the longest cue,
    and a cue over the busiest background. Confirm nothing is clipped, nothing
    sits under app UI, and the text is readable at phone size.
@@ -85,7 +90,8 @@ before placing captions on vertical video.
   have been off by more than 3x: one overflow check reported a line running
   127 px off each side when it actually rendered 270 px wide in a 1080 px
   frame. Shrinking type to satisfy that estimate produced 76 px captions on
-  1080x1920 that were too small to read on a phone. Render a frame and measure.
+  1080x1920 where the punchy style called for about 150 px, far too small to
+  read on a phone. Render a frame and measure.
 - **Transcript times are source-relative.** If a clip starts 12.4 s into its
   source, subtract 12.4 s from every cue and add the clip's timeline start.
   At 2x speed, durations halve, so cues can fall under 1 s; re-segment instead
@@ -111,6 +117,8 @@ before placing captions on vertical video.
 - **Sung lyrics are phrase-timed.** Speech recognition under music drops words
   (one test lost 4 of 17) and returns phrase times, not word times. Do not
   build word-by-word karaoke from it without checking against the audio.
-- **Preset highlight colours can be baked in.** Some caption presets ignore a
-  highlight-colour override with no error. Confirm on a rendered frame, and
-  build a custom style if the brand colour does not appear.
+- **A preset can colour the active word in more than one place.** One
+  editor's neon preset drew the highlight from both a highlight colour and a
+  glow, so overriding only a field that does not exist changed nothing, with
+  no error. Override every field that carries the colour, by its real name,
+  and confirm on a rendered frame.

@@ -10,21 +10,24 @@ stakes are high, overlay a current screenshot of the target app.
 | --- | --- |
 | TikTok | about 140 top, 400 bottom, 60 left, 180 right (the button rail) |
 | Instagram Reels | about 220 top, 420 bottom |
-| Cross-platform | everything important inside a 900x1400 box centred on the frame |
+| Both, for text | x 60 to 900, y 220 to 1500: the strict intersection of the two rows above (840x1280, not centred) |
+| Both, for faces and graphics | a 900x1400 box centred on the frame, a common working convention |
 
-The cross-platform box is the intersection of the platforms. It is the only
-safe assumption when the same file is posted in more than one place, so use it
-by default.
+Use the intersection for captions and any text that must be read when the
+same file is posted to both apps. The centred 900x1400 box is NOT the
+intersection: its bottom edge is only 260 px up, inside both apps' bottom UI,
+so it is a guide for keeping faces and graphics central, never for placing
+captions at its bottom edge.
 
 ## Any canvas
 
 Derive the box from the actual canvas instead of assuming 1080x1920:
 
-- **Vertical (9:16 and taller):** a centred box 83% of width by 73% of height.
-  That is the 900x1400 rule generalised. Faces and graphics go inside it.
-  Captions need more room at the bottom than the box gives (its bottom edge
-  is 260 px up on 1080x1920): keep caption text above the bottom 420 px, or
-  22% of height, which clears both TikTok and Reels.
+- **Vertical (9:16 and taller):** text stays out of the bottom 22% of height
+  (420 px on 1920), the top 11.5% (220 px) and the right 17% of width (180 px,
+  the button rail), which clears both TikTok and Reels. Faces and graphics
+  also sit inside a centred box 83% of width by 73% of height (the 900x1400
+  convention generalised).
 - **Landscape and square:** title-safe is 90% of the frame (5% margins each
   side, for example 96 px on a 1920 px wide frame). Action-safe is about 93%.
 
