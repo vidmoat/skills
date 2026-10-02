@@ -1,6 +1,8 @@
 name: Evals
 
-# Runs evals/evals.json for skills against a model. Costs money, so:
+# Runs evals/evals.json for skills against a model. Provider: OpenAI when the
+# OPENAI_API_KEY secret is set, otherwise Anthropic with ANTHROPIC_API_KEY;
+# the EVAL_PROVIDER variable (openai or anthropic) forces one. Costs money, so:
 #  - pull requests evaluate only the skills they change;
 #  - every run is capped by EVAL_MAX_CALLS and EVAL_MAX_USD (repository variables);
 #  - forks get no secrets, so the runner prints "skipped" and passes. Maintainers
@@ -32,12 +34,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      EVAL_PROVIDER: ${{ vars.EVAL_PROVIDER }}
+      # Empty means the chosen provider's default model and its list prices.
       EVAL_MODEL: ${{ vars.EVAL_MODEL }}
       EVAL_MAX_CALLS: ${{ vars.EVAL_MAX_CALLS || '150' }}
       EVAL_MAX_USD: ${{ vars.EVAL_MAX_USD || '3' }}
-      EVAL_PRICE_IN: ${{ vars.EVAL_PRICE_IN || '4' }}
-      EVAL_PRICE_OUT: ${{ vars.EVAL_PRICE_OUT || '20' }}
+      EVAL_PRICE_IN: ${{ vars.EVAL_PRICE_IN }}
+      EVAL_PRICE_OUT: ${{ vars.EVAL_PRICE_OUT }}
       EVAL_TRIGGER_RUNS: ${{ vars.EVAL_TRIGGER_RUNS || '1' }}
       EVAL_MIN_TRIGGER_ACCURACY: ${{ vars.EVAL_MIN_TRIGGER_ACCURACY || '0.7' }}
     steps:

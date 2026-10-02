@@ -39,7 +39,7 @@ jobs:
       - name: skills-ref validate (every skill)
         run: |
           status=0
-          for dir in skills/core/*/ skills/community/*/; do
+          for dir in skills/core/*/ skills/community/*/ skills/vidmoat/*/; do
             [ -f "${dir}SKILL.md" ] || continue
             echo "::group::${dir}"
             skills-ref validate "${dir}" || status=1

@@ -36,7 +36,7 @@ metadata:
 
 - `name` (required): lowercase letters, digits and single hyphens, 1 to 64
   characters, equal to the folder name. No `claude` or `anthropic`; no
-  `vidmoat` in community skills.
+  `vidmoat` outside `skills/vidmoat/`.
 - `description` (required): see below.
 - `metadata.version` (required here): quoted semver string.
 - `compatibility`: only if the skill needs something specific (Python,
@@ -134,4 +134,14 @@ meet most:
 | SK023 | evals present and shaped |
 | SK024 | a Gotchas section with items |
 | SK025, SK026 | no injection phrasing; no download piped to a shell |
-| SK027, SK028 | unique names; only `core/` and `community/` in `skills/` |
+| SK027, SK028 | unique names across tiers; only `core/`, `community/` and `vidmoat/` in `skills/` |
+| SK029 | `skills/vidmoat/` only: the product format (no `evals/`, only `references/*.md`, `scripts/`, `assets/` one level deep, `metadata.owner` and `category`, no em dashes) |
+
+In `skills/vidmoat/`, three rules are narrowed because the product's own format
+and build differ, never because the text is trusted more: SK023 (evals live in
+the product), SK014 (`references/<core-skill>.md` resolves to that core skill,
+which the product build merges in), SK024 (a `category: "reference"` skill,
+the glossary, has no procedure and so no Gotchas), SK007 (accepts "Use at the
+start of ..."), and SK025 skips exact sentences a maintainer reviewed, listed
+in `tools/lib/rules.mjs` (`VIDMOAT_REVIEWED_SENTENCES`). Every other rule
+applies unchanged.

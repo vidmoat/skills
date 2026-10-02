@@ -21,7 +21,8 @@ before taking it.
 ```
 
 The marketplace file is `.claude-plugin/marketplace.json`. It defines two
-plugins: `vidmoat-core` (the `skills/core/` set) and `vidmoat-community`
+plugins: `vidmoat-core` (the `skills/core/` set), `vidmoat-editor` (the
+`skills/vidmoat/` set, the official product skills) and `vidmoat-community`
 (listed only once community skills exist). Plugins carry no `version`, so
 Claude Code tracks commits on the ref you added; on `#stable` that means you
 receive each release. Background auto-update is off unless you turn it on in

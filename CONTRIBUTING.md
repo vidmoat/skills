@@ -4,6 +4,10 @@ Thank you for helping. This repository publishes video editing craft as Agent
 Skills, and a skill is only worth loading if it makes an agent measurably
 better at a task. Everything below serves that.
 
+This repository is the single source for every Vidmoat skill, including the
+ones the Vidmoat editor itself loads. Nobody edits skills inside the product:
+every change, from maintainers too, is a pull request here.
+
 ## Ways to contribute
 
 | You have | Do this |
@@ -12,10 +16,45 @@ better at a task. Everything below serves that.
 | A bug in an existing skill (wrong number, broken recipe, bad trigger) | Open a **Bug in a skill** issue with the prompt, what happened and what should have |
 | An idea for a new skill | Open a **New skill** issue first, so we can agree the scope before you write it |
 | A new skill, ready | Pull request into `skills/community/<name>/` |
+| A fix to an official Vidmoat skill (`skills/vidmoat/<name>/`) | Pull request against that folder; see "The vidmoat tier" below |
 
 Maintainers may later promote a community skill to `skills/core/`. Only core
-skills are loaded by Vidmoat's product, so promotion needs a maintainer from
-the relevant domain in [CODEOWNERS](.github/CODEOWNERS) and a passing eval run.
+skills are loaded by Vidmoat's product from this repository, so promotion
+needs a maintainer from the relevant domain in [CODEOWNERS](.github/CODEOWNERS)
+and a passing eval run.
+
+## The three tiers
+
+| Tier | What it is | Who writes it | Name may contain `vidmoat` |
+| --- | --- | --- | --- |
+| `skills/core/` | Tool-agnostic craft, curated, with evals | maintainers (promoted from community) | no |
+| `skills/community/` | Tool-agnostic craft from anyone, with evals | anyone | no |
+| `skills/vidmoat/` | The skills the Vidmoat editor loads (specialists, craft, its MCP manual) | maintainers and contributors, by pull request | yes |
+
+## The vidmoat tier
+
+`skills/vidmoat/` holds the skills the Vidmoat editor loads. This folder is
+their master copy: the product repository imports it byte-for-byte. Those
+skills name Vidmoat's editing commands and are written in the product's skill
+format, so they differ from the other tiers in a few linted ways:
+
+- the folder holds only `SKILL.md`, `references/*.md`, `scripts/` and
+  `assets/`, one level deep, and **no `evals/`** (SK029): the product
+  evaluates these skills with its own trigger suite and replay evals;
+- `metadata` carries `owner` and `category`, and no em dashes anywhere (SK029);
+- names may contain `vidmoat` (SK005).
+
+Pull requests to a vidmoat-tier skill are welcome. A maintainer reviews and
+merges it here like any change. Nothing reaches the editor automatically:
+a maintainer then runs `npm run skills:update` in the (private) product
+repository, which imports the approved `main` commit (or a given tag or
+commit) at that exact SHA, rebuilds the product's skill bundle and runs its
+skill checks. That import is reviewed and committed in the product like any
+other change and goes live with the next deploy. The product's deploy gate
+fails if a skill there differs from the pinned commit, so a merged
+contribution can never be overwritten by a local edit. Keep such a pull
+request to the product format above, or the import refuses it. More in
+[docs/product-import.md](docs/product-import.md).
 
 ## Proposing a new skill
 
@@ -131,8 +170,9 @@ allowed in community skills unless a maintainer applies the
 ## Naming and trademarks
 
 Skill names are lowercase letters, digits and single hyphens, and must match
-the folder. They must not contain `claude` or `anthropic`, and community skills
-must not contain `vidmoat` (see [TRADEMARKS.md](TRADEMARKS.md)).
+the folder. They must not contain `claude` or `anthropic`, and only the
+official product skills in `skills/vidmoat/` may contain `vidmoat` (see
+[TRADEMARKS.md](TRADEMARKS.md)).
 
 ## Versioning
 
@@ -172,7 +212,8 @@ under [Apache-2.0](LICENSE) and prose (skills, references, evals, docs) under
 
 - Every pull request needs a passing lint, catalogue and DCO check.
 - Maintainers run evals for pull requests from forks, because forks do not
-  receive the API key secret.
+  receive the API key secrets. The runner uses OpenAI when `OPENAI_API_KEY` is
+  set and Anthropic otherwise; see [docs/testing.md](docs/testing.md).
 - A CODEOWNER for the skill's domain approves changes to `skills/core/`.
 - Security-sensitive changes (scripts, `allowed-tools`, workflows, `tools/`)
   need a second maintainer.

@@ -9,18 +9,25 @@
 //   node tools/run-evals.mjs --changed origin/main # skills touched since a ref
 //   node tools/run-evals.mjs --dry-run             # plan and call count, no network
 //
-// No key, no run: without ANTHROPIC_API_KEY it prints "skipped" and exits 0,
-// which is what happens on fork pull requests where secrets are withheld.
+// Provider: OpenAI (Responses API) when OPENAI_API_KEY is set, otherwise
+// Anthropic (Messages API) when ANTHROPIC_API_KEY is set. EVAL_PROVIDER=openai
+// or EVAL_PROVIDER=anthropic forces one. The prompts, the trigger rule and the
+// grading are the same for both; only the HTTP call differs.
+//
+// No key, no run: without a key for the chosen provider it prints "skipped"
+// and exits 0, which is what happens on fork pull requests where secrets are
+// withheld. Key values are never printed.
 //
 // Cost controls (env):
-//   EVAL_MODEL        model id (default claude-opus-5-5)
+//   EVAL_PROVIDER     openai | anthropic (default: whichever key is present, OpenAI first)
+//   EVAL_MODEL        model id (default gpt-5.6-luna for OpenAI, claude-opus-5-5 for Anthropic)
 //   EVAL_MAX_CALLS    hard ceiling on API calls per run (default 150)
 //   EVAL_MAX_USD      stop once estimated spend passes this (default 3)
-//   EVAL_PRICE_IN     $ per million input tokens  (default 4, Opus 5.5 list price)
-//   EVAL_PRICE_OUT    $ per million output tokens (default 20)
+//   EVAL_PRICE_IN     $ per million input tokens  (default: the default model's list price)
+//   EVAL_PRICE_OUT    $ per million output tokens (default: the default model's list price)
 //   EVAL_TRIGGER_RUNS runs per trigger query (default 1; 3 is better locally)
 //   EVAL_MIN_TRIGGER_ACCURACY  fail below this trigger accuracy (default 0.7)
-//   EVAL_FALLBACKS    "0" disables server-side refusal fallbacks
+//   EVAL_FALLBACKS    "0" disables Anthropic server-side refusal fallbacks
 // This file is CI tooling, not a skill script: the no-network rule applies to
 // skills/*/scripts only.
 
@@ -29,10 +36,121 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { splitFrontmatter, parseFrontmatter } from './lib/frontmatter.mjs';
+import { TIERS } from './lib/rules.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const API_URL = 'https://api.anthropic.com/v1/messages';
+const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
+const OPENAI_URL = 'https://api.openai.com/v1/responses';
 const FALLBACK_MODELS = new Set(['claude-opus-5-5', 'claude-opus-5', 'claude-fable-5-1', 'claude-sonnet-5-5']);
+
+// Defaults per provider. Prices are dollars per million tokens for the default
+// model, used only for the spend estimate; set EVAL_PRICE_IN/OUT with EVAL_MODEL.
+export const PROVIDERS = {
+  openai: { keyEnv: 'OPENAI_API_KEY', defaultModel: 'gpt-5.6-luna', priceIn: 1.25, priceOut: 10, family: /^(gpt-|o\d|chatgpt-)/i },
+  anthropic: { keyEnv: 'ANTHROPIC_API_KEY', defaultModel: 'claude-opus-5-5', priceIn: 4, priceOut: 20, family: /^claude-/i },
+};
+
+const envNum = (v, fallback) => (v === undefined || v === null || String(v).trim() === '' ? fallback : Number(v));
+
+/**
+ * Choose the provider from the environment. Returns { provider, key, model,
+ * priceIn, priceOut } or { skip } with the reason. Throws on a bad
+ * EVAL_PROVIDER or an EVAL_MODEL that belongs to the other provider.
+ */
+export function selectProvider(env = process.env) {
+  const forced = String(env.EVAL_PROVIDER ?? '').trim().toLowerCase();
+  if (forced && !PROVIDERS[forced]) throw new Error(`EVAL_PROVIDER must be "openai" or "anthropic" (got "${forced}").`);
+  const has = (p) => typeof env[PROVIDERS[p].keyEnv] === 'string' && env[PROVIDERS[p].keyEnv].trim() !== '';
+  let provider = forced || (has('openai') ? 'openai' : has('anthropic') ? 'anthropic' : '');
+  if (!provider) return { skip: 'no OPENAI_API_KEY or ANTHROPIC_API_KEY' };
+  const cfg = PROVIDERS[provider];
+  if (!has(provider)) return { skip: `EVAL_PROVIDER=${provider} but no ${cfg.keyEnv}` };
+  const model = String(env.EVAL_MODEL ?? '').trim() || cfg.defaultModel;
+  for (const [other, o] of Object.entries(PROVIDERS)) {
+    if (other !== provider && o.family.test(model) && !cfg.family.test(model)) {
+      throw new Error(`EVAL_MODEL "${model}" is an ${other} model but the provider is ${provider}. Unset EVAL_MODEL, or set EVAL_PROVIDER=${other}.`);
+    }
+  }
+  return {
+    provider,
+    key: env[cfg.keyEnv].trim(),
+    model,
+    priceIn: envNum(env.EVAL_PRICE_IN, cfg.priceIn),
+    priceOut: envNum(env.EVAL_PRICE_OUT, cfg.priceOut),
+  };
+}
+
+/** The HTTP request for one completion, per provider. Same inputs for both. */
+export function buildRequest({ provider, key, model, system, user, maxTokens, effort, env = process.env }) {
+  if (provider === 'anthropic') {
+    const body = { model, max_tokens: maxTokens, system, messages: [{ role: 'user', content: user }], output_config: { effort } };
+    const headers = { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' };
+    if (FALLBACK_MODELS.has(model) && env.EVAL_FALLBACKS !== '0') {
+      body.fallbacks = 'default';
+      headers['anthropic-beta'] = 'server-side-fallback-2026-07-01';
+    }
+    return { url: ANTHROPIC_URL, headers, body };
+  }
+  if (provider === 'openai') {
+    const body = { model, instructions: system, input: user, max_output_tokens: maxTokens, store: false };
+    // Reasoning models take an effort; the same low/medium the Anthropic call uses.
+    if (/^(gpt-5|o\d)/i.test(model)) body.reasoning = { effort };
+    const headers = { authorization: `Bearer ${key}`, 'content-type': 'application/json' };
+    return { url: OPENAI_URL, headers, body };
+  }
+  throw new Error(`unknown provider ${provider}`);
+}
+
+/** Text and usage from a successful response, per provider. Throws on a refusal. */
+export function parseResponse(provider, json) {
+  if (provider === 'anthropic') {
+    if (json.stop_reason === 'refusal') throw new Error(`model refused (${json.stop_details?.category ?? 'unknown'})`);
+    return { text: (json.content ?? []).filter((b) => b.type === 'text').map((b) => b.text).join('\n'), usage: json.usage ?? {} };
+  }
+  const parts = [];
+  let refusal = null;
+  for (const item of json.output ?? []) {
+    if (item.type !== 'message') continue;
+    for (const c of item.content ?? []) {
+      if (c.type === 'output_text') parts.push(c.text);
+      else if (c.type === 'refusal') refusal = c.refusal ?? 'refused';
+    }
+  }
+  if (!parts.length && refusal) throw new Error(`model refused (${String(refusal).slice(0, 80)})`);
+  if (!parts.length && json.status === 'incomplete') throw new Error(`response incomplete (${json.incomplete_details?.reason ?? 'unknown'})`);
+  return { text: parts.join('\n'), usage: { input_tokens: json.usage?.input_tokens ?? 0, output_tokens: json.usage?.output_tokens ?? 0 } };
+}
+
+/**
+ * A client with one method, complete(), that every eval step calls. fetchImpl
+ * and sleep are injectable so tests run with no network.
+ */
+export function createClient({ provider, key, model, fetchImpl = globalThis.fetch, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), env = process.env }) {
+  return {
+    provider,
+    model,
+    async complete({ system, user, maxTokens, effort, budget }) {
+      if (!budget.canSpend()) throw Object.assign(new Error('budget exhausted'), { budget: true });
+      const req = buildRequest({ provider, key, model, system, user, maxTokens, effort, env });
+      let lastErr;
+      for (let attempt = 0; attempt < 3; attempt++) {
+        const res = await fetchImpl(req.url, { method: 'POST', headers: req.headers, body: JSON.stringify(req.body) });
+        if (res.status === 429 || res.status >= 500) {
+          lastErr = new Error(`HTTP ${res.status}`);
+          const wait = Number(res.headers?.get?.('retry-after') ?? 2 ** attempt * 2);
+          await sleep(Math.min(wait, 30) * 1000);
+          continue;
+        }
+        const json = await res.json();
+        if (!res.ok) throw new Error(`HTTP ${res.status}: ${json?.error?.message ?? 'request failed'}`);
+        const { text, usage } = parseResponse(provider, json);
+        budget.record(usage);
+        return text;
+      }
+      throw lastErr;
+    },
+  };
+}
 
 // Realistic neighbours so a trigger case has something to choose between.
 export const DECOY_SKILLS = [
@@ -87,7 +205,7 @@ export function loadSkill(dir) {
 
 export function discoverSkills(root = ROOT) {
   const out = [];
-  for (const tier of ['core', 'community']) {
+  for (const tier of TIERS) {
     const d = path.join(root, 'skills', tier);
     if (!fs.existsSync(d)) continue;
     for (const e of fs.readdirSync(d, { withFileTypes: true })) {
@@ -101,36 +219,10 @@ export function changedSkillFolders(base, cwd = ROOT) {
   const out = execFileSync('git', ['diff', '--name-only', `${base}...HEAD`], { cwd, encoding: 'utf8' });
   const set = new Set();
   for (const line of out.split('\n')) {
-    const m = /^skills\/(core|community)\/([^/]+)\//.exec(line.trim());
+    const m = /^skills\/(core|community|vidmoat)\/([^/]+)\//.exec(line.trim());
     if (m) set.add(m[2]);
   }
   return [...set];
-}
-
-async function callModel({ key, model, system, user, maxTokens, effort, budget }) {
-  if (!budget.canSpend()) throw Object.assign(new Error('budget exhausted'), { budget: true });
-  const body = { model, max_tokens: maxTokens, system, messages: [{ role: 'user', content: user }], output_config: { effort } };
-  const headers = { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' };
-  if (FALLBACK_MODELS.has(model) && process.env.EVAL_FALLBACKS !== '0') {
-    body.fallbacks = 'default';
-    headers['anthropic-beta'] = 'server-side-fallback-2026-07-01';
-  }
-  let lastErr;
-  for (let attempt = 0; attempt < 3; attempt++) {
-    const res = await fetch(API_URL, { method: 'POST', headers, body: JSON.stringify(body) });
-    if (res.status === 429 || res.status >= 500) {
-      lastErr = new Error(`HTTP ${res.status}`);
-      const wait = Number(res.headers.get('retry-after') ?? 2 ** attempt * 2);
-      await new Promise((r) => setTimeout(r, Math.min(wait, 30) * 1000));
-      continue;
-    }
-    const json = await res.json();
-    if (!res.ok) throw new Error(`HTTP ${res.status}: ${json?.error?.message ?? 'request failed'}`);
-    budget.record(json.usage);
-    if (json.stop_reason === 'refusal') throw new Error(`model refused (${json.stop_details?.category ?? 'unknown'})`);
-    return (json.content ?? []).filter((b) => b.type === 'text').map((b) => b.text).join('\n');
-  }
-  throw lastErr;
 }
 
 function catalogueText(skills) {
@@ -150,17 +242,27 @@ function fileBlock(skill, files = []) {
   }).join('');
 }
 
-async function runSkill(skill, allSkills, ctx) {
-  const { key, model, budget, triggerRuns } = ctx;
+/**
+ * Run one skill's trigger and output cases. ctx.client is from createClient;
+ * nothing here depends on the provider, so grading is identical for both.
+ * Trigger neighbours: the official product skills (skills/vidmoat/) are
+ * a separate install, so a core or community skill competes with core and
+ * community skills (plus decoys), and a vidmoat-tier skill with its own tier.
+ */
+export async function runSkill(skill, allSkills, ctx) {
+  const { client, budget, triggerRuns } = ctx;
+  const callModel = (args) => client.complete({ ...args, budget });
   const report = { skill: skill.name, triggers: [], outputs: [], incomplete: false, errors: [] };
-  const catalogue = catalogueText([...allSkills, ...DECOY_SKILLS]);
+  const isVidmoat = (s) => s.tier === 'vidmoat';
+  const neighbours = allSkills.filter((s) => !skill.tier || !s.tier || isVidmoat(s) === isVidmoat(skill));
+  const catalogue = catalogueText([...neighbours, ...DECOY_SKILLS]);
   const triggerSystem = `You are a coding and media agent. Before starting a task you may load skills. Load a skill only when its description says it applies to the task.\n\nAvailable skills:\n${catalogue}\n\nReply with JSON only: {"load": ["skill-name", ...]} (an empty list when none apply).`;
 
   try {
     for (const t of skill.evals.trigger_cases) {
       let hits = 0;
       for (let r = 0; r < triggerRuns; r++) {
-        const out = await callModel({ key, model, system: triggerSystem, user: t.query, maxTokens: 2000, effort: 'low', budget });
+        const out = await callModel({ system: triggerSystem, user: t.query, maxTokens: 2000, effort: 'low' });
         let loaded = [];
         try { loaded = extractJson(out).load ?? []; } catch { loaded = []; }
         if (loaded.includes(skill.name)) hits++;
@@ -174,10 +276,10 @@ async function runSkill(skill, allSkills, ctx) {
       const runs = {};
       for (const cfg of ['with_skill', 'without_skill']) {
         const system = cfg === 'with_skill' ? skillContext(skill) : 'You are a helpful media and coding agent.';
-        const answer = await callModel({ key, model, system, user, maxTokens: 8000, effort: 'medium', budget });
+        const answer = await callModel({ system, user, maxTokens: 8000, effort: 'medium' });
         const graderSystem = 'You grade an answer against assertions. Require concrete evidence quoted from the answer for a PASS; give no benefit of the doubt. Reply with JSON only: {"results": [{"text": "...", "passed": true|false, "evidence": "..."}]}';
         const graderUser = `Task given to the agent:\n${e.prompt}\n\nExpected output: ${e.expected_output}\n\nAssertions:\n${e.assertions.map((a, i) => `${i + 1}. ${a}`).join('\n')}\n\n<answer>\n${answer}\n</answer>`;
-        const graded = extractJson(await callModel({ key, model, system: graderSystem, user: graderUser, maxTokens: 4000, effort: 'low', budget }));
+        const graded = extractJson(await callModel({ system: graderSystem, user: graderUser, maxTokens: 4000, effort: 'low' }));
         const results = Array.isArray(graded.results) ? graded.results : [];
         const passed = results.filter((r) => r.passed === true).length;
         runs[cfg] = { pass_rate: e.assertions.length ? passed / e.assertions.length : 0, results };
@@ -191,8 +293,8 @@ async function runSkill(skill, allSkills, ctx) {
   return report;
 }
 
-function summarise(reports, budget, minAccuracy) {
-  const lines = ['## Skill evals', '', `Model calls: ${budget.calls}, tokens in/out: ${budget.inTok}/${budget.outTok}, estimated spend: $${budget.usd.toFixed(2)}`, ''];
+export function summarise(reports, budget, minAccuracy, label = '') {
+  const lines = ['## Skill evals', '', ...(label ? [label, ''] : []), `Model calls: ${budget.calls}, tokens in/out: ${budget.inTok}/${budget.outTok}, estimated spend: $${budget.usd.toFixed(2)}`, ''];
   let failed = false;
   for (const r of reports) {
     const t = scoreTriggers(r.triggers);
@@ -228,38 +330,42 @@ async function main() {
     names = changed;
   }
   const selected = all.filter((s) => !names.length || names.includes(s.folder));
-  const skills = selected.map((s) => loadSkill(s.dir)).filter((s) => s.evals);
-  const allLoaded = all.map((s) => loadSkill(s.dir));
-  const triggerRuns = Number(process.env.EVAL_TRIGGER_RUNS ?? 1);
+  const skills = selected.map((s) => ({ ...loadSkill(s.dir), tier: s.tier })).filter((s) => s.evals);
+  const allLoaded = all.map((s) => ({ ...loadSkill(s.dir), tier: s.tier }));
+  const triggerRuns = envNum(process.env.EVAL_TRIGGER_RUNS, 1);
   const planned = skills.reduce((n, s) => n + s.evals.trigger_cases.length * triggerRuns + s.evals.evals.length * 4, 0);
-  const maxCalls = Number(process.env.EVAL_MAX_CALLS ?? 150);
+  const maxCalls = envNum(process.env.EVAL_MAX_CALLS, 150);
   console.log(`Evaluating ${skills.length} skill(s): ${skills.map((s) => s.name).join(', ') || 'none'}; ${planned} planned call(s), ceiling ${maxCalls}.`);
+
+  const choice = selectProvider(process.env);
+  if (!choice.skip) console.log(`Provider: ${choice.provider}, model ${choice.model}.`);
   if (dry) return;
 
-  const key = process.env.ANTHROPIC_API_KEY;
   const summaryFile = process.env.GITHUB_STEP_SUMMARY;
-  if (!key) {
-    const msg = 'Skill evals skipped: no ANTHROPIC_API_KEY (expected on forks; maintainers run them before merge).';
+  if (choice.skip) {
+    const msg = `Skill evals skipped: ${choice.skip} (expected on forks; maintainers run them before merge).`;
     console.log(msg);
     if (summaryFile) fs.appendFileSync(summaryFile, `## Skill evals\n\n${msg}\n`);
     return;
   }
+  if (!skills.length) return;
   const budget = new Budget({
     maxCalls,
-    maxUsd: Number(process.env.EVAL_MAX_USD ?? 3),
-    priceIn: Number(process.env.EVAL_PRICE_IN ?? 4),
-    priceOut: Number(process.env.EVAL_PRICE_OUT ?? 20),
+    maxUsd: envNum(process.env.EVAL_MAX_USD, 3),
+    priceIn: choice.priceIn,
+    priceOut: choice.priceOut,
   });
-  const model = process.env.EVAL_MODEL || 'claude-opus-5-5';
+  const { provider, model } = choice;
+  const client = createClient({ provider, key: choice.key, model });
   const reports = [];
-  for (const s of skills) reports.push(await runSkill(s, allLoaded, { key, model, budget, triggerRuns }));
-  const minAcc = Number(process.env.EVAL_MIN_TRIGGER_ACCURACY ?? 0.7);
-  const { text, failed } = summarise(reports, budget, minAcc);
+  for (const s of skills) reports.push(await runSkill(s, allLoaded, { client, budget, triggerRuns }));
+  const minAcc = envNum(process.env.EVAL_MIN_TRIGGER_ACCURACY, 0.7);
+  const { text, failed } = summarise(reports, budget, minAcc, `Provider: ${provider}, model ${model}.`);
   console.log(text);
   if (summaryFile) fs.appendFileSync(summaryFile, text + '\n');
   const outDir = path.join(ROOT, 'eval-results');
   fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(path.join(outDir, 'report.json'), JSON.stringify({ model, budget: { calls: budget.calls, usd: budget.usd }, reports }, null, 2));
+  fs.writeFileSync(path.join(outDir, 'report.json'), JSON.stringify({ provider, model, budget: { calls: budget.calls, usd: budget.usd }, reports }, null, 2));
   if (failed) process.exit(1);
 }
 

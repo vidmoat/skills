@@ -11,6 +11,14 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- `skills/vidmoat/`: every skill the Vidmoat editor loads, moved here from the
+  product repository. This repository is now the single source for every
+  Vidmoat skill; the product imports a pinned, reviewed commit. Linter rule
+  SK029 (the product format), SK005 reserves the Vidmoat name for this tier
+  (core included), and a `vidmoat-editor` plugin in the marketplace.
+- Evals run on OpenAI (`OPENAI_API_KEY`, Responses API) as well as Anthropic;
+  `EVAL_PROVIDER` forces one. Grading is the same for both.
+
 - `caption-styling` 1.0.0: caption defaults (line length, reading speed,
   timing, size, contrast, safe zones), measured ffmpeg and libass burn-in
   recipes, and `scripts/check_captions.py` for SRT and VTT files.

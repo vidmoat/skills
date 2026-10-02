@@ -8,10 +8,10 @@ import os from 'node:os';
 import path from 'node:path';
 import { spawnSync, execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { tmpRepo, makeSkill } from './helpers.mjs';
+import { tmpRepo, makeSkill, makeVidmoatSkill } from './helpers.mjs';
 import { renderCatalogue, renderMarketplace, applyCatalogue, readSkills } from '../catalogue.mjs';
 import { checkCommit, commitsInRange } from '../dco-check.mjs';
-import { extractJson, Budget, scoreTriggers } from '../run-evals.mjs';
+import { extractJson, Budget, scoreTriggers, selectProvider, buildRequest, parseResponse, createClient, runSkill, loadSkill, PROVIDERS } from '../run-evals.mjs';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const node = (args, opts = {}) => spawnSync(process.execPath, args, { encoding: 'utf8', cwd: REPO, ...opts });
@@ -72,6 +72,20 @@ test('catalogue renders a table per tier and a marketplace with only non-empty p
   assert.deepEqual(mp.plugins.map((p) => p.name), ['vidmoat-core']);
   assert.deepEqual(mp.plugins[0].skills, ['./skills/core/widget-check']);
   assert.equal(mp.plugins[0].strict, false);
+});
+
+test('catalogue lists the vidmoat tier as its own table and plugin', () => {
+  const root = tmpRepo();
+  makeSkill(root, 'core', 'widget-check');
+  makeVidmoatSkill(root, 'vidmoat-widgets');
+  const skills = readSkills(root);
+  assert.deepEqual(skills.map((s) => s.tier), ['core', 'vidmoat']);
+  const md = renderCatalogue(skills);
+  assert.match(md, /\*\*Vidmoat \(official: the skills the Vidmoat editor loads\)\*\*/);
+  assert.match(md, /\[`vidmoat-widgets`\]\(skills\/vidmoat\/vidmoat-widgets\/SKILL\.md\)/);
+  const mp = JSON.parse(renderMarketplace(skills));
+  assert.deepEqual(mp.plugins.map((p) => p.name), ['vidmoat-core', 'vidmoat-editor']);
+  assert.deepEqual(mp.plugins[1].skills, ['./skills/vidmoat/vidmoat-widgets']);
 });
 
 test('catalogue replaces only the marked region and requires markers', () => {
@@ -141,12 +155,142 @@ test('evals: JSON extraction, budget and scoring', () => {
   assert.deepEqual(scoreTriggers([{ passed: true }, { passed: false }]), { total: 2, correct: 1, accuracy: 0.5 });
 });
 
+function noKeysEnv(extra = {}) {
+  const env = { ...process.env, ...extra };
+  for (const k of ['ANTHROPIC_API_KEY', 'OPENAI_API_KEY', 'EVAL_PROVIDER', 'EVAL_MODEL', 'EVAL_PRICE_IN', 'EVAL_PRICE_OUT']) if (!(k in extra)) delete env[k];
+  return env;
+}
+
 test('evals: no API key means a clean skip, not a failure', () => {
-  const env = { ...process.env };
-  delete env.ANTHROPIC_API_KEY;
-  const r = node(['tools/run-evals.mjs', 'caption-styling'], { env });
+  const r = node(['tools/run-evals.mjs', 'caption-styling'], { env: noKeysEnv() });
   assert.equal(r.status, 0, r.stderr);
-  assert.match(r.stdout, /skipped/);
+  assert.match(r.stdout, /skipped: no OPENAI_API_KEY or ANTHROPIC_API_KEY/);
+});
+
+test('evals: a forced provider without its key skips and names the missing key, never a value', () => {
+  const r = node(['tools/run-evals.mjs', 'caption-styling'], { env: noKeysEnv({ EVAL_PROVIDER: 'openai', ANTHROPIC_API_KEY: 'sk-ant-test-not-real' }) });
+  assert.equal(r.status, 0, r.stderr);
+  assert.match(r.stdout, /skipped: EVAL_PROVIDER=openai but no OPENAI_API_KEY/);
+  assert.doesNotMatch(r.stdout + r.stderr, /sk-ant-test-not-real/);
+});
+
+test('evals: dry run with a key reports the provider and model, not the key', () => {
+  const r = node(['tools/run-evals.mjs', '--dry-run'], { env: noKeysEnv({ OPENAI_API_KEY: 'sk-test-not-real' }) });
+  assert.equal(r.status, 0, r.stderr);
+  assert.match(r.stdout, /Provider: openai, model gpt-5\.6-luna/);
+  assert.doesNotMatch(r.stdout + r.stderr, /sk-test-not-real/);
+});
+
+test('evals: a bad EVAL_PROVIDER fails loudly', () => {
+  const r = node(['tools/run-evals.mjs', 'caption-styling'], { env: noKeysEnv({ EVAL_PROVIDER: 'gemini', OPENAI_API_KEY: 'x' }) });
+  assert.equal(r.status, 1);
+  assert.match(r.stderr, /EVAL_PROVIDER must be/);
+});
+
+test('evals: provider selection', () => {
+  assert.deepEqual(selectProvider({}), { skip: 'no OPENAI_API_KEY or ANTHROPIC_API_KEY' });
+  assert.equal(selectProvider({ OPENAI_API_KEY: 'o' }).provider, 'openai');
+  assert.equal(selectProvider({ ANTHROPIC_API_KEY: 'a' }).provider, 'anthropic');
+  assert.equal(selectProvider({ OPENAI_API_KEY: 'o', ANTHROPIC_API_KEY: 'a' }).provider, 'openai', 'OpenAI first when both are set');
+  assert.equal(selectProvider({ OPENAI_API_KEY: 'o', ANTHROPIC_API_KEY: 'a', EVAL_PROVIDER: 'anthropic' }).provider, 'anthropic');
+  assert.equal(selectProvider({ OPENAI_API_KEY: 'o', ANTHROPIC_API_KEY: 'a', EVAL_PROVIDER: ' OpenAI ' }).provider, 'openai');
+  assert.equal(selectProvider({ OPENAI_API_KEY: '   ', ANTHROPIC_API_KEY: 'a' }).provider, 'anthropic', 'a blank key (an unset secret) is no key');
+  assert.match(selectProvider({ ANTHROPIC_API_KEY: 'a', EVAL_PROVIDER: 'openai' }).skip, /no OPENAI_API_KEY/);
+  assert.throws(() => selectProvider({ OPENAI_API_KEY: 'o', EVAL_PROVIDER: 'gemini' }), /EVAL_PROVIDER must be/);
+
+  const o = selectProvider({ OPENAI_API_KEY: 'o' });
+  assert.equal(o.model, PROVIDERS.openai.defaultModel);
+  assert.deepEqual([o.priceIn, o.priceOut], [PROVIDERS.openai.priceIn, PROVIDERS.openai.priceOut]);
+  const a = selectProvider({ ANTHROPIC_API_KEY: 'a', EVAL_MODEL: '', EVAL_PRICE_IN: '', EVAL_PRICE_OUT: '' });
+  assert.equal(a.model, 'claude-opus-5-5', 'an empty repository variable means the default');
+  assert.deepEqual([a.priceIn, a.priceOut], [4, 20]);
+  const custom = selectProvider({ OPENAI_API_KEY: 'o', EVAL_MODEL: 'gpt-5-mini', EVAL_PRICE_IN: '0.25', EVAL_PRICE_OUT: '2' });
+  assert.deepEqual([custom.model, custom.priceIn, custom.priceOut], ['gpt-5-mini', 0.25, 2]);
+  assert.throws(() => selectProvider({ OPENAI_API_KEY: 'o', EVAL_MODEL: 'claude-opus-5-5' }), /anthropic model but the provider is openai/);
+  assert.throws(() => selectProvider({ ANTHROPIC_API_KEY: 'a', EVAL_MODEL: 'gpt-5.1' }), /openai model but the provider is anthropic/);
+});
+
+test('evals: request and response shapes per provider', () => {
+  const args = { key: 'k', system: 'SYS', user: 'USER', maxTokens: 123, effort: 'low', env: {} };
+  const o = buildRequest({ ...args, provider: 'openai', model: 'gpt-5.1' });
+  assert.equal(o.url, 'https://api.openai.com/v1/responses');
+  assert.equal(o.headers.authorization, 'Bearer k');
+  assert.deepEqual(o.body, { model: 'gpt-5.1', instructions: 'SYS', input: 'USER', max_output_tokens: 123, store: false, reasoning: { effort: 'low' } });
+  assert.equal(buildRequest({ ...args, provider: 'openai', model: 'gpt-4.1' }).body.reasoning, undefined, 'no reasoning field for a non-reasoning model');
+  const a = buildRequest({ ...args, provider: 'anthropic', model: 'claude-opus-5-5' });
+  assert.equal(a.url, 'https://api.anthropic.com/v1/messages');
+  assert.equal(a.headers['x-api-key'], 'k');
+  assert.deepEqual(a.body.messages, [{ role: 'user', content: 'USER' }]);
+  assert.equal(a.body.system, 'SYS');
+  assert.deepEqual(a.body.output_config, { effort: 'low' });
+
+  const oj = { status: 'completed', output: [{ type: 'reasoning', summary: [] }, { type: 'message', content: [{ type: 'output_text', text: 'hello' }] }], usage: { input_tokens: 10, output_tokens: 5, total_tokens: 15 } };
+  assert.deepEqual(parseResponse('openai', oj), { text: 'hello', usage: { input_tokens: 10, output_tokens: 5 } });
+  assert.throws(() => parseResponse('openai', { output: [{ type: 'message', content: [{ type: 'refusal', refusal: 'no' }] }] }), /refused/);
+  assert.throws(() => parseResponse('openai', { status: 'incomplete', incomplete_details: { reason: 'max_output_tokens' }, output: [] }), /max_output_tokens/);
+  assert.equal(parseResponse('anthropic', { content: [{ type: 'text', text: 'hi' }], usage: { input_tokens: 1, output_tokens: 1 } }).text, 'hi');
+  assert.throws(() => parseResponse('anthropic', { stop_reason: 'refusal', content: [] }), /refused/);
+});
+
+/** A fake fetch that answers like the given provider, from a function of the request. */
+function fakeFetch(provider, answer, calls = []) {
+  return async (url, init) => {
+    const body = JSON.parse(init.body);
+    calls.push({ url, body });
+    const system = provider === 'openai' ? body.instructions : body.system;
+    const user = provider === 'openai' ? body.input : body.messages[0].content;
+    const text = answer(system, user);
+    const json = provider === 'openai'
+      ? { status: 'completed', output: [{ type: 'message', content: [{ type: 'output_text', text }] }], usage: { input_tokens: 100, output_tokens: 10 } }
+      : { stop_reason: 'end_turn', content: [{ type: 'text', text }], usage: { input_tokens: 100, output_tokens: 10 } };
+    return { ok: true, status: 200, headers: { get: () => null }, json: async () => json };
+  };
+}
+
+test('evals: the client retries a 429 without real waiting', async () => {
+  let n = 0;
+  const waits = [];
+  const fetchImpl = async () => {
+    n++;
+    if (n === 1) return { ok: false, status: 429, headers: { get: () => '1' }, json: async () => ({}) };
+    return { ok: true, status: 200, headers: { get: () => null }, json: async () => ({ output: [{ type: 'message', content: [{ type: 'output_text', text: 'ok' }] }], usage: { input_tokens: 1, output_tokens: 1 } }) };
+  };
+  const client = createClient({ provider: 'openai', key: 'k', model: 'gpt-5.1', fetchImpl, sleep: async (ms) => { waits.push(ms); } });
+  const budget = new Budget({ maxCalls: 5, maxUsd: 5, priceIn: 1, priceOut: 1 });
+  assert.equal(await client.complete({ system: 's', user: 'u', maxTokens: 10, effort: 'low', budget }), 'ok');
+  assert.deepEqual(waits, [1000]);
+  assert.equal(budget.calls, 1, 'only the successful call is billed');
+});
+
+test('evals: grading is identical across providers (same answers, same report)', async () => {
+  const skill = { ...loadSkill(path.join(REPO, 'skills', 'core', 'caption-styling')), tier: 'core' };
+  skill.evals = { ...skill.evals, trigger_cases: skill.evals.trigger_cases.slice(0, 3), evals: skill.evals.evals.slice(0, 1) };
+  const nAssert = skill.evals.evals[0].assertions.length;
+  // A deterministic "model": loads the skill only for the first trigger case,
+  // and a grader that passes every assertion only for the with-skill answer.
+  const answer = (system, user) => {
+    if (system.startsWith('You are a coding and media agent')) return JSON.stringify({ load: user === skill.evals.trigger_cases[0].query ? ['caption-styling'] : [] });
+    if (system.startsWith('You grade')) {
+      const withSkill = user.includes('ANSWER-SKILLED');
+      return JSON.stringify({ results: Array.from({ length: nAssert }, (_, i) => ({ text: String(i), passed: withSkill, evidence: 'x' })) });
+    }
+    return system.includes('<skill>') ? 'ANSWER-SKILLED' : 'ANSWER-BASELINE';
+  };
+  const reports = {};
+  for (const provider of ['openai', 'anthropic']) {
+    const calls = [];
+    const client = createClient({ provider, key: 'k', model: PROVIDERS[provider].defaultModel, fetchImpl: fakeFetch(provider, answer, calls), env: {} });
+    const budget = new Budget({ maxCalls: 50, maxUsd: 50, priceIn: 1, priceOut: 1 });
+    reports[provider] = await runSkill(skill, [skill], { client, budget, triggerRuns: 1 });
+    assert.equal(calls.length, 3 + 4, `${provider}: 3 trigger calls + 4 per output case`);
+    assert.ok(calls.every((c) => c.url === (provider === 'openai' ? 'https://api.openai.com/v1/responses' : 'https://api.anthropic.com/v1/messages')));
+  }
+  assert.deepEqual(reports.openai, reports.anthropic);
+  assert.deepEqual(reports.openai.errors, []);
+  assert.equal(reports.openai.outputs[0].delta, 1);
+  const t = reports.openai.triggers;
+  assert.equal(t[0].rate, 1);
+  assert.deepEqual(t.map((x) => x.passed), t.map((x, i) => (i === 0 ? x.should_trigger : !x.should_trigger)));
 });
 
 test('evals: dry run plans calls for every seed skill', () => {
