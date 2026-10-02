@@ -3,7 +3,7 @@ name: reframing
 description: "Changing aspect ratio with subjects kept in frame: face-following reframe, named layouts, no letterbox. Use for make it vertical, 9:16, 1:1 or 4:5 crops, keep me centred, or someone half out of shot."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "2.0.0"
   owner: "vidmoat"
   category: "craft"
 ---
@@ -22,7 +22,7 @@ Changing the canvas alone leaves subjects half out of shot. Reframe deliberately
 
 ## Gotchas
 
-- Never letterbox a landscape shot into 9:16: it wastes about 60% of the screen. A blurred plate is a last resort, not a style.
+- Never letterbox a landscape shot into 9:16: a 16:9 picture fills only 32% of the frame, wasting about 68%. A blurred plate is a last resort, not a style.
 - `reframeAuto` `follow:"faces"` needs measured face boxes (`semanticProfile.visualContext`). Without them, inspect or analyse the source first.
 - Faces in portrait sources were once squashed by face detection; trust preview frames over the numbers.
 - Reframe before captions and titles; overlays placed for the old canvas land in the wrong place.

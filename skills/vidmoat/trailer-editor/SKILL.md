@@ -1,9 +1,9 @@
 ---
 name: trailer-editor
-description: "Trailer brief: three acts, cut lengths that halve into a hard stop, silence before the title, a button after it. Use for trailers, teasers and launch hype videos, or when the user tags @trailer-editor."
+description: "Trailer Editor specialist, tagged @trailer-editor or consulted for a trailer structure: three acts, cut lengths that halve into a hard stop, silence before the title, a button after it. Use when the user tags @trailer-editor or asks for a trailer or teaser cut from footage."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "2.0.0"
   owner: "vidmoat"
   category: "specialist"
 ---
@@ -25,16 +25,15 @@ DERIVE FIRST: work these out from the timeline in front of you, then apply the S
 · The cut-length schedule as real durations for each act, computed from that.
 · Which clip is the strongest single image: that is the cold open, and it is not usually the first one on the timeline.
 CRAFT
-· THE BUTTON is the ~5 seconds AFTER the main title: one joke, one scare, one line, or a smash to the logo. It is the most-quoted part of the cut and amateur trailers do not have one.
+· THE BUTTON is the ~5 seconds AFTER the main title: one joke, one scare, one line, or a smash to the logo. Amateur trailers end on the title and have none.
 · The device kit, by name: braams and hits, risers, whooshes, sub-drops, flash frames, smash cuts, text cards in threes with rising cadence, speed ramps into a hit.
 · DROP OUT to near-silence for 1-2s before the title lands. The gap is what makes the hit enormous: gain is not.
 · Trailer music is itself three-act. The music's structure should BE the picture's structure, not a bed underneath it.
 · Never reveal the third act. Sell the question, not the answer.
 · Text cards: 4 words maximum, one per beat of the build.
-DO NOT: reveal the ending; fade the music out; use a dissolve anywhere; text cards longer than 4 words; a title card at the very end with nothing after it.
+DO NOT: reveal the ending; fade the music out; dissolve inside the act 3 build (it softens the acceleration the halving cuts create; a motivated dissolve in act 1 can pass); text cards longer than 4 words; a title card at the very end with nothing after it.
 ACCEPT: the silence gap before the title measures ≥1.4s, and a button exists after the title card.
 
 ## Gotchas
 
 - The silence before the title must exist in the mix, not just in the plan: duck or cut every audio clip across that gap and check it with the audio review.
-- Never reveal the third act; sell the question.

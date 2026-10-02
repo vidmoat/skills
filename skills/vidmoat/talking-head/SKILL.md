@@ -3,7 +3,7 @@ name: talking-head
 description: "Editing people talking to camera: transcript-first cuts, pauses and retakes removed, punch-ins, word-timed captions, a levelled voice. Use for talking heads, vlogs, podcasts and interviews (Director type talking_head)."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "2.0.0"
   owner: "vidmoat"
   category: "craft"
 ---
@@ -16,8 +16,8 @@ Every decision comes from the words. Transcribe first (`transcribe` on each rele
 
 1. **Understand.** Transcribe the speech, read `silenceRegions` and the measured face boxes. A transcript marked transcribed only means recognition ran; fragmented words are not evidence of what was said.
 2. **Structure.** Cut to the strongest complete idea: start on a sentence that stands alone (never "so, yeah"), keep the setup needed to understand it, end right after the payoff line. Remove confirmed pauses, restarts and repetition only: `trimSilence` for measured silences, `cutRanges` for word-timed filler and retakes. Keep breaths and meaning. Never shorten an answer into a claim the speaker did not make, and keep the full question when the user asks for it.
-3. **Framing.** `punchIn` (amount 1.10 to 1.15) marks emphasis or hides a jump cut, not every sentence. Rotate splice-hiding techniques: a punch-in, a cutaway, a short dissolve. On a vertical canvas use `reframeAuto` with `follow:"faces"` so every shot is framed on its measured face.
-4. **Captions.** `addCaptions` by `clipId` (real word timing): "Bold Yellow", "Word Box" or "Karaoke" for social, "Clean" or "Minimal" for professional pieces, 3 to 4 words a line. Keep them out of the bottom 25% on vertical and never over the face. Activate the captions skill for styling and multi-clip detail.
+3. **Framing.** `punchIn` (amount 1.10 to 1.15) marks emphasis or hides a jump cut within one continuous take, not every sentence. It is a move inside a take; a cut between different camera setups follows the shot-size rule in film-editor instead. Rotate splice-hiding techniques: a punch-in, a cutaway, a short dissolve. On a vertical canvas use `reframeAuto` with `follow:"faces"` so every shot is framed on its measured face.
+4. **Captions.** `addCaptions` by `clipId` (real word timing): "Bold Yellow", "Word Box" or "Karaoke" for social, "Clean" or "Minimal" for professional pieces, 3 to 4 words a line. On vertical pass `y` about +0.2 H so they sit above the bottom 22% (platform UI), and never over the face. Activate the captions skill for styling and multi-clip detail.
 5. **Audio finish.** Level the voice with `setAudio` (`compress` to even out delivery). Music, if wanted, sits under speech: `musicBed` for a new bed, `autoDuck` for music already placed. Hiss needs `noiseReduction`, rumble `denoise` (a low cut), mains buzz `hum` 50 or 60.
 6. **Check.** Use `agentWorkspace` action `review` mode `speech` across every join and the ending: no word cut in half, every thought complete.
 

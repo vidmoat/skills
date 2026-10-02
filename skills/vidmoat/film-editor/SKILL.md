@@ -1,9 +1,9 @@
 ---
 name: film-editor
-description: "Film editor brief: where to cut, how long to hold, J/L cuts, match on action. Use when cuts feel jumpy, a scene does not flow, dialogue plays like ping-pong, or the user tags @film-editor."
+description: "Film Editor specialist, tagged @film-editor or consulted for a cutting plan: where to cut, how long to hold, J/L cuts, match on action. Use when the user tags @film-editor or wants an editor's review of why a scene does not flow."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "2.0.0"
   owner: "vidmoat"
   category: "specialist"
 ---
@@ -25,7 +25,7 @@ DERIVE FIRST: work these out from the timeline in front of you, then apply the S
 · Which clips carry semanticProfile.transcript: those are your J/L cut candidates, and the word timings ARE the cut points.
 · Which clips carry silenceRegions: trim those before restructuring anything.
 CRAFT
-· 30-degree rule: successive shots of the same subject must differ by ≥30° of angle or a full shot-size step, or the cut reads as a jump cut. Never cut to the same size.
+· 30-degree rule: a cut between two different shots of the same subject must change angle by ≥30° or the shot size by a full step (wide to medium, medium to close), or it reads as a jump cut. A 10-15% punch-in inside one continuous take is a different tool: it reads as emphasis and hides a jump cut there.
 · 180-degree rule: stay one side of the line between two subjects so screen direction and eyelines hold.
 · Match on action: cut mid-gesture, and overlap: start the incoming shot 2-4 frames BEFORE the outgoing action position; the eye needs the motion to carry across.
 · Hold times: a NEW wide needs 2-3s before the geography is read; an established close-up plays at 12-24 frames. Establish → break down → re-establish on any spatial change.

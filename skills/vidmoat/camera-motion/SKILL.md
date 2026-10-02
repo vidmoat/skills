@@ -3,7 +3,7 @@ name: camera-motion
 description: "Virtual camera moves: punch-ins, Ken Burns on stills, shake on impacts, rack focus, whip pans and subtle depth. Use for zoom in, punch in, pan and zoom a photo, camera shake, rack focus or stills that feel dead."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   owner: "vidmoat"
   category: "craft"
 ---
@@ -14,7 +14,7 @@ One move per shot, chosen for a reason. Repeated zooms read as cheap.
 
 ## Moves
 
-- **Punch-in:** `punchIn` (amount 1.10 to 1.15, eased) at the moment, with `hold` to release. Use it to mark emphasis or hide a jump cut, one per moment.
+- **Punch-in:** `punchIn` (amount 1.10 to 1.15, eased) at the moment, with `hold` to release. Use it inside one continuous take to mark emphasis or hide a jump cut, one per moment. Cutting between different shots is a separate rule: there the size must change by a full step (film-editor).
 - **Ken Burns on stills:** `applyMotionPreset` "slow-zoom" or "parallax-drift", or scale and x/y keyframes, 3 to 8% across the hold (about 1 to 3% a second; faster reads as a screensaver), alternating direction, faces kept in frame.
 - **Camera shake:** `applyCameraShake` on hits and drops only (amplitude 8 a knock, 30 an explosion). It decays, moves on both axes and ends at zero.
 - **Rack focus:** `addKeyframe` on `blur`, high to 0 over about 0.4 s with `easeInOutCubic`, or the reverse, to move attention between subjects.

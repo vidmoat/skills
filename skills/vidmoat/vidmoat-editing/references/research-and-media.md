@@ -24,4 +24,4 @@ Call `get_creator_preferences` before planning a new brief. It returns optional 
 
 ## Character consistency
 
-For a requested recurring character or product, pass selected image URLs as `referenceUrls` to `generate_image` (up to 5) or `generate_video` (up to 7, at most 720p), reuse them across shots and inspect outputs for drift. `imageUrl` animates a first frame instead and cannot be combined with references. Use the same `voiceId` for consistent narration.
+For a requested recurring character or product, pass selected image URLs as `referenceUrls` to `generate_image` (up to 5) or `generate_video` (up to 7; Grok renders at most 720p, `qwen` and `wan` up to 1080p), reuse them across shots and inspect outputs for drift. Inside the editor, `generateMedia` takes `referenceUrls` for images only (up to 5). `imageUrl` animates a first frame instead and cannot be combined with references. Use the same `voiceId` for consistent narration.

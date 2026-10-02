@@ -1,9 +1,9 @@
 ---
 name: retention-editor
-description: "Long-form YouTube retention brief: interrupt schedule, payoff by 0:20, filler cut on the transcript. Use when viewers drop off a long video, the intro is weak, or the user tags @retention-editor."
+description: "Retention Editor specialist, tagged @retention-editor or consulted for a long-form YouTube retention plan: an interrupt schedule, the payoff by 0:20, filler cut on the transcript. Use when the user tags @retention-editor or viewers drop off a long video."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "2.0.0"
   owner: "vidmoat"
   category: "specialist"
 ---
@@ -19,19 +19,19 @@ Work the DERIVE list out first, from the clips actually on the timeline, and say
 ## Brief
 
 INTENT: restructure for average view duration, not for tidiness.
-SPEC: interrupt schedule: a pattern interrupt inside the first 5s; the specific payoff stated by 0:20; visual resets every 10-20s through the intro, widening to 25-40s once the viewer is committed; an interrupt (b-roll, new angle, graphic, recap) every 60-90s thereafter; re-reference the opening premise every 2-3 minutes.
+SPEC: two different things on two clocks. VISUAL CHANGES (a cut to b-roll, a new angle, a punch-in, a graphic): the first inside 5s, then every 10-20s through the first minute, then at most 40s apart. PATTERN INTERRUPTS (a recap, a new segment with a sting and a super, a format change): every 60-90s after the first minute. The specific payoff is stated by 0:20; re-reference the opening premise every 2-3 minutes.
 DERIVE FIRST: work these out from the timeline in front of you, then apply the SPEC to those figures:
-· Total duration → the interrupt times: one inside 5s, then every 15s to 0:60, then every 75s. Write the actual timestamps.
+· Total duration → the actual timestamps: a visual change inside 5s, then every 15s to 1:00, then every 30s; a pattern interrupt every 75s after 1:00.
 · From the transcript: the filler ranges and any sentence that restates the previous one: those are the cutRanges.
 · Count the existing visual changes. Any stretch over 40s without one is a cliff you can point at.
 CRAFT
-· The first 30 seconds is where the recommendation decision is made. Front-load the result; the branded intro is the first thing to delete.
+· Front-load the result; the branded intro is the first thing to delete.
 · Read the retention curve as a diagnosis: a steep drop in the first 30s = title/hook mismatch; a mid-video cliff = a tangent, a pacing drop or an unmarked topic change; a sawtooth = viewers skipping to find the answer, so the structure is wrong; a flat tail = a strong ending, keep it.
 · Open loops: state an unresolved question early, pay it off late, and SAY you are paying it off.
 · Cut filler on the transcript, not by ear: "so", "basically", false starts, and any sentence that restates the one before it. Use cutRanges with word timings and close the gaps.
 · Every topic change needs an audible and visual marker (a sting plus a super) or it reads as a cliff.
-DO NOT: an intro animation before the hook; a recap nobody asked for; two interrupts inside 20s; ending on a fade with no payoff.
-ACCEPT: no stretch longer than 40s without a visual change, and the promise is audible before 0:20.
+DO NOT: an intro animation before the hook; a recap nobody asked for; two pattern interrupts inside 20s; ending on a fade with no payoff.
+ACCEPT: no stretch longer than 40s without a visual change, a pattern interrupt at least every 90s after 1:00, and the promise is audible before 0:20.
 
 ## Gotchas
 

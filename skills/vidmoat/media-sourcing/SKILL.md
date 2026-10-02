@@ -3,7 +3,7 @@ name: media-sourcing
 description: "Sourcing visuals when footage is missing: library first, then stock, generation or designed graphics, with paid approval and quotes. Use when making a video from scratch or the brief needs b-roll, images or music."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   owner: "vidmoat"
   category: "craft"
 ---
@@ -22,7 +22,7 @@ An empty timeline plus "make me a video" means you source the visuals, in this o
 
 ## Paid generation
 
-- Creative freedom is not approval for unapproved paid generation. Video generation needs paid access (not trials or fully waived promotions; partial paid discounts remain eligible).
+- Creative freedom is not approval for unapproved paid generation. Video generation needs paid access; the tools refuse before spending when the account does not have it.
 - If a paid route is blocked, continue with uploads or stock and do not retry it.
 - Quote a model before spending (`quoteOnly:true` on the standalone tools), then submit that concrete provider with `maxCredits` equal to the quote.
 - Never retry an uncertain submission or switch providers after a paid request, never silently substitute a provider or drop references, and do not use Google video models.

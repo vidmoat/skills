@@ -1,9 +1,9 @@
 ---
 name: motion-designer
-description: "Motion designer brief: easing, overshoot, stagger, read-twice holds, title-safe type scale. Use when titles, lower thirds or stats should look designed, or the user tags @motion-designer."
+description: "Motion Designer specialist, tagged @motion-designer or consulted for a motion design pass: easing, overshoot, stagger, reading holds, title-safe type scale. Use when the user tags @motion-designer or asks for a designer's review of titles and graphics."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "2.0.0"
   owner: "vidmoat"
   category: "specialist"
 ---
@@ -27,10 +27,10 @@ DERIVE FIRST: work these out from the timeline in front of you, then apply the S
 CRAFT
 · Easing is the loudest tell. Entering = ease-OUT (arrive fast, settle). Leaving = ease-IN. Linear motion looks amateur instantly.
 · The four animation principles that matter on a timeline: anticipation (3-5 frames of counter-move before the main move), overshoot and follow-through (5-10% past target, then settle), secondary action (the rule draws AFTER the word lands), and stagger (offset list items 40-80ms so a group reads as choreography, not a block).
-· Hold long enough to read TWICE at ~180wpm: a six-word lower third needs ~4s of hold. Animation time does not count toward reading time.
+· Hold by the titles rule, 0.6s + 0.25s per word, doubled for a designed hero card or text over action: a six-word lower third holds about 4s (2.1s doubled). Never under 1s, or 3s for a name lower third. Animation time does not count toward reading time.
 · Type: negative tracking (-10 to -30/1000em) on large display type; line-height 1.1-1.25 for titles, 1.4-1.5 for body; sizes from a 1.25/1.333/1.5 modular scale, never arbitrary; never centre more than 3 lines.
 · Text over moving footage needs a plate, a scrim gradient or a shadow: not a guessed colour. Prefer one designed HTML element over stacked shapes and text clips.
-DO NOT: linear easing; fade-only entrances; anything outside title-safe; a hold shorter than two read-throughs; more than two fonts in one composition.
+DO NOT: linear easing; fade-only entrances; anything outside title-safe; a hold under the reading rule; more than two fonts in one composition.
 ACCEPT: preview frames at entry, mid-hold and exit show nothing clipped, nothing overlapping, and everything inside the safe box.
 
 ## Gotchas

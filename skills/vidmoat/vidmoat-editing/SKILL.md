@@ -3,7 +3,7 @@ name: vidmoat-editing
 description: "Manual for an agent editing in Vidmoat over MCP or chat: the inspect, edit, read receipts, preview loop and the mechanics that cost whole runs. Use at the start of a session or when edit_project calls keep failing."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   owner: "vidmoat"
   category: "manual"
   surfaces: "mcp channel"
@@ -84,7 +84,7 @@ Every item comes from a real failed run.
 ## 3. Use what the account already has
 
 - **Recipes** capture a finished video's style and program. "Make it my usual style" means look for a recipe.
-- **Specialists** (`@film-editor`, `@colourist` and others): a tagged specialist's numbers are a spec, not a suggestion.
+- **Specialists** (`@film-editor`, `@colourist` and others): a tagged specialist's numbers are proposed targets. Check that each applies to this footage and can be measured, then follow it; the user's brief, exclusions and limits win.
 - **Brand kit** holds the user's fonts, colours and logo; check it before choosing a palette.
 - **`get_credits`** before anything long. If the balance is short, say so and relay the purchase url from `get_credits` or `buy_credits`; the USER pays on the payment page. Never take payment or ask for card details.
 
@@ -103,4 +103,4 @@ Research, media beyond uploads and creator preferences: read [references/researc
 - Format targets and vertical safe zones live in the reframing skill and its vertical safe-zones reference; vertical is the default for social, and a landscape shot is never letterboxed into 9:16.
 - Refresh MCP tool discovery after a release if a client has cached older schemas.
 
-*Canonical copy: https://www.vidmoat.com/skill.md. Fetch via the `get_skill` MCP tool. Public mirror and issues: https://github.com/fredabila/vidmoat-skill. Corrections are welcome through `report_issue` from inside a session.*
+*Canonical copy: https://www.vidmoat.com/skill.md. Fetch via the `get_skill` MCP tool. Source, issues and pull requests: https://github.com/vidmoat/skills. Corrections are welcome through `report_issue` from inside a session.*

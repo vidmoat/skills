@@ -1,9 +1,9 @@
 ---
 name: targeted-tweak
-description: "Discipline for one small change or repair: the fewest commands, nothing else touched, the real defect diagnosed first. Use for single edits like add a title, punch in here, make it warmer, undo that, or any tweak."
+description: "Discipline for one small change or repair: the fewest commands, nothing else touched, the real defect diagnosed first. Use for single edits like add a title, punch in here, make it warmer, put that back, or any tweak."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "2.0.0"
   owner: "vidmoat"
   category: "craft"
 ---
@@ -25,7 +25,7 @@ A fix request is diagnostic work, not creative work. The failure mode is "fixed"
 
 - Read the timeline and identify the ACTUAL defect before emitting anything; what is wrong is often not what was described.
 - Common repairs: gaps or black frames, `moveClip` or `trimClip` to close them; audio out of sync, `moveClip` the audio; text off screen, `updateClip` x/y inside the safe area; wrong order, `moveClip`; over-processed, `removeEffect` or `setColor` back toward 100.
-- "Put it back" or "undo" means `undo` or reversing the specific commands. Never rebuild from scratch; you will lose their work.
+- "Put it back" or "undo that" means issuing the commands that reverse the specific change (the previous value, position or clip). `undo` exists only in a live editor session: it is client-only and is refused on the server, over MCP and over the REST API. Never rebuild from scratch; you will lose their work.
 
 ## Common tweaks
 
@@ -34,7 +34,7 @@ A fix request is diagnostic work, not creative work. The failure mode is "fixed"
 
 ## By edit type
 
-- talking_head: captions for all speech means `addCaptions` by clipId with real timing; existing captions are restyled with restyleCaptions, not re-added; keep them out of the bottom 25% on vertical and off the face.
+- talking_head: captions for all speech means `addCaptions` by clipId with real timing; existing captions are restyled with restyleCaptions, not re-added; on vertical keep them above the bottom 22% (pass `y` about +0.2 H) and off the face.
 - montage_music: keep cuts on the beat the edit already follows; a timing change moves the neighbouring cuts with it.
 - silent_text_led: change the words or style asked for and keep the card's timing, position and animation unless those were the ask.
 - tutorial_screen: point at or zoom to the exact control named, held long enough to read, and leave the rest of the recording as it is.
