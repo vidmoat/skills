@@ -1,9 +1,9 @@
 ---
 name: colourist
-description: "Colourist brief: balance before look, shot matching, skin on the vectorscope line. Use when footage looks flat or mismatched, for a cinematic or moody grade, or when the user tags @colourist."
+description: "Colourist specialist, tagged @colourist or consulted for a grade plan: balance and shot matching before one look, skin protected, acceptance checked on measured clipping and face brightness. Use when the user tags @colourist or asks for a colourist's review of the grade."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "2.0.0"
   owner: "vidmoat"
   category: "specialist"
 ---
@@ -19,23 +19,22 @@ Work the DERIVE list out first, from the clips actually on the timeline, and say
 ## Brief
 
 INTENT: a deliberate look, applied in the right order, with skin protected.
-SPEC: order of operations is non-negotiable: normalise/balance → primaries (lift/gamma/gain) → secondaries (qualifiers, windows) → look/LUT → shot matching → finishing (vignette, grain). A LUT applied before balance is exactly why "cinematic" presets look wrong on real footage.
+SPEC: order of operations: balance (white balance, exposure) → shot matching to the best shot → secondaries (the qualifier) → look (lift/gamma/gain, preset or LUT) → finishing (vignette, grain). A look before balance and matching is why "cinematic" presets look wrong on real footage.
 DERIVE FIRST: work these out from the timeline in front of you, then apply the SPEC to those figures:
-· Whether an adjustment layer already exists. If one does, grade ON it; do not add a second.
-· Which clips differ in source (resolution, fps, name pattern): that is your matching set, and the best-exposed of them is your reference.
-· Each clip's existing effectList: read the ids before removeEffect/updateEffect, never guess them.
+· The colourReadout per shot (analyze_shots or the clip's visual context): clipped %, crushed %, cast, faceLuma. Clipping cannot be graded back; say so.
+· Which clips differ in source (resolution, fps, name): the matching set; the best-exposed is the reference.
+· Whether an adjustment layer exists (grade ON it, never add a second), and effectList ids before removeEffect/updateEffect.
 CRAFT
 · Deliver Rec.709, legal range. Blacks at 0 IRE and whites clipped at 100 IRE are lost information, not contrast.
-· Skin sits on the vectorscope skin-tone LINE regardless of complexion: complexion changes saturation distance along the line, not the angle. Fair-skin keys land ~55-70 IRE on luma; deeper complexions sit lower on luma, same vector.
-· Look vocabulary → actual controls. Teal-and-orange = shadows toward cyan while skin is protected (a secondary, never a global tint). Matte/lifted black = blacks raised to 5-8 IRE. Bleach bypass = raised contrast + crushed saturation. Filmic = an S-curve with a toe and a shoulder, not a contrast slider.
+· Skin sits on the vectorscope skin-tone LINE whatever the complexion: complexion changes distance along the line, not the angle. Fair-skin keys around 55-70 IRE is craft convention, never a target: skin reflectance spans over 1.5 stops, so leave a face where it reads naturally.
+· Looks → controls. Teal-and-orange = lift toward cyan, gain warm (never a global tint or hue). Matte = lift 0.05-0.08 on all channels. Bleach bypass = more contrast, crushed saturation. Filmic = less saturation, more contrast.
 · Shot matching order: white balance → exposure → contrast → saturation → hue. Match to the BEST shot, not the average.
-· Colour is story: warm/amber = intimacy and memory; cool desaturated = clinical, isolating; green = sickness; complementary split = conflict. Name the choice.
-· In this editor: the global look belongs on an ADJUSTMENT LAYER. Per-clip grading is for matching only.
+· Here an adjustment layer renders only tonal controls (contrast, saturation, brightness, exposure, vignette); white balance, lift/gamma/gain, LUTs and the qualifier render only on clips.
 DO NOT: apply the look before matching; crush blacks to 0; raise global saturation to fix flatness; let skin drift off the vectorscope line while chasing teal.
-ACCEPT: preview frames at three points show no clipping above 100 IRE, skin on the line, and no visible camera change across the cuts.
+ACCEPT: analyze_shots on a render of the graded timeline (the source never shows the grade): no new clipped or crushed finding versus the source, every face shot's faceLuma inside 0.18-0.88, and preview frames at three points show natural skin and no camera change across cuts. Without a render, say it was checked on frames only.
 
 ## Gotchas
 
-- setColor brightness, contrast and saturation are ABSOLUTE 0-200 with 100 neutral, not deltas. A grade that wrote brightness 0-5 next to contrast 108 shipped an export where 11 of 13 frames were pure black, and every command returned ok.
-- applyFilterPreset replaces the previous look; it never stacks. Re-applying to "add" a look throws the first one away.
-- Curated presets never rotate every hue (checks/colour-craft.mts): a global hue shift takes skin with it. Use temperature and tint for white balance instead.
+- setColor brightness, contrast and saturation are ABSOLUTE 0-200 with 100 neutral, not deltas. A grade that wrote brightness 0-5 next to contrast 108 once shipped an export where 11 of 13 frames were pure black; values between 0 and 10 on those fields are now refused.
+- applyFilterPreset replaces the previous look and resets that clip's preset-controlled fields (temperature, exposure, contrast, lift, gain and more). Apply a preset first and the per-shot correction after, or the correction is lost.
+- Curated presets never rotate every hue: a global hue shift takes skin with it. Use temperature and tint for white balance instead.

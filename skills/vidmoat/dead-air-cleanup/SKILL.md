@@ -3,7 +3,7 @@ name: dead-air-cleanup
 description: "Removing pauses, silences, filler and retakes without a machine-edited sound: trimSilence, word-timed cuts, breathing room. Use for cut the dead air, remove silences, ums and uhs, bad takes or jump-cut edits."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   owner: "vidmoat"
   category: "craft"
 ---
@@ -14,7 +14,7 @@ Tighten without making it sound machine-edited, and only when the user asked for
 
 ## Workflow
 
-1. **Silences:** `trimSilence` on the clip uses its measured `silenceRegions` (measured for you when missing). Do not hand-pass guessed regions.
+1. **Silences:** `trimSilence` on the clip uses its measured `silenceRegions` (measured for you when missing). Do not hand-pass guessed regions. On MCP, `analyze_dead_air` ranks removal ranges by confidence and already leaves about 120 ms of air each side; to reach the 150 to 300 ms below, shrink each range by a further 30 to 180 ms per side before cutting.
 2. **Filler and retakes:** transcribe, then `cutRanges` with word-timed ranges in TIMELINE seconds, `ripple:true` so the gaps close.
 3. **Breathing room:** leave 150 to 300 ms around speech; keep 250 to 400 ms between sentences and 600 to 900 ms before a punchline, reveal or emotional answer. Vary pause lengths: uniform crushing is the tell of an auto-editor.
 4. **Breaths are not filler.** Keep them, especially before an emphatic line.

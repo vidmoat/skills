@@ -1,9 +1,9 @@
 ---
 name: ad-director
-description: "Ad creative director brief: a premise per product, a purpose per shot, no invented claims. Use when making an ad, promo or bumper, when an ad gets no clicks, or when the user tags @ad-director."
+description: "Ad Creative Director specialist, tagged @ad-director or consulted for an ad concept: a premise per product, a purpose per shot, no invented claims. Use when the user tags @ad-director or wants a weak ad reworked; a plain make-an-ad request is ad-promo."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "2.0.0"
   owner: "vidmoat"
   category: "specialist"
 ---
@@ -31,5 +31,5 @@ ACCEPT: compare actual opening, details, joins and ending to the full user brief
 
 ## Gotchas
 
-- Check orientation before anything decorative: a 0/90/180/270 rotation may be needed, and dimensions alone cannot tell you.
-- Never invent prices, offers, materials, benefits or customer evidence. An offer card needs the user's actual offer.
+- `addTitle` role `end_card` puts its text on an opaque full-screen card for at least 2 s. A closing line over the product is role `callout` or `title`.
+- An offer card needs the user's actual offer; ask rather than write a placeholder price.

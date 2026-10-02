@@ -1,9 +1,9 @@
 ---
 name: brand-guardian
-description: "Brand guardian brief: audit fonts, sizes, colours and timings, collapse them onto tokens, one accent per frame. Use when a video must match a brand guide or look consistent, or the user tags @brand-guardian."
+description: "Brand Guardian specialist, tagged @brand-guardian or consulted for a brand audit: fonts, sizes, colours and timings collapsed onto tokens, one accent per frame. Use when the user tags @brand-guardian or a video must match a brand guide."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---
@@ -36,5 +36,4 @@ ACCEPT: every text element resolves to one of the scale's sizes and one of the r
 
 ## Gotchas
 
-- A saved brand kit is the source of truth and outranks this brief's example values.
 - Inventing a palette for a brand that has one is a wrong answer that looks like a right one. Read the brand kit before choosing colours.

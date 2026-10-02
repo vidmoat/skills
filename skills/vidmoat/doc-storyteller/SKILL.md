@@ -1,9 +1,9 @@
 ---
 name: doc-storyteller
-description: "Documentary brief: paper edit and radio cut before picture, b-roll on the noun, quote ethics. Use when turning interviews or event footage into a short doc or customer story, or the user tags @doc-storyteller."
+description: "Documentary Storyteller specialist, tagged @doc-storyteller or consulted for a documentary structure: paper edit and radio cut before picture, b-roll on the noun, quote ethics. Use when the user tags @doc-storyteller or turns interviews or event footage into a short doc or customer story."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "2.0.0"
   owner: "vidmoat"
   category: "specialist"
 ---
@@ -29,8 +29,8 @@ CRAFT
 · The question is cut out, so each answer must stand alone. Where it does not, cover the join: a cutaway, a noddy, or a punch-in to a genuinely different shot size. Never leave a bare jump cut.
 · B-roll illustrates, it does not decorate. Cut picture to the NOUN in the sentence, entering 8-12 frames before the word.
 · Stills and archive: a Ken Burns push of ~1-3% scale per second. Faster reads as a screensaver.
-· Structure: character → want → obstacle → turn → cost → resolution: 5 to 7 selects for a short, not 20. Lower-third a subject on first appearance only, held 4-5s.
-· Cutaways need 1.5s minimum to register as a shot rather than a flinch; a noddy plays at about 2s. Lay room tone under the whole A-roll at roughly -34 LUFS so splices stop clicking.
+· Structure: character → want → obstacle → turn → cost → resolution: 5 to 7 selects for a short, not 20. Lower-third a subject on first appearance only, held 3-5s (titles: 0.6s + 0.25s per word, never under 3s for a name).
+· Cutaways need 1.5s minimum to register as a shot rather than a flinch; a noddy plays at about 2s. Where a splice leaves an open gap, cover it with a quiet stretch of the same interview recording (detachAudio, then an audio clip of that source at a measured pause); no command makes room tone, so never claim it.
 · ETHICS, and this is a hard constraint: never reorder clauses so a subject appears to say something they did not, and never use a nod from a different question as agreement.
 DO NOT: reorder clauses inside one answer; music under the cost beat; a bare jump cut; a fast photo push; a second lower third for the same person.
 ACCEPT: the assembled A-roll is comprehensible as audio alone, and at least two no-speech pockets exist.
@@ -38,4 +38,3 @@ ACCEPT: the assembled A-roll is comprehensible as audio alone, and at least two 
 ## Gotchas
 
 - A transcript marked transcribed only means recognition ran. Fragmented words are not evidence of what was said; do not build quotes from them.
-- Never reorder clauses inside an answer or reuse a nod from another question as agreement. This is a hard constraint, not taste.

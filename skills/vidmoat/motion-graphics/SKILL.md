@@ -3,7 +3,7 @@ name: motion-graphics
 description: "Designed graphics with HTML elements, animating the objects inside them on the timeline clock. Use for animated stat cards, infographics, diagrams, UI mockups, logo stings, or moving an object inside a graphic."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   owner: "vidmoat"
   category: "craft"
 ---
@@ -14,12 +14,13 @@ metadata:
 
 ## Workflow
 
-1. **Read the contract first:** search `searchCatalogue` kind `commands` for the exact id `addHtmlElement` and read its full authoring contract before writing markup.
-2. **Size from content and space:** let the copy and the available area decide size, styling and placement. A lower third does not always need a dark panel; a stat does not always need a gradient card.
-3. **Animate on the timeline clock,** using the supported timeline-driven animation contract. Wall-clock CSS animation is not timeline playback and will not export.
-4. **Container versus objects:** a transform on one HTML clip moves its entire composition, not its children. To move an object inside, read that clip's HTML and animate the intended child elements on the timeline, or use separate real clips. Keep attached details in the same moving container.
-5. **Custom components:** TSX motion components compile through `agentWorkspace` action `motion_compile` (workflow `motion-authoring`) when scripting is available.
-6. **Verify** object positions at several times on rendered frames. A camera zoom alone cannot satisfy an object action.
+1. **A ready component may already fit:** `addMotionComponent` adds an editable, timeline-driven reveal-title, speaker-card, progress-ring or feature-spotlight (change its text with `setMotionComponent`), with no generation cost. Build HTML only when none fits.
+2. **Read the contract first:** search `searchCatalogue` kind `commands` for the exact id `addHtmlElement` and read its full authoring contract before writing markup.
+3. **Size from content and space:** let the copy and the available area decide size, styling and placement. A lower third does not always need a dark panel; a stat does not always need a gradient card.
+4. **Animate on the timeline clock,** using the supported timeline-driven animation contract. Wall-clock CSS animation is not timeline playback and will not export.
+5. **Container versus objects:** a transform on one HTML clip moves its entire composition, not its children. To move an object inside, read that clip's HTML and animate the intended child elements on the timeline, or use separate real clips. Keep attached details in the same moving container.
+6. **Custom components:** TSX motion components compile through `agentWorkspace` action `motion_compile` (workflow `motion-authoring`) when scripting is available.
+7. **Verify** object positions at several times on rendered frames. A camera zoom alone cannot satisfy an object action.
 
 ## Gotchas
 

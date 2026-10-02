@@ -3,7 +3,7 @@ name: pacing
 description: "Cut rhythm and joins: shot lengths by format, varied rhythm, strong openings, jump cuts, match cuts, b-roll and transitions that mean something. Use when an edit feels slow, boring or jumpy, or for b-roll and transitions."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   owner: "vidmoat"
   category: "craft"
 ---
@@ -23,7 +23,7 @@ Cut when information, action, emotion or rhythm changes. Shot length follows con
 
 ## Rules
 
-- **Vary it.** Three quick shots then one that breathes is rhythm; thirty identical shots is a metronome. A cut every 2 s for a minute is exhausting, not fast.
+- **Vary it.** Three quick shots then one that breathes is rhythm; thirty identical shots is a metronome. The medians above are averages over varied lengths: an unvarying cut every 2 s for a minute is exhausting, not fast, even though 2 s sits inside the short-form median.
 - **The first three seconds decide short form.** Open on the most arresting frame, not a title card, logo or slow fade from black; a hook line is on screen by 0.5 s.
 - **Cut on motion** (a hand leaving frame, a head turn, a pan settling into the next move); cutting on a static frame draws attention to the cut.
 - **Never cut mid-word.** Cut in the gap after a complete thought (dead-air-cleanup for the mechanics).

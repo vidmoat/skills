@@ -1,9 +1,9 @@
 ---
 name: screen-tutorial
-description: "Tutorials and screen recordings: keep every step, cut only waiting, zoom to the real control, label steps. Use for how-tos, software demos, walkthroughs and courses (Director type tutorial_screen)."
+description: "Editing screen recordings into tutorials: keep every step, cut only waiting, zoom to the real control, label steps. Use for screen-recorded how-tos, software demos and walkthroughs (Director type tutorial_screen)."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   owner: "vidmoat"
   category: "craft"
 ---

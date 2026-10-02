@@ -3,7 +3,7 @@ name: speed-ramps
 description: "Slow motion and speed ramps done right: speed keyframes, the source-time integral, replays, freezes, reverses. Use for slow-mo, speed ramps, time warps, replays, freeze frames, rewinds or speeding up part of a clip."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "2.0.0"
   owner: "vidmoat"
   category: "craft"
 ---
@@ -14,7 +14,7 @@ A ramp is a change of speed over time. A flat `setSpeed` is a speed CHANGE, not 
 
 ## Workflow
 
-1. **Ramp with keyframes:** `addKeyframe` on the `speed` property (it is keyframable). For a slow-motion hit: 1.0 down to 0.3 to 0.4 over about 0.3 s with `easeOutCubic` just before the moment, hold, then back up. For velocity edits, time the ramp in beats (beat-sync).
+1. **Ramp with one curve:** `setKeyframeTrack` with `prop:"speed"` and the whole curve as `keyframes` ({time, value, easing}) in one call. It rescales the clip so the selected source footage is kept and returns the new duration. Do not build a ramp from several `addKeyframe` speed calls: they leave the clip length alone, so the ramp consumes a different stretch of source than the one you chose. For a slow-motion hit: 1.0 down to 0.3 to 0.4 over about 0.3 s with `easeOutCubic` just before the moment, hold, then back up. For velocity edits, time the ramp in beats (beat-sync).
 2. **Or use the preset:** `applyVfxPreset` "speed-ramp" writes a tested ramp in one command.
 3. **Motion blur** sells fast moves: `setMotionBlur` 50 is about a 180-degree shutter. It costs nothing on a still clip.
 4. **Replays:** `duplicateClip`, slow the copy (about 0.5) and place it immediately after the original; optionally label it.

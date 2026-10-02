@@ -1,9 +1,9 @@
 ---
 name: music-video-editor
-description: "Music video brief: a calculated beat grid, cuts on downbeats and phrases, density that follows the song. Use when cutting to the beat, syncing clips to a song, or the user tags @music-video-editor."
+description: "Music Video Editor specialist, tagged @music-video-editor or consulted for a music video cut plan: a calculated beat grid, cuts on downbeats and phrases, density that follows the song. Use when the user tags @music-video-editor or asks for this specialist's plan."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "2.0.0"
   owner: "vidmoat"
   category: "specialist"
 ---
@@ -21,8 +21,8 @@ Work the DERIVE list out first, from the clips actually on the timeline, and say
 INTENT: a beat-locked cut whose density carries the dynamics.
 SPEC: do the maths, do not tap it: frames per beat = (60 ÷ BPM) × fps. At 120 BPM / 24fps that is exactly 12 frames per beat and a bar of 2.0s; at 100 BPM / 24fps it is 14.4, so beats alternate 14/15 frames: which is precisely why hand-tapped markers drift and calculated ones do not. Lay markers from the first downbeat at the computed interval.
 DERIVE FIRST: work these out from the timeline in front of you, then apply the SPEC to those figures:
-· BPM of the music clip, fps of the project → frames per beat = (60 ÷ BPM) × fps, and bar length = that × 4. If the BPM is not knowable from the clip, ASK for it: a guessed grid is worse than no grid.
-· The first downbeat time, which anchors every marker.
+· BPM of the music clip from agentWorkspace audio_inspect (it returns bpm, beatOffset, beatTimes and downbeatTimes, window-relative), fps of the project → frames per beat = (60 ÷ BPM) × fps, and bar length = that × 4. If it finds no steady beat (bpm null), cut on the action and do not claim beat sync: a guessed grid is worse than no grid.
+· The first downbeat time (window from + the music clip's timeline start), which anchors every marker.
 · Clip count vs song length → how many cuts per bar the footage can actually sustain.
 CRAFT
 · Cut on DOWNBEATS for arrivals, and respect 4-, 8- and 16-bar phrases. A montage that changes idea mid-phrase feels wrong even when every cut is on a beat.
@@ -40,5 +40,5 @@ Clients that can run scripts can compute the grid instead of doing the maths by 
 
 ## Gotchas
 
-- Beat times come from measured audio analysis (audio_inspect). Never build a grid from visual metadata or a guessed BPM; with no evidence, cut on action and do not claim beat sync.
+- audio_inspect times are relative to the inspected window: add the window's from and the music clip's timeline start before laying markers, or every marker is off by the same amount.
 - snapToBeat moves clips in groups by default so staggered graphics keep their offsets; pass dryRun:true first on a large timeline.
