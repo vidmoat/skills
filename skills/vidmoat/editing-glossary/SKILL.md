@@ -50,7 +50,7 @@ Users ask for techniques by name. Each one has an exact expression in the comman
 - **Riser / impact / whoosh / SFX**: stock audio with `audioPurpose:"sound_effect"`, one per moment. Skill: music-bed.
 - **Fade audio** (einblenden): `setAudio` `fadeIn` / `fadeOut` in seconds. Skill: music-bed.
 - **Voice change** (deeper voice, pitch shift, chipmunk, anonymise a voice): `setVoice` with a preset or `pitchSemitones` and `formantSemitones`; it is heard only in the export.
-- **Sync external audio or a second camera** (dual-system sound, lav or recorder sync, multicam): `syncAudioToVideo` with the camera clip as `videoClipId`. Skill: long-to-shorts.
+- **Sync external audio or a second camera** (dual-system sound, lav or recorder sync, multicam): `syncAudioToVideo` with the camera clip as `videoClipId`; for several angles, read the multicam reference in long-to-shorts.
 - **Loudness for YouTube or TikTok** (LUFS, too quiet): exports are loudness-normalised to -14 LUFS by default. Skill: sound-designer.
 
 ## Frame
