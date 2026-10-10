@@ -50,11 +50,14 @@
         "./skills/vidmoat/captions",
         "./skills/vidmoat/colour-grade",
         "./skills/vidmoat/colourist",
+        "./skills/vidmoat/course-editor",
         "./skills/vidmoat/dead-air-cleanup",
         "./skills/vidmoat/doc-storyteller",
         "./skills/vidmoat/editing-glossary",
         "./skills/vidmoat/explainer-producer",
         "./skills/vidmoat/film-editor",
+        "./skills/vidmoat/food-creator",
+        "./skills/vidmoat/gaming-editor",
         "./skills/vidmoat/general-edit",
         "./skills/vidmoat/highlight-reel",
         "./skills/vidmoat/interview-editor",
@@ -68,7 +71,9 @@
         "./skills/vidmoat/music-video-editor",
         "./skills/vidmoat/narrative-film",
         "./skills/vidmoat/pacing",
+        "./skills/vidmoat/podcast-editor",
         "./skills/vidmoat/production-motion",
+        "./skills/vidmoat/real-estate-editor",
         "./skills/vidmoat/reframing",
         "./skills/vidmoat/retention-editor",
         "./skills/vidmoat/screen-tutorial",
@@ -83,8 +88,13 @@
         "./skills/vidmoat/text-led-video",
         "./skills/vidmoat/titles",
         "./skills/vidmoat/trailer-editor",
+        "./skills/vidmoat/ugc-creator",
+        "./skills/vidmoat/video-essayist",
         "./skills/vidmoat/vidmoat-editing",
-        "./skills/vidmoat/walkthrough-tour"
+        "./skills/vidmoat/vlog-editor",
+        "./skills/vidmoat/walkthrough-tour",
+        "./skills/vidmoat/wedding-filmmaker",
+        "./skills/vidmoat/youtube-editor"
       ]
     }
   ]
