@@ -14,31 +14,26 @@ Cuts long talking or story footage into a YouTube video that pays off its title 
 
 This is the brief the YouTube Editor gives when the user tags @youtube-editor or the planner activates this skill. It is professional advice inside the user's brief: the user's goal, explicit exclusions, brand rules, access and spending limits win. Its numbers are proposed targets; check that each applies and can be measured before using it. For an evidence-grounded shot plan from this specialist, use the specialist-consultation workflow (agentWorkspace action specialist_consult) instead of reading the brief alone.
 
-Work the DERIVE list out first, from the clips actually on the timeline, and say the figures you derived. Before calling a step done, check it against the ACCEPT line. Sources and which claims are evidence versus folklore: `references/sources.md` (load it when the user asks why, or when a number is disputed).
+Work the DERIVE list out first, from the clips actually on the timeline, and say the figures you derived. Before calling a step done, check it against the ACCEPT line. Sources and which claims are evidence versus folklore: `references/sources.md` (load it when the user asks why, or when a number is disputed). The full long-form brief: `references/craft.md` (load it when planning a whole edit in this style).
 
 ## Brief
 
-INTENT: deliver the title's promise fast, then keep paying it off; structure beats raw cut speed.
-SPEC: the promised subject is on screen by 0:30 (YouTube's own "key moments" treats the first 30s as the intro). No branded intro, or one under 5s. A visual change (angle, punch-in, b-roll, text) at least every 15s in talking stretches; shots of about 2 to 6s by default. A re-engagement beat near 3:00 and again near 6:00; long explanations go in the back half. Chapters: first at 00:00, at least 3, each at least 10s. End screen window: the last 5 to 20s, video at least 25s long, room for up to 4 elements. Loudness about -14 LUFS integrated, true peak at or below -1 dBTP. Export 16:9 at the source frame rate. Shorts are a different product: 9:16, up to 180s, no chapters or end screens.
-DERIVE FIRST: work these out from the timeline in front of you, then apply the SPEC to those figures:
-· Raw duration against the target length, and the share to remove (a 45 min recording into a 12 min cut removes about 73%).
-· Where the thumbnail/title promise actually appears in the footage, in seconds. If it is after 30s, that moment or a flash-forward of it becomes the cold open.
-· Silences over 0.4s and retakes (the same sentence said twice), with their total seconds.
-· The longest unbroken talking-head span; any span over 15s without a visual change is a flag.
-· Topic boundaries from the transcript: these are the chapter candidates (each at least 10s).
-· Where the last sentence of real content ends, so the end-screen window sits after it.
+INTENT: pay off the title fast, then keep paying it off; structure beats raw cut speed.
+SPEC: the promised subject on screen by 0:30. No branded intro (or under 5s). A visual change at least every 15s in talking stretches; shots about 2 to 6s. Re-engagement beats near 3:00 and 6:00; long explanations in the back half. Chapters: 00:00, at least 3, each at least 10s. End screen: the last 5 to 20s, room for up to 4 elements. About -14 LUFS, true peak at or below -1 dBTP, 16:9 at source fps.
+DERIVE FIRST:
+· Raw duration vs target, and the share to remove (45 min into 12 min removes about 73%).
+· The second the title/thumbnail promise appears; if after 30s, flash it forward as the cold open.
+· Silences over 0.4s and retakes; the longest talking span without a visual change.
+· Topic boundaries (chapters) and where the last real sentence ends (end-screen window).
 CRAFT
-· Cold open on the payoff or the stakes in the first 5s; no "hey guys", no logo sting.
-· Tighten the A-roll first (cutRanges on the transcript), lock it, then add b-roll, text, music, sound effects and colour in that order.
-· Hide jump cuts inside one take with punchIn: alternate 100% and about 110 to 120% so every jump reads as emphasis.
-· B-roll follows the words: cut to what is being described; hold on the face for emotion and claims.
-· Stair-step the stakes: every section adds new information; save the biggest payoff for last.
-· Change music at section boundaries, never mid-sentence; duck it under speech (autoDuck).
-· A sponsor read is content: integrate it, keep it out of the first minute.
-· Chapters on real topic boundaries with setChapters, written as titles.
-· When cuts conflict, prefer emotion over story over rhythm (Murch's order).
-DO NOT: open with a greeting or channel intro; open on something the thumbnail did not promise; a cut every 1.5s with a whoosh and zoom on each through a whole long video; 30s or more of talking head with no visual change; signal the end early or run a minute of outro after the payoff; master louder than -14 LUFS (it is only turned down).
-ACCEPT: the promise is on screen by 0:30, no talking span runs over 15s without a visual change, there is a new beat by 3:00 (and 6:00 when the video is that long), chapters (if any) start at 00:00 with at least 3 of at least 10s, the last 5 to 20s are end-screen ready, and the mix measures -14 plus or minus 1 LUFS.
+· Cold open on the payoff or stakes in the first 5s.
+· Tighten A-roll first (cutRanges), then b-roll, text, music, sound, colour.
+· punchIn 110 to 120% to hide jump cuts within a take.
+· B-roll follows the words; hold the face for emotion and claims.
+· Stair-step the stakes; music changes at section boundaries (autoDuck under speech).
+· setChapters on real topic boundaries.
+DO NOT: greeting or channel intro first; an opening the thumbnail did not promise; a whooshed zoom every 1.5s for a whole video; 30s of talking head with no change; signal the end early; master above -14 LUFS.
+ACCEPT: promise on screen by 0:30, no talking span over 15s without a visual change, a new beat by 3:00, valid chapters, the last 5 to 20s end-screen ready, -14 plus or minus 1 LUFS.
 
 ## Gotchas
 
