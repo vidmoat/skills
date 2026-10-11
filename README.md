@@ -57,11 +57,14 @@ _No community skills yet. See [CONTRIBUTING.md](CONTRIBUTING.md) to propose one.
 | [`captions`](skills/vidmoat/captions/SKILL.md) | 2.0.0 | Adding, mapping, styling and checking captions: real transcript words, addCaptions by clipId, presets, safe zones, restyling. |
 | [`colour-grade`](skills/vidmoat/colour-grade/SKILL.md) | 2.0.0 | Correcting and grading colour: match shots first, then one restrained look, with setColor's real scales and lift, gamma and gain. |
 | [`colourist`](skills/vidmoat/colourist/SKILL.md) | 2.0.0 | Colourist specialist, tagged @colourist or consulted for a grade plan: balance and shot matching before one look, skin protected, acceptance checked on measured clipping and... |
+| [`course-editor`](skills/vidmoat/course-editor/SKILL.md) | 1.0.0 | Course Editor specialist, tagged @course-editor or consulted to turn lecture and screen recordings into course lessons: one objective per lesson of 6 minutes or less, zooms on... |
 | [`dead-air-cleanup`](skills/vidmoat/dead-air-cleanup/SKILL.md) | 1.1.0 | Removing pauses, silences, filler and retakes without a machine-edited sound: trimSilence, word-timed cuts, breathing room. |
 | [`doc-storyteller`](skills/vidmoat/doc-storyteller/SKILL.md) | 2.0.0 | Documentary Storyteller specialist, tagged @doc-storyteller or consulted for a documentary structure: paper edit and radio cut before picture, b-roll on the noun, quote ethics. |
 | [`editing-glossary`](skills/vidmoat/editing-glossary/SKILL.md) | 2.0.0 | Editing jargon mapped to exact Vidmoat commands and the skill for each technique, including non-English terms. |
 | [`explainer-producer`](skills/vidmoat/explainer-producer/SKILL.md) | 2.0.0 | Explainer Producer specialist, tagged @explainer-producer or consulted for a narration-led teaching structure: pace sets length, one idea per segment, multimedia learning... |
 | [`film-editor`](skills/vidmoat/film-editor/SKILL.md) | 2.0.0 | Film Editor specialist, tagged @film-editor or consulted for a cutting plan: where to cut, how long to hold, J/L cuts, match on action. |
+| [`food-creator`](skills/vidmoat/food-creator/SKILL.md) | 1.0.0 | Food Creator specialist, tagged @food-creator or consulted for recipe and cooking videos: the finished dish by 3 seconds, one action per shot, waits sped up 2 to 4 times,... |
+| [`gaming-editor`](skills/vidmoat/gaming-editor/SKILL.md) | 1.0.0 | Gaming Editor specialist, tagged @gaming-editor or consulted to turn streams and gameplay into highlights, montages and vertical clips: moments found from audio and chat peaks,... |
 | [`general-edit`](skills/vidmoat/general-edit/SKILL.md) | 1.0.0 | Productions that fit no specific type: read the timeline and the brief, plan scene purposes and timings, choose treatments for this footage. |
 | [`highlight-reel`](skills/vidmoat/highlight-reel/SKILL.md) | 1.0.0 | Gaming, sports and action highlights: approach, impact and reaction per moment, slowed impacts, a replay, the best moment first. |
 | [`interview-editor`](skills/vidmoat/interview-editor/SKILL.md) | 2.0.0 | Interview & Podcast Editor specialist, tagged @interview-editor or consulted for a natural-sounding tightening plan: filler cut on the transcript, breaths kept, varied pauses,... |
@@ -75,7 +78,9 @@ _No community skills yet. See [CONTRIBUTING.md](CONTRIBUTING.md) to propose one.
 | [`music-video-editor`](skills/vidmoat/music-video-editor/SKILL.md) | 2.0.0 | Music Video Editor specialist, tagged @music-video-editor or consulted for a music video cut plan: a calculated beat grid, cuts on downbeats and phrases, density that follows... |
 | [`narrative-film`](skills/vidmoat/narrative-film/SKILL.md) | 2.0.0 | Story-led fiction edits: scene order kept, meaningful joins, per-shot correction before one restrained look. |
 | [`pacing`](skills/vidmoat/pacing/SKILL.md) | 1.0.1 | Cut rhythm and joins: shot lengths by format, varied rhythm, strong openings, jump cuts, match cuts, b-roll and transitions that mean something. |
+| [`podcast-editor`](skills/vidmoat/podcast-editor/SKILL.md) | 1.0.0 | Podcast Editor specialist, tagged @podcast-editor or consulted for video podcasts: motivated multicam switching with J/L cuts, reaction inserts, tightened ums and dead air, -16... |
 | [`production-motion`](skills/vidmoat/production-motion/SKILL.md) | 1.1.0 | Motion and timing rules for any production: moving stills, one move per shot, cut points, transitions, text holds, music fades, full coverage. |
+| [`real-estate-editor`](skills/vidmoat/real-estate-editor/SKILL.md) | 1.0.0 | Real Estate Editor specialist, tagged @real-estate-editor or consulted for property listing videos and walkthroughs: one walking order, 2 to 4 second shots, consistent room... |
 | [`reframing`](skills/vidmoat/reframing/SKILL.md) | 2.0.0 | Changing aspect ratio with subjects kept in frame: face-following reframe, named layouts, no letterbox. |
 | [`retention-editor`](skills/vidmoat/retention-editor/SKILL.md) | 2.0.0 | Retention Editor specialist, tagged @retention-editor or consulted for a long-form YouTube retention plan: an interrupt schedule, the payoff by 0:20, filler cut on the transcript. |
 | [`screen-tutorial`](skills/vidmoat/screen-tutorial/SKILL.md) | 1.0.1 | Editing screen recordings into tutorials: keep every step, cut only waiting, zoom to the real control, label steps. |
@@ -90,8 +95,13 @@ _No community skills yet. See [CONTRIBUTING.md](CONTRIBUTING.md) to propose one.
 | [`text-led-video`](skills/vidmoat/text-led-video/SKILL.md) | 1.1.0 | Videos carried by on-screen words with no speech: write the copy, time cards to reading speed, design the type. |
 | [`titles`](skills/vidmoat/titles/SKILL.md) | 2.0.0 | Titles, hooks, lower thirds, callouts and end cards that read: addTitle roles, reading-time holds, eased entrances, type pairing. |
 | [`trailer-editor`](skills/vidmoat/trailer-editor/SKILL.md) | 2.0.0 | Trailer Editor specialist, tagged @trailer-editor or consulted for a trailer structure: three acts, cut lengths that halve into a hard stop, silence before the title, a button... |
+| [`ugc-creator`](skills/vidmoat/ugc-creator/SKILL.md) | 1.0.0 | UGC Ad Creator specialist, tagged @ugc-creator or consulted for creator-style ads on TikTok, Reels and TikTok Shop: product or key claim by 3 seconds, 21 to 34 second cuts,... |
+| [`video-essayist`](skills/vidmoat/video-essayist/SKILL.md) | 1.0.0 | Video Essayist specialist, tagged @video-essayist or consulted for script-led commentary and analysis: narration locked first, every line matched to a visual that proves it,... |
 | [`vidmoat-editing`](skills/vidmoat/vidmoat-editing/SKILL.md) | 1.1.0 | Manual for an agent editing in Vidmoat over MCP or chat: the inspect, edit, read receipts, preview loop and the mechanics that cost whole runs. |
+| [`vlog-editor`](skills/vidmoat/vlog-editor/SKILL.md) | 1.0.0 | Vlog Editor specialist, tagged @vlog-editor or consulted to turn a day or a trip into a vlog with a story: a goal stated early, establishing shots per location, beat-cut... |
 | [`walkthrough-tour`](skills/vidmoat/walkthrough-tour/SKILL.md) | 1.0.0 | Tours of a space or trip that keep the viewer oriented: an ordered journey, smooth moves, readable holds, small labels. |
+| [`wedding-filmmaker`](skills/vidmoat/wedding-filmmaker/SKILL.md) | 1.0.0 | Wedding & Event Filmmaker specialist, tagged @wedding-filmmaker or consulted for wedding and event highlight films, teasers and vertical teasers: the couple's own words as the... |
+| [`youtube-editor`](skills/vidmoat/youtube-editor/SKILL.md) | 1.0.0 | YouTube Editor specialist, tagged @youtube-editor or consulted to cut long-form YouTube: payoff on screen by 0:30, re-engagement beats at 3:00 and 6:00, punch-ins over jump... |
 
 <!-- catalogue:end -->
 
