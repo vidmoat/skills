@@ -3,7 +3,7 @@ name: titles
 description: "Titles, hooks, lower thirds, callouts and end cards that read: addTitle roles, reading-time holds, eased entrances, type pairing. Use for a title, name tag, call to action, kinetic text or a font change."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "2.0.0"
+  version: "3.0.0"
   owner: "vidmoat"
   category: "craft"
 ---
@@ -16,8 +16,8 @@ metadata:
 2. **Hold for reading (the one rule other skills point to):** 0.6 s + 0.25 s per word on screen, entrance not counted, and never under the role minimum: 1 s for any card (under that is decoration, not communication), 3 s for a name lower third, 2 s for an end card. Double it when the viewer is also watching action or the card is a designed hero moment.
 3. **One idea per card.** A title with two clauses is two cards, or one card held twice as long.
 4. **Entrances and exits:** about 0.2 to 0.4 s in with ease-out (`easeOutCubic`, `easeOutExpo`), 0.15 to 0.25 s out with ease-in. Stagger related elements 0.15 to 0.3 s apart with the same animation family. Linear reads as robotic.
-5. **Typography:** choose fonts and supported weights for the footage, audience, language and brand; match existing typography for small additions. Search the fonts catalogue and set `fontFamily` explicitly. One display face and one support face at most.
-6. **Kinetic type:** one text clip per phrase with `applyMotionPreset` "elastic-pop", "pulse" or "bounce-in", or scale and opacity keyframes when it must hit an exact beat. `textAnimation` also offers pop, typewriter and blur-in.
+5. **Typography comes from the direction.** `addTitle` and `addTextClip` inherit the video's type pairing, weights, colours and entrance (`setDirection`), so leave `fontFamily` out and two videos look different. `style` overrides anything: use it when the brief names a font or a look (search the fonts catalogue by mood) or a brand kit requires it. Match existing typography for small additions. Text with letters outside Latin keeps the face the type engine picks for its script. One display face and one support face at most.
+6. **Kinetic type:** the key line gets a word-by-word entrance, `style` `animIn` "word-pop", "word-slide", "word-fade", "wave" or "bounce" with `animInDuration` about 0.6 s: one clip per phrase, on the line that matters, not every card. `animIn` also takes pop, typewriter and blur-in. `applyMotionPreset` "elastic-pop", "pulse" or "bounce-in", or scale and opacity keyframes, when it must hit an exact beat.
 
 ## Gotchas
 
@@ -28,6 +28,6 @@ metadata:
 - Fonts that are not on the render box silently fall back at export; preview a frame when the typeface matters.
 - A call to action over footage in the last 1.5 to 3 s is `addTitle` role `callout` or `title`; role `end_card` covers the picture with its own background. Never accidental black.
 - On a 9:16 canvas `addTitle` puts a lower third at y +0.3 H (pixels from centre), on the edge of the platform UI; move it up to about +0.2 H with `updateClip` and check a frame.
-- For an animated title, speaker card, progress ring or feature spotlight that stays editable, `addMotionComponent` builds one without generation (motion-graphics).
+- For an animated title, speaker card, progress ring or feature spotlight that stays editable, `addMotionComponent` builds one without generation (motion-graphics). A graphic on what a speaker says is `designInserts`, checked against the transcript (talking-head).
 
 Related skills: motion-graphics, captions. Specialists: motion-designer, brand-guardian.
