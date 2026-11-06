@@ -3,7 +3,7 @@ name: motion-graphics
 description: "Designed graphics with HTML elements, animating the objects inside them on the timeline clock. Use for animated stat cards, infographics, diagrams, UI mockups, logo stings, or moving an object inside a graphic."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
   owner: "vidmoat"
   category: "craft"
 ---
@@ -14,7 +14,7 @@ metadata:
 
 ## Workflow
 
-1. **A ready component may already fit:** `addMotionComponent` adds an editable, timeline-driven reveal-title, speaker-card, progress-ring or feature-spotlight (change its text with `setMotionComponent`), with no generation cost. Build HTML only when none fits.
+1. **A ready component may already fit:** `addMotionComponent` adds an editable, timeline-driven graphic in the video's direction, with no generation cost (change its text with `setMotionComponent`; search `searchCatalogue` kind `elements` for the components: reveal-title, speaker-card, progress-ring, feature-spotlight, stat-counter, keyword, checklist, chat-bubbles, search-bar, proof-card, icon-card, quote-card). On what a speaker says, `designInserts` places them checked against the transcript. Build HTML only when none fits.
 2. **Read the contract first:** search `searchCatalogue` kind `commands` for the exact id `addHtmlElement` and read its full authoring contract before writing markup.
 3. **Size from content and space:** let the copy and the available area decide size, styling and placement. A lower third does not always need a dark panel; a stat does not always need a gradient card.
 4. **Animate on the timeline clock,** using the supported timeline-driven animation contract. Wall-clock CSS animation is not timeline playback and will not export.

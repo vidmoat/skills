@@ -3,7 +3,7 @@ name: editing-glossary
 description: "Editing jargon mapped to exact Vidmoat commands and the skill for each technique, including non-English terms. Use when the user names a technique (J-cut, whip pan, rack focus, LUT, lower third, green screen) and you need the op."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "2.0.0"
+  version: "2.1.0"
   owner: "vidmoat"
   category: "reference"
 ---
@@ -38,9 +38,9 @@ Users ask for techniques by name. Each one has an exact expression in the comman
 ## Text
 
 - **Hormozi captions**: `addCaptions` preset "Hormozi", 3 to 4 words a line. **Bold yellow, boxed word, karaoke, word-by-word captions**: presets "Bold Yellow", "Word Box" or "Karaoke". Skill: captions.
-- **Subtitles / CC** (Untertitel, subtitulos, sous-titres, legendas, takarir, terjemahan): `addCaptions` preset "Clean" or "Minimal". Skill: captions.
+- **Subtitles / CC** (Untertitel, subtitulos, sous-titres, legendas, takarir, terjemahan): `addCaptions` in the direction's style; name a preset only if the brief names a look. Skill: captions.
 - **Lower third** (name tag, Bauchbinde), **title card, end card, CTA**: `addTitle` with a role. Skill: titles.
-- **Kinetic typography**: text clips with `applyMotionPreset` "elastic-pop", "pulse" or "bounce-in". Skill: titles.
+- **Kinetic typography**: `addTitle` with `style` `animIn` "word-pop", "word-slide" or "wave", or text clips with `applyMotionPreset` "elastic-pop", "pulse" or "bounce-in". Skill: titles.
 - **Animated title, speaker card, progress ring, feature spotlight**: `addMotionComponent`, an editable motion graphic with no generation cost. Skill: motion-graphics.
 
 ## Sound

@@ -3,7 +3,7 @@ name: sound-designer
 description: "Sound Designer specialist, tagged @sound-designer or consulted for a mix plan: a voice-led soundtrack, ducking that does not pump, the delivery loudness stated. Use when the user tags @sound-designer or asks for a sound designer's review of the mix."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "2.0.0"
+  version: "3.0.0"
   owner: "vidmoat"
   category: "specialist"
 ---
@@ -25,8 +25,9 @@ DERIVE FIRST: work these out from the timeline in front of you, then apply the S
 · Source levels: audio_inspect gives integratedLufs and truePeakDbtp per source window (mono, before gain and effects). Quote them as source readings, never as the mix.
 · Timeline length, so music in/out points are real times; muted clips and silenceRegions.
 CRAFT
-· Layers, in priority: dialogue → music → effects (risers, whooshes, impacts, one per moment) → ambience where a source has it. Add effects only when the brief asks for sound design.
-· No splice at digital silence. A ripple cut closes the gap; where one stays open, cover it with a quiet stretch of the same recording (detachAudio, then an audio clip of that source at a measured pause). No command makes room tone; never report it unless you placed and heard it.
+· Layers, in priority: dialogue → music → effects (risers, whooshes, impacts, one per moment) → ambience where a source has it.
+· A production has a sound layer by DEFAULT: a bed under the picture, short hits on graphics and major transitions, under the voice (fetchStockMedia, musicBed). A small change adds none unasked.
+· No splice at digital silence. A ripple cut closes the gap; where one stays open, cover it with a quiet stretch of the same recording (detachAudio, then an audio clip of that source at a measured pause).
 · Ducking that does not pump: 6-12 dB of duck with 0.25-0.7s ramps (autoDuck fade). duckTo is the ABSOLUTE gain under speech: about 0.11 under a 0.35 bed is 10 dB.
 · Voice chain: high-pass at 80Hz, cut mud at 200-400Hz, presence lift at 3-5kHz, de-ess at 5-8kHz with 3-6 dB of reduction MAX.
 · Spot the timeline first: music-in and music-out are narrative decisions.
@@ -37,6 +38,9 @@ ACCEPT: the export loudness setting matches the destination (or the user knows t
 
 ## Gotchas
 
+- No command makes room tone; never report it unless you placed and heard it.
+- The default sound layer gives way to the brief: "no music", a music video or a song that IS the content (no bed to duck), a source with its own score. A stock search that finds nothing is reported, not hidden; say the layer is missing rather than claim it.
+- The default bed and hits come from stock (`fetchStockMedia` with `mediaType:"audio"` and `audioPurpose` "music" or "sound_effect"). Lyria (`generateMedia` kind `music`) is the only generated music whose licence survives commercial export, and it costs credits: use it when the brief asks for original music, never another generator.
 - setAudio normalize is PEAK normalisation, not loudness, and cannot hit a LUFS target; loudness comes from the export normaliser.
 - setAudio denoise is a LOW CUT for rumble and does nothing to hiss. Hiss, fans and air conditioning need noiseReduction; mains buzz needs hum 50 or 60.
 - Music under speech is one command: musicBed for a new bed, autoDuck for music already placed. Hand-keyframed volume dips are the fallback, not the default.

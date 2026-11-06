@@ -11,6 +11,22 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- Skills stop deciding the look (measured 5 Nov 2026 on timelines Otto finished:
+  three fonts were 76% of text, 82% of transitions were dissolves, two caption
+  presets of 31 were 78%, `addMotionComponent` was called once in 45 days, music
+  was in 10% of projects and a short sound effect in 3%). A video's creative
+  direction now decides it and the tools inherit it:
+  - `captions` 3.0.0: the direction's style unless the brief names one, 31
+    presets, and `emphasis` on the key word of each line.
+  - `talking-head` 3.0.0: the reference format, `designInserts` on what is said,
+    caption emphasis, a sound on each pop.
+  - `sound-designer` 3.0.0, `music-bed` 2.1.0: a production has a sound layer by
+    default (owner, 6 Nov 2026); a small change still adds none unasked.
+  - `titles` 3.0.0: the direction supplies type; `style` overrides.
+  - `production-motion` 2.0.0: the direction names the transition language, and
+    the moves a professional uses are taught with when to use each.
+  - `editing-glossary` 2.1.0, `general-edit` 1.0.1, `music-montage` 2.0.1,
+    `motion-graphics` 1.1.1: no default preset or transition taught.
 - Skills review fixes, each checked against the editor's code:
   - One vertical safe-zone rule everywhere: text above the bottom 22%
     (about 420 of 1920 px), the editor's caption check (bottom 20%, top 12%,
