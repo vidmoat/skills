@@ -29,4 +29,13 @@ What the owner's 185 reference Reels do: one designed graphic per spoken idea, i
 
 ## Words behind the speaker
 
-The speaker cut out with big words behind is technique comp.text-behind (find_technique), when the direction names it or the brief wants it.
+`wordsBehind` with `items: [{text, at}]`, one to three words, on the line worth stopping for: the direction names it or the brief wants it, and the person fills a good part of the frame. One command makes the layers (footage, words, a silent cut-out of the person) under the captions and inserts, per footage piece.
+
+- After the cut, like inserts: a re-cut moves the footage out from under it. A second pass replaces the first.
+- Over speech the words must be said near `at`. Set `literal: true` only when the person's own message gives these exact words.
+- Rare: twice in a 30 second edit is plenty. It stops landing if it is the default.
+- Each result reports `placement`. "Faces not measured" means nobody knows the person crosses the words: measure them (`analyze_faces`) or check that frame.
+
+## Speech as placed type
+
+`placeSpeech` with `spans: [{from, to}]` puts the speaker's own words large around the frame, verbatim, for the lines that matter; the rest stay plain captions. It replaces the captions of those spans, so run it after `addCaptions`. `emphasis` works as in `addCaptions`. It is a change of treatment, so spans of a few seconds between stretches of plain captions read better than one long span.

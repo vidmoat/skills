@@ -3,7 +3,7 @@ name: titles
 description: "Titles, hooks, lower thirds, callouts and end cards that read: addTitle roles, reading-time holds, eased entrances, type pairing. Use for a title, name tag, call to action, kinetic text or a font change."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "3.0.0"
+  version: "3.1.0"
   owner: "vidmoat"
   category: "craft"
 ---
@@ -17,7 +17,7 @@ metadata:
 3. **One idea per card.** A title with two clauses is two cards, or one card held twice as long.
 4. **Entrances and exits:** about 0.2 to 0.4 s in with ease-out (`easeOutCubic`, `easeOutExpo`), 0.15 to 0.25 s out with ease-in. Stagger related elements 0.15 to 0.3 s apart with the same animation family. Linear reads as robotic.
 5. **Typography comes from the direction.** `addTitle` and `addTextClip` inherit the video's type pairing, weights, colours and entrance (`setDirection`), so leave `fontFamily` out and two videos look different. `style` overrides anything: use it when the brief names a font or a look (search the fonts catalogue by mood) or a brand kit requires it. Match existing typography for small additions. Text with letters outside Latin keeps the face the type engine picks for its script. One display face and one support face at most.
-6. **Kinetic type:** the key line gets a word-by-word entrance, `style` `animIn` "word-pop", "word-slide", "word-fade", "wave" or "bounce" with `animInDuration` about 0.6 s: one clip per phrase, on the line that matters, not every card. `animIn` also takes pop, typewriter and blur-in. `applyMotionPreset` "elastic-pop", "pulse" or "bounce-in", or scale and opacity keyframes, when it must hit an exact beat.
+6. **Kinetic type:** the key line gets a word-by-word entrance, `style` `animIn` "word-slam" (slams up with a motion smear, for the hard line), "word-pop", "word-slide", "word-fade", "wave" or "bounce" with `animInDuration` about 0.6 s: one clip per phrase, on the line that matters, not every card. `animIn` also takes pop, typewriter and blur-in. `applyMotionPreset` "elastic-pop", "pulse" or "bounce-in", or scale and opacity keyframes, when it must hit an exact beat.
 
 ## Gotchas
 
