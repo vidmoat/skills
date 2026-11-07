@@ -39,3 +39,16 @@ What the owner's 185 reference Reels do: one designed graphic per spoken idea, i
 ## Speech as placed type
 
 `placeSpeech` with `spans: [{from, to}]` puts the speaker's own words large around the frame, verbatim, for the lines that matter; the rest stay plain captions. It replaces the captions of those spans, so run it after `addCaptions`. `emphasis` works as in `addCaptions`. It is a change of treatment, so spans of a few seconds between stretches of plain captions read better than one long span.
+
+`sceneBeats` with `scenes: [{kind, at, text}]` changes the whole frame on the lines that turn the idea, two to five to a video, and is the difference between an edit and one shot with text on it. Mix the kinds to suit the look, rather than repeating one:
+
+- `statement`: the words take over the frame. `{clock}` between two words puts an icon in the line.
+- `colour`, `phone`, `mono`: the speaker on a colour, in a phone, a quick black and white hit.
+- `collage`: the speaker as a paper cut-out on torn print, for a handmade or street look.
+- `hud`, `trace`: brackets on the face, a dashed line round the person, for a technical look. A tag shows only words that were said.
+- `orbit`, `ribbon`, `along`: words going round the person and behind them, a ribbon up their body, type along their head and shoulders, for a playful look.
+- `crops`: the eyes and mouth popping beside the face, on a reaction.
+- `surface`: type on a wall or screen in shot. Read the four `corners` from a frame, clockwise from its top left, and use it on a still camera.
+- `compare`: the raw picture beside the finished one, labels as `text` like `Raw|Edited`. Grade first, or the two sides match, and the placement says so.
+
+`crops`, `hud`, `orbit`, `ribbon` and `along` need a measured face and refuse without one. Words must share a word with what is said there, and figures must be said. Read `placement` in the result, and look at a frame.
