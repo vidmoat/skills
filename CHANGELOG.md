@@ -9,6 +9,12 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+### Added
+
+- `layered-motion` 1.0.0: motion graphics as compositions people can edit afterwards (layers and
+  keyframes, text animators, masks and mattes, shape paths with trim, pre-comps, expressions and the
+  effect stack): which tool for which look, and a lower third as layers.
+
 ### Changed
 
 - Skills stop deciding the look (measured 5 Nov 2026 on timelines Otto finished:
