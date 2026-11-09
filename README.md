@@ -69,7 +69,7 @@ _No community skills yet. See [CONTRIBUTING.md](CONTRIBUTING.md) to propose one.
 | [`highlight-reel`](skills/vidmoat/highlight-reel/SKILL.md) | 1.0.0 | Gaming, sports and action highlights: approach, impact and reaction per moment, slowed impacts, a replay, the best moment first. |
 | [`interview-editor`](skills/vidmoat/interview-editor/SKILL.md) | 2.0.0 | Interview & Podcast Editor specialist, tagged @interview-editor or consulted for a natural-sounding tightening plan: filler cut on the transcript, breaths kept, varied pauses,... |
 | [`j-l-cuts`](skills/vidmoat/j-l-cuts/SKILL.md) | 1.1.0 | Split edits where sound and picture change at different moments: detach, lead or lag, real handles. |
-| [`layered-motion`](skills/vidmoat/layered-motion/SKILL.md) | 1.0.0 | Motion graphics people can edit afterwards: compositions of layers with keyframes, After Effects style. |
+| [`layered-motion`](skills/vidmoat/layered-motion/SKILL.md) | 1.2.0 | Motion graphics people can edit afterwards: compositions of layers with keyframes, After Effects style. |
 | [`long-to-shorts`](skills/vidmoat/long-to-shorts/SKILL.md) | 2.0.0 | Cutting a short out of long footage: one idea with a payoff, vertical reframe on faces, captions, a hook from the content. |
 | [`media-sourcing`](skills/vidmoat/media-sourcing/SKILL.md) | 1.1.0 | Sourcing visuals when footage is missing: library first, then stock, generation or designed graphics, with paid approval and quotes. |
 | [`motion-designer`](skills/vidmoat/motion-designer/SKILL.md) | 2.0.0 | Motion Designer specialist, tagged @motion-designer or consulted for a motion design pass: easing, overshoot, stagger, reading holds, title-safe type scale. |

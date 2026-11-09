@@ -3,7 +3,7 @@ name: layered-motion
 description: "Motion graphics people can edit afterwards: compositions of layers with keyframes, After Effects style. Use for lower thirds, animated titles, kinetic type, stat reveals, logo stings and callouts that the person may want to retime or restyle by hand, and when a composition is already on the timeline."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
   owner: "vidmoat"
   category: "craft"
 ---
@@ -61,8 +61,13 @@ turns either a motion component or a TSX component into layers later.
   0.5 + 0.5 * sin(time * 4)), not a row of colour keys.
 - **A heat shimmer, water or a flag:** the wave distort (amount a few pixels,
   wavelength near the size of the thing, phase keyed to move it); paper or
-  glitch texture: displace with a small amount. Twirl, bulge and ripple are not
-  offered: the export could not draw them the same as the preview.
+  glitch texture: displace with a small amount.
+- **A swirl, a lens or a drop in water:** twirl (angle, radius) for a swirl
+  that settles, keyed from 0; bulge (amount up to 1) to magnify a word or a
+  product, a negative amount to pinch; ripple (amount a few pixels, wavelength,
+  phase keyed to move the rings out). centreX and centreY are fractions of the
+  layer, 0.5 the middle; keep the radius inside the layer or the edge shows.
+  Spherize, polar and mesh warp are not offered.
 - **A picture in a frame:** an image layer with fit cover (the default) or
   contain, and cropLeft/Top/Right/Bottom to cut to the part that matters.
 - **A shape that draws itself filled:** trimTarget shape, trimEnd keyed 0 to
