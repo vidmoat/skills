@@ -11,6 +11,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- `layered-motion` 1.3.0: spherize and polar coordinates, position as one [x, y] expression and
+  `thisComp`, and the randomize and wiggly selectors for text animators.
 - `layered-motion` 1.2.0: the twirl, bulge and ripple distorts (a swirl, a lens, rings).
 - `layered-motion` 1.1.0: colour expressions, the wave and displace distorts, image crop and fit,
   trimmed fills, and exposing a graphic's text, colours and pictures as template controls.

@@ -3,7 +3,7 @@ name: layered-motion
 description: "Motion graphics people can edit afterwards: compositions of layers with keyframes, After Effects style. Use for lower thirds, animated titles, kinetic type, stat reveals, logo stings and callouts that the person may want to retime or restyle by hand, and when a composition is already on the timeline."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.2.0"
+  version: "1.3.0"
   owner: "vidmoat"
   category: "craft"
 ---
@@ -39,6 +39,9 @@ turns either a motion component or a TSX component into layers later.
   `textPreset` typewriter for code or captions read aloud, wordPop for a
   punchy hook, lineRise for a calm title, fadeByChar for an elegant reveal.
   Write your own with setAnimator when none fits (unit, shape, range).
+  Letters landing in a random order: randomize with a seed. Letters that never
+  sit still (a glitch, a shiver, a hand-made feel): selector "wiggly" with a
+  few wigglesPerSecond and a small amount.
 - **A wipe or reveal of a shape:** a mask with its width or points keyed, or
   a track matte when the reveal follows another layer's shape.
 - **A line that draws itself** (an underline, a circle around a word, an
@@ -67,7 +70,8 @@ turns either a motion component or a TSX component into layers later.
   product, a negative amount to pinch; ripple (amount a few pixels, wavelength,
   phase keyed to move the rings out). centreX and centreY are fractions of the
   layer, 0.5 the middle; keep the radius inside the layer or the edge shows.
-  Spherize, polar and mesh warp are not offered.
+  Spherize (amount) wraps a layer round a ball; polar (rectToPolar) bends a
+  strip of type or a pattern into a ring. Mesh warp is not offered.
 - **A picture in a frame:** an image layer with fit cover (the default) or
   contain, and cropLeft/Top/Right/Bottom to cut to the part that matters.
 - **A shape that draws itself filled:** trimTarget shape, trimEnd keyed 0 to
@@ -101,7 +105,10 @@ keyframed: animate its opacity or position instead.
 - A locked layer refuses every edit until `setLayer { locked: false }`.
 - A track matte uses the layer directly ABOVE; reordering changes the pairing.
 - Expressions are a small language: names `time`, `value`, `index`,
-  `duration`, and the listed functions. Anything else is refused with the list.
+  `duration`, `thisComp` (width, height, duration, layer("name")), and the
+  listed functions. Anything else is refused with the list. Position is one
+  expression giving [x, y] (value + [0, 40]), not two; a layer has either a
+  position expression or x and y expressions, never both.
 - Trim applies to a shape's stroke unless trimTarget is shape; then the fill is
   the trimmed piece closed with a straight line.
 - A colour expression must give a colour (rgb, hsl, mix, value): arithmetic on
