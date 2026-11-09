@@ -3,7 +3,7 @@ name: layered-motion
 description: "Motion graphics people can edit afterwards: compositions of layers with keyframes, After Effects style. Use for lower thirds, animated titles, kinetic type, stat reveals, logo stings and callouts that the person may want to retime or restyle by hand, and when a composition is already on the timeline."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   owner: "vidmoat"
   category: "craft"
 ---
@@ -56,6 +56,17 @@ turns either a motion component or a TSX component into layers later.
   light-on-dark.
 - **A repeated or reusable block** (a name tag used three times): precompose
   it and place the pre-comp three times, each with its own time offset.
+- **A colour that changes on its own** (a hue drifting, a pulse toward white):
+  a colour expression, hsl(time * 30, 80, 55) or mix(value, rgb(255, 255, 255),
+  0.5 + 0.5 * sin(time * 4)), not a row of colour keys.
+- **A heat shimmer, water or a flag:** the wave distort (amount a few pixels,
+  wavelength near the size of the thing, phase keyed to move it); paper or
+  glitch texture: displace with a small amount. Twirl, bulge and ripple are not
+  offered: the export could not draw them the same as the preview.
+- **A picture in a frame:** an image layer with fit cover (the default) or
+  contain, and cropLeft/Top/Right/Bottom to cut to the part that matters.
+- **A shape that draws itself filled:** trimTarget shape, trimEnd keyed 0 to
+  100: the fill follows the line instead of sitting there whole.
 
 ## A lower third, as layers
 
@@ -67,6 +78,17 @@ turns either a motion component or a TSX component into layers later.
    mask back to 0, over 0.3 s, easeInCubic.
 4. Sit it in the lower safe area, clear of captions.
 
+## When it may become a template
+
+If the graphic will be reused with other words, colours or a logo (a lower
+third, an end card), expose those as controls: setControl { control: { name,
+kind: text|colour|number|image|toggle, bind: [{ layerId, prop }] } }. Name them
+for the person filling it in ("Name", "Role", "Brand colour", "Logo"), bind
+one colour control to every layer that should match, and leave the rest
+locked. setControlValue { control, value } fills one; a saved template's fill
+takes controls: { clipId: { name: value } }. A bound property cannot be
+keyframed: animate its opacity or position instead.
+
 ## Gotchas
 
 - setProps on a keyed property needs `time`: it sets the key there. Without
@@ -75,6 +97,11 @@ turns either a motion component or a TSX component into layers later.
 - A track matte uses the layer directly ABOVE; reordering changes the pairing.
 - Expressions are a small language: names `time`, `value`, `index`,
   `duration`, and the listed functions. Anything else is refused with the list.
-- Trim and the stroke apply to a shape's stroke, not its fill.
+- Trim applies to a shape's stroke unless trimTarget is shape; then the fill is
+  the trimmed piece closed with a straight line.
+- A colour expression must give a colour (rgb, hsl, mix, value): arithmetic on
+  a colour, and wiggle in one, are refused with what to write instead.
+- A cropped cover or contain picture needs the picture loaded to draw; look at
+  a preview frame, not the stored poster.
 
 Related skills: motion-graphics, titles, text-led-video. Specialist: motion-designer.
