@@ -11,6 +11,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- `layered-motion` 1.1.0: colour expressions, the wave and displace distorts, image crop and fit,
+  trimmed fills, and exposing a graphic's text, colours and pictures as template controls.
 - `layered-motion` 1.0.0: motion graphics as compositions people can edit afterwards (layers and
   keyframes, text animators, masks and mattes, shape paths with trim, pre-comps, expressions and the
   effect stack): which tool for which look, and a lower third as layers.
