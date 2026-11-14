@@ -9,6 +9,10 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+### Changed
+
+- `interactive-sites` 1.0.1: sites are indexable once published; the story map's `reveal` setting and when a full map spoils a game; posters.
+
 ### Added
 
 - `interactive-sites` 1.0.0: a hosted site at `{prefix}.interactive.vidmoat.com` for someone's
