@@ -1,9 +1,9 @@
 ---
 name: interactive-design
-description: "Design what is drawn over an interactive video: hotspot marks, where questions sit, the panel look, accent, timing and wording, so the footage invites the tap. Use when designing or restyling choices, quizzes, polls or hotspots."
+description: "Design what sits over an interactive video: hotspot marks, panel look, placement, timing, wording. Use when styling choices, quizzes, polls or hotspots."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   owner: "vidmoat"
   category: "craft"
 ---

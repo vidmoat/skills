@@ -67,7 +67,7 @@ _No community skills yet. See [CONTRIBUTING.md](CONTRIBUTING.md) to propose one.
 | [`gaming-editor`](skills/vidmoat/gaming-editor/SKILL.md) | 1.0.0 | Gaming Editor specialist, tagged @gaming-editor or consulted to turn streams and gameplay into highlights, montages and vertical clips: moments found from audio and chat peaks,... |
 | [`general-edit`](skills/vidmoat/general-edit/SKILL.md) | 1.0.1 | Productions that fit no specific type: read the timeline and the brief, plan scene purposes and timings, choose treatments for this footage. |
 | [`highlight-reel`](skills/vidmoat/highlight-reel/SKILL.md) | 1.0.0 | Gaming, sports and action highlights: approach, impact and reaction per moment, slowed impacts, a replay, the best moment first. |
-| [`interactive-design`](skills/vidmoat/interactive-design/SKILL.md) | 1.0.0 | Design what is drawn over an interactive video: hotspot marks, where questions sit, the panel look, accent, timing and wording, so the footage invites the tap. |
+| [`interactive-design`](skills/vidmoat/interactive-design/SKILL.md) | 1.0.1 | Design what sits over an interactive video: hotspot marks, panel look, placement, timing, wording. |
 | [`interview-editor`](skills/vidmoat/interview-editor/SKILL.md) | 2.0.0 | Interview & Podcast Editor specialist, tagged @interview-editor or consulted for a natural-sounding tightening plan: filler cut on the transcript, breaths kept, varied pauses,... |
 | [`j-l-cuts`](skills/vidmoat/j-l-cuts/SKILL.md) | 1.1.0 | Split edits where sound and picture change at different moments: detach, lead or lag, real handles. |
 | [`layered-motion`](skills/vidmoat/layered-motion/SKILL.md) | 1.3.0 | Motion graphics people can edit afterwards: compositions of layers with keyframes, After Effects style. |
