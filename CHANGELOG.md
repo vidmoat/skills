@@ -11,6 +11,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- `interactive-design` 1.0.0: what is drawn over an interactive video. Hotspot marks, where a question
+  sits, the panel look, accent, timing and wording, with the refusals an agent meets.
 - `layered-motion` 1.3.0: spherize and polar coordinates, position as one [x, y] expression and
   `thisComp`, and the randomize and wiggly selectors for text animators.
 - `layered-motion` 1.2.0: the twirl, bulge and ripple distorts (a swirl, a lens, rings).
