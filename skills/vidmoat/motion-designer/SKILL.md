@@ -1,9 +1,9 @@
 ---
 name: motion-designer
-description: "Motion Designer specialist, tagged @motion-designer or consulted for a motion design pass: easing, overshoot, stagger, reading holds, title-safe type scale. Use when the user tags @motion-designer or asks for a designer's review of titles and graphics."
+description: "Motion Designer specialist, consulted for a motion design pass: easing, overshoot, stagger, reading holds, title-safe type scale. Use when the user tags @motion-designer or asks for a designer's review of titles and graphics."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "2.0.0"
+  version: "2.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---

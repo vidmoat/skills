@@ -1,9 +1,9 @@
 ---
 name: colourist
-description: "Colourist specialist, tagged @colourist or consulted for a grade plan: balance and shot matching before one look, skin protected, acceptance checked on measured clipping and face brightness. Use when the user tags @colourist or asks for a colourist's review of the grade."
+description: "Colourist specialist, consulted for a grade plan: balance and shot matching before one look, skin protected, acceptance checked on measured clipping and face brightness. Use when the user tags @colourist or asks for a colourist's review of the grade."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "2.0.0"
+  version: "2.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---

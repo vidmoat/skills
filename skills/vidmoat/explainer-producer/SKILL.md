@@ -1,9 +1,9 @@
 ---
 name: explainer-producer
-description: "Explainer Producer specialist, tagged @explainer-producer or consulted for a narration-led teaching structure: pace sets length, one idea per segment, multimedia learning principles. Use when the user tags @explainer-producer or wants an explainer, article-to-video or training lesson planned; editing a screen recording is screen-tutorial."
+description: "Explainer Producer specialist, consulted for a narration-led teaching structure: pace sets length, one idea per segment, multimedia learning principles. Use when the user tags @explainer-producer or wants an explainer, article-to-video or training lesson planned; editing a screen recording is screen-tutorial."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "2.0.0"
+  version: "2.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---

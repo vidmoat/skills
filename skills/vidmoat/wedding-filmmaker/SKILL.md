@@ -1,9 +1,9 @@
 ---
 name: wedding-filmmaker
-description: "Wedding & Event Filmmaker specialist, tagged @wedding-filmmaker or consulted for wedding and event highlight films, teasers and vertical teasers: the couple's own words as the spine, cut to licensed music, slow motion only on peaks, true skin and an unclipped dress. Use when the user tags @wedding-filmmaker or asks for a wedding or event highlight video."
+description: "Wedding & Event Filmmaker specialist, consulted for wedding and event highlight films, teasers and vertical teasers: the couple's own words as the spine, cut to licensed music, slow motion only on peaks, true skin and an unclipped dress. Use when the user tags @wedding-filmmaker or asks for a wedding or event highlight video."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---

@@ -1,9 +1,9 @@
 ---
 name: retention-editor
-description: "Retention Editor specialist, tagged @retention-editor or consulted for a long-form YouTube retention plan: an interrupt schedule, the payoff by 0:20, filler cut on the transcript. Use when the user tags @retention-editor or viewers drop off a long video."
+description: "Retention Editor specialist, consulted for a long-form YouTube retention plan: an interrupt schedule, the payoff by 0:20, filler cut on the transcript. Use when the user tags @retention-editor or viewers drop off a long video."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "2.0.0"
+  version: "2.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---

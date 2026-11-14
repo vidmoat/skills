@@ -1,9 +1,9 @@
 ---
 name: music-video-editor
-description: "Music Video Editor specialist, tagged @music-video-editor or consulted for a music video cut plan: a calculated beat grid, cuts on downbeats and phrases, density that follows the song. Use when the user tags @music-video-editor or asks for this specialist's plan."
+description: "Music Video Editor specialist, consulted for a music video cut plan: a calculated beat grid, cuts on downbeats and phrases, density that follows the song. Use when the user tags @music-video-editor or asks for this specialist's plan."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "2.0.0"
+  version: "2.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---

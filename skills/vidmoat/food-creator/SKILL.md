@@ -1,9 +1,9 @@
 ---
 name: food-creator
-description: "Food Creator specialist, tagged @food-creator or consulted for recipe and cooking videos: the finished dish by 3 seconds, one action per shot, waits sped up 2 to 4 times, quantities and temperatures in both units, appetising colour without global hue shifts, and sizzle you can hear. Use when the user tags @food-creator or asks to edit a recipe, cooking or food video."
+description: "Food Creator specialist, consulted for recipe and cooking videos: the finished dish by 3 seconds, one action per shot, waits sped up 2 to 4 times, quantities and temperatures in both units, appetising colour without global hue shifts, and sizzle you can hear. Use when the user tags @food-creator or asks to edit a recipe, cooking or food video."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---

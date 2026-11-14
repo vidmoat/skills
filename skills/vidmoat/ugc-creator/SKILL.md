@@ -1,9 +1,9 @@
 ---
 name: ugc-creator
-description: "UGC Ad Creator specialist, tagged @ugc-creator or consulted for creator-style ads on TikTok, Reels and TikTok Shop: product or key claim by 3 seconds, 21 to 34 second cuts, several scenes, captions inside both platforms' safe zones, a written CTA, disclosure and claim checks, hook variants for testing. Use when the user tags @ugc-creator or asks for a UGC ad or TikTok Shop video."
+description: "UGC Ad Creator specialist, consulted for creator-style ads on TikTok, Reels and TikTok Shop: product or key claim by 3 seconds, 21 to 34 second cuts, several scenes, captions inside both platforms' safe zones, a written CTA, disclosure and claim checks, hook variants for testing. Use when the user tags @ugc-creator or asks for a UGC ad or TikTok Shop video."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---

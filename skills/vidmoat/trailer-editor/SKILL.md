@@ -1,9 +1,9 @@
 ---
 name: trailer-editor
-description: "Trailer Editor specialist, tagged @trailer-editor or consulted for a trailer structure: three acts, cut lengths that halve into a hard stop, silence before the title, a button after it. Use when the user tags @trailer-editor or asks for a trailer or teaser cut from footage."
+description: "Trailer Editor specialist, consulted for a trailer structure: three acts, cut lengths that halve into a hard stop, silence before the title, a button after it. Use when the user tags @trailer-editor or asks for a trailer or teaser cut from footage."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "2.0.0"
+  version: "2.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---

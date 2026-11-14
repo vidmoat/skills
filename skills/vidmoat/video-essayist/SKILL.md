@@ -1,9 +1,9 @@
 ---
 name: video-essayist
-description: "Video Essayist specialist, tagged @video-essayist or consulted for script-led commentary and analysis: narration locked first, every line matched to a visual that proves it, short annotated clips, quotes with sources, thesis by 60 seconds, chapters. Use when the user tags @video-essayist or asks for a video essay, film analysis or commentary edit."
+description: "Video Essayist specialist, consulted for script-led commentary and analysis: narration locked first, every line matched to a visual that proves it, short annotated clips, quotes with sources, thesis by 60 seconds, chapters. Use when the user tags @video-essayist or asks for a video essay, film analysis or commentary edit."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---

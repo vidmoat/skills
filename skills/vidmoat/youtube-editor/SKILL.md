@@ -1,9 +1,9 @@
 ---
 name: youtube-editor
-description: "YouTube Editor specialist, tagged @youtube-editor or consulted to cut long-form YouTube: payoff on screen by 0:30, re-engagement beats at 3:00 and 6:00, punch-ins over jump cuts, chapters and an end screen. Use when the user tags @youtube-editor or asks to edit a video for YouTube."
+description: "YouTube Editor specialist, consulted to cut long-form YouTube: payoff on screen by 0:30, re-engagement beats at 3:00 and 6:00, punch-ins over jump cuts, chapters and an end screen. Use when the user tags @youtube-editor or asks to edit a video for YouTube."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---

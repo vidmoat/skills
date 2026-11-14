@@ -1,9 +1,9 @@
 ---
 name: film-editor
-description: "Film Editor specialist, tagged @film-editor or consulted for a cutting plan: where to cut, how long to hold, J/L cuts, match on action. Use when the user tags @film-editor or wants an editor's review of why a scene does not flow."
+description: "Film Editor specialist, consulted for a cutting plan: where to cut, how long to hold, J/L cuts, match on action. Use when the user tags @film-editor or wants an editor's review of why a scene does not flow."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "2.0.0"
+  version: "2.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---

@@ -1,9 +1,9 @@
 ---
 name: ad-director
-description: "Ad Creative Director specialist, tagged @ad-director or consulted for an ad concept: a premise per product, a purpose per shot, no invented claims. Use when the user tags @ad-director or wants a weak ad reworked; a plain make-an-ad request is ad-promo."
+description: "Ad Creative Director specialist, consulted for an ad concept: a premise per product, a purpose per shot, no invented claims. Use when the user tags @ad-director or wants a weak ad reworked; a plain make-an-ad request is ad-promo."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "2.0.0"
+  version: "2.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---

@@ -1,9 +1,9 @@
 ---
 name: interview-editor
-description: "Interview & Podcast Editor specialist, tagged @interview-editor or consulted for a natural-sounding tightening plan: filler cut on the transcript, breaths kept, varied pauses, hidden splices. Use when the user tags @interview-editor or asks for this specialist's plan; a plain request to remove ums is dead-air-cleanup."
+description: "Interview & Podcast Editor specialist, consulted for a natural-sounding tightening plan: filler cut on the transcript, breaths kept, varied pauses, hidden splices. Use when the user tags @interview-editor or asks for this specialist's plan; a plain request to remove ums is dead-air-cleanup."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "2.0.0"
+  version: "2.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---
