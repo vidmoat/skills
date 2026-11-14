@@ -50,36 +50,36 @@ _No community skills yet. See [CONTRIBUTING.md](CONTRIBUTING.md) to propose one.
 | [`accessibility-lead`](skills/vidmoat/accessibility-lead/SKILL.md) | 2.0.1 | Accessibility Lead specialist, consulted for a review against a written standard: broadcast caption limits (32 characters a line, 17 a second), WCAG contrast, flash limits. |
 | [`ad-director`](skills/vidmoat/ad-director/SKILL.md) | 2.0.1 | Ad Creative Director specialist, consulted for an ad concept: a premise per product, a purpose per shot, no invented claims. |
 | [`ad-promo`](skills/vidmoat/ad-promo/SKILL.md) | 1.0.1 | Ads and promos: the product in use within 2 seconds, proof, one next action, supplied facts only. |
-| [`audio-cleanup`](skills/vidmoat/audio-cleanup/SKILL.md) | 2.0.0 | Diagnosing and fixing voice and source audio: the right control for hiss, rumble, hum and sibilance, levels and EQ. |
-| [`beat-sync`](skills/vidmoat/beat-sync/SKILL.md) | 1.1.0 | Cutting picture on a measured beat grid: markers, one slice, grouped snapping, transitions and the last cut on the beat. |
+| [`audio-cleanup`](skills/vidmoat/audio-cleanup/SKILL.md) | 2.0.1 | Fixing voice and source audio: the right control for hiss, rumble, hum and sibilance, levels and EQ. |
+| [`beat-sync`](skills/vidmoat/beat-sync/SKILL.md) | 1.1.1 | Cutting on a measured beat grid: markers, one slice, grouped snapping, the last cut on the beat. |
 | [`brand-guardian`](skills/vidmoat/brand-guardian/SKILL.md) | 1.0.2 | Brand Guardian specialist, consulted for a brand audit: fonts, sizes, colours and timings collapsed onto tokens, one accent per frame. |
-| [`camera-motion`](skills/vidmoat/camera-motion/SKILL.md) | 1.0.1 | Virtual camera moves: punch-ins, Ken Burns on stills, shake on impacts, rack focus, whip pans and subtle depth. |
-| [`captions`](skills/vidmoat/captions/SKILL.md) | 3.0.0 | Adding, mapping, styling and checking captions: real transcript words, addCaptions by clipId, presets, safe zones, restyling. |
-| [`colour-grade`](skills/vidmoat/colour-grade/SKILL.md) | 2.0.0 | Correcting and grading colour: match shots first, then one restrained look, with setColor's real scales and lift, gamma and gain. |
+| [`camera-motion`](skills/vidmoat/camera-motion/SKILL.md) | 1.0.2 | Virtual camera moves: punch-ins, Ken Burns, impact shake, rack focus, whip pans, subtle depth. |
+| [`captions`](skills/vidmoat/captions/SKILL.md) | 3.0.1 | Captions from real transcript words: addCaptions by clipId, presets, safe zones, restyling, checking. |
+| [`colour-grade`](skills/vidmoat/colour-grade/SKILL.md) | 2.0.1 | Colour correction and grading: match shots first, then one restrained look, with setColor's real scales. |
 | [`colourist`](skills/vidmoat/colourist/SKILL.md) | 2.0.1 | Colourist specialist, consulted for a grade plan: balance and shot matching before one look, skin protected, acceptance checked on measured clipping and face brightness. |
 | [`course-editor`](skills/vidmoat/course-editor/SKILL.md) | 1.0.1 | Course Editor specialist, consulted to turn lecture and screen recordings into course lessons: one objective per lesson of 6 minutes or less, zooms on the action, keywords on... |
-| [`dead-air-cleanup`](skills/vidmoat/dead-air-cleanup/SKILL.md) | 1.1.0 | Removing pauses, silences, filler and retakes without a machine-edited sound: trimSilence, word-timed cuts, breathing room. |
+| [`dead-air-cleanup`](skills/vidmoat/dead-air-cleanup/SKILL.md) | 1.1.1 | Removing pauses, filler and retakes without a machine-edited sound: trimSilence, word-timed cuts, breathing room. |
 | [`doc-storyteller`](skills/vidmoat/doc-storyteller/SKILL.md) | 2.0.1 | Documentary Storyteller specialist, consulted for a documentary structure: paper edit and radio cut before picture, b-roll on the noun, quote ethics. |
 | [`editing-glossary`](skills/vidmoat/editing-glossary/SKILL.md) | 2.1.0 | Editing jargon mapped to exact Vidmoat commands and the skill for each technique, including non-English terms. |
 | [`explainer-producer`](skills/vidmoat/explainer-producer/SKILL.md) | 2.0.1 | Explainer Producer specialist, consulted for a narration-led teaching structure: pace sets length, one idea per segment, multimedia learning principles. |
 | [`film-editor`](skills/vidmoat/film-editor/SKILL.md) | 2.0.1 | Film Editor specialist, consulted for a cutting plan: where to cut, how long to hold, J/L cuts, match on action. |
 | [`food-creator`](skills/vidmoat/food-creator/SKILL.md) | 1.0.1 | Food Creator specialist, consulted for recipe and cooking videos: the finished dish by 3 seconds, one action per shot, waits sped up 2 to 4 times, quantities and temperatures... |
 | [`gaming-editor`](skills/vidmoat/gaming-editor/SKILL.md) | 1.0.1 | Gaming Editor specialist, consulted to turn streams and gameplay into highlights, montages and vertical clips: moments found from audio and chat peaks, dead time cut, facecam... |
-| [`general-edit`](skills/vidmoat/general-edit/SKILL.md) | 1.0.1 | Productions that fit no specific type: read the timeline and the brief, plan scene purposes and timings, choose treatments for this footage. |
-| [`highlight-reel`](skills/vidmoat/highlight-reel/SKILL.md) | 1.0.0 | Gaming, sports and action highlights: approach, impact and reaction per moment, slowed impacts, a replay, the best moment first. |
-| [`interactive-design`](skills/vidmoat/interactive-design/SKILL.md) | 1.0.1 | Design what sits over an interactive video: hotspot marks, panel look, placement, timing, wording. |
+| [`general-edit`](skills/vidmoat/general-edit/SKILL.md) | 1.0.2 | Productions of no specific type: read timeline and brief, plan scene purposes and timings, choose treatments for this footage. |
+| [`highlight-reel`](skills/vidmoat/highlight-reel/SKILL.md) | 1.0.1 | Gaming, sports and action highlights: approach, impact, reaction, slowed impacts, a replay, best moment first. |
+| [`interactive-design`](skills/vidmoat/interactive-design/SKILL.md) | 1.0.2 | What sits over an interactive video: hotspot marks, panels, placement, timing, wording. |
 | [`interview-editor`](skills/vidmoat/interview-editor/SKILL.md) | 2.0.1 | Interview & Podcast Editor specialist, consulted for a natural-sounding tightening plan: filler cut on the transcript, breaths kept, varied pauses, hidden splices. |
 | [`j-l-cuts`](skills/vidmoat/j-l-cuts/SKILL.md) | 1.1.0 | Split edits where sound and picture change at different moments: detach, lead or lag, real handles. |
-| [`layered-motion`](skills/vidmoat/layered-motion/SKILL.md) | 1.3.0 | Motion graphics people can edit afterwards: compositions of layers with keyframes, After Effects style. |
+| [`layered-motion`](skills/vidmoat/layered-motion/SKILL.md) | 1.3.1 | Editable motion graphics: keyframed layer compositions, After Effects style. |
 | [`long-to-shorts`](skills/vidmoat/long-to-shorts/SKILL.md) | 2.0.0 | Cutting a short out of long footage: one idea with a payoff, vertical reframe on faces, captions, a hook from the content. |
-| [`media-sourcing`](skills/vidmoat/media-sourcing/SKILL.md) | 1.1.0 | Sourcing visuals when footage is missing: library first, then stock, generation or designed graphics, with paid approval and quotes. |
+| [`media-sourcing`](skills/vidmoat/media-sourcing/SKILL.md) | 1.1.1 | Sourcing visuals when footage is missing: library, then stock, generation or designed graphics; paid ones quoted and approved. |
 | [`motion-designer`](skills/vidmoat/motion-designer/SKILL.md) | 2.0.1 | Motion Designer specialist, consulted for a motion design pass: easing, overshoot, stagger, reading holds, title-safe type scale. |
-| [`motion-graphics`](skills/vidmoat/motion-graphics/SKILL.md) | 1.1.1 | Designed graphics with HTML elements, animating the objects inside them on the timeline clock. |
-| [`music-bed`](skills/vidmoat/music-bed/SKILL.md) | 2.1.0 | Music and sound effects under an edit: a licence-safe track, a bed with fades, ducking under speech, risers and impacts. |
-| [`music-montage`](skills/vidmoat/music-montage/SKILL.md) | 2.0.1 | Edits led by a music track: the track first, a thread through the photos and clips, density that follows the song. |
+| [`motion-graphics`](skills/vidmoat/motion-graphics/SKILL.md) | 1.1.2 | HTML graphics whose inner objects animate on the timeline clock. |
+| [`music-bed`](skills/vidmoat/music-bed/SKILL.md) | 2.1.1 | Music and SFX under an edit: a licence-safe track, fades, ducking under speech, risers and impacts. |
+| [`music-montage`](skills/vidmoat/music-montage/SKILL.md) | 2.0.2 | Edits led by a song: the track first, a thread through the photos and clips, density that follows it. |
 | [`music-video-editor`](skills/vidmoat/music-video-editor/SKILL.md) | 2.0.1 | Music Video Editor specialist, consulted for a music video cut plan: a calculated beat grid, cuts on downbeats and phrases, density that follows the song. |
-| [`narrative-film`](skills/vidmoat/narrative-film/SKILL.md) | 2.0.0 | Story-led fiction edits: scene order kept, meaningful joins, per-shot correction before one restrained look. |
-| [`pacing`](skills/vidmoat/pacing/SKILL.md) | 1.0.1 | Cut rhythm and joins: shot lengths by format, varied rhythm, strong openings, jump cuts, match cuts, b-roll and transitions that mean something. |
+| [`narrative-film`](skills/vidmoat/narrative-film/SKILL.md) | 2.0.1 | Story-led fiction: scene order kept, meaningful joins, per-shot correction before one look. |
+| [`pacing`](skills/vidmoat/pacing/SKILL.md) | 1.0.2 | Cut rhythm and joins: shot lengths by format, varied rhythm, strong openings, jump and match cuts, meaningful transitions. |
 | [`podcast-editor`](skills/vidmoat/podcast-editor/SKILL.md) | 1.0.1 | Podcast Editor specialist, consulted for video podcasts: motivated multicam switching with J/L cuts, reaction inserts, tightened ums and dead air, -16 LUFS masters, chapters,... |
 | [`production-motion`](skills/vidmoat/production-motion/SKILL.md) | 2.0.0 | Motion, sound and timing for any production: moves, cut points, transitions, the sound layer, text holds, coverage. |
 | [`real-estate-editor`](skills/vidmoat/real-estate-editor/SKILL.md) | 1.0.1 | Real Estate Editor specialist, consulted for property listing videos and walkthroughs: one walking order, 2 to 4 second shots, consistent room colour with real window views,... |
@@ -90,10 +90,10 @@ _No community skills yet. See [CONTRIBUTING.md](CONTRIBUTING.md) to propose one.
 | [`shortform-strategist`](skills/vidmoat/shortform-strategist/SKILL.md) | 2.0.1 | Short-Form Strategist specialist, consulted for a TikTok, Reels or Shorts plan: a 3-second hook, pixel safe zones, burned captions, a loop. |
 | [`slideshow-voiceover`](skills/vidmoat/slideshow-voiceover/SKILL.md) | 1.0.0 | Narrated slideshows: a timing map where each image holds its line, voice inside the windows, push-ins, a ducked bed. |
 | [`sound-designer`](skills/vidmoat/sound-designer/SKILL.md) | 3.0.1 | Sound Designer specialist, consulted for a mix plan: a voice-led soundtrack, ducking that does not pump, the delivery loudness stated. |
-| [`speed-ramps`](skills/vidmoat/speed-ramps/SKILL.md) | 2.0.0 | Slow motion and speed ramps done right: speed keyframes, the source-time integral, replays, freezes, reverses. |
-| [`split-screen`](skills/vidmoat/split-screen/SKILL.md) | 1.0.0 | Two sources on screen at once: stacked or side-by-side splits, facecam picture in picture, reaction layouts and the audio hierarchy. |
-| [`talking-head`](skills/vidmoat/talking-head/SKILL.md) | 3.1.0 | Editing people talking to camera: transcript-first cuts, designed inserts on what is said, key-word captions, a sound on each pop, a levelled voice. |
-| [`targeted-tweak`](skills/vidmoat/targeted-tweak/SKILL.md) | 2.0.0 | Discipline for one small change or repair: the fewest commands, nothing else touched, the real defect diagnosed first. |
+| [`speed-ramps`](skills/vidmoat/speed-ramps/SKILL.md) | 2.0.1 | Slow motion and speed ramps: speed keyframes, the source-time integral, replays, freezes, reverses. |
+| [`split-screen`](skills/vidmoat/split-screen/SKILL.md) | 1.0.1 | Two sources on screen: stacked or side-by-side splits, facecam picture in picture, reactions, the audio hierarchy. |
+| [`talking-head`](skills/vidmoat/talking-head/SKILL.md) | 3.1.1 | People talking to camera: transcript-first cuts, inserts on what is said, key-word captions, a sound on each pop, a levelled voice. |
+| [`targeted-tweak`](skills/vidmoat/targeted-tweak/SKILL.md) | 2.0.1 | One small change or repair: the fewest commands, nothing else touched, the real defect diagnosed first. |
 | [`text-led-video`](skills/vidmoat/text-led-video/SKILL.md) | 1.1.0 | Videos carried by on-screen words with no speech: write the copy, time cards to reading speed, design the type. |
 | [`titles`](skills/vidmoat/titles/SKILL.md) | 3.1.0 | Titles, hooks, lower thirds, callouts and end cards that read: addTitle roles, reading-time holds, eased entrances, type pairing. |
 | [`trailer-editor`](skills/vidmoat/trailer-editor/SKILL.md) | 2.0.1 | Trailer Editor specialist, consulted for a trailer structure: three acts, cut lengths that halve into a hard stop, silence before the title, a button after it. |

@@ -1,9 +1,9 @@
 ---
 name: media-sourcing
-description: "Sourcing visuals when footage is missing: library first, then stock, generation or designed graphics, with paid approval and quotes. Use when making a video from scratch or the brief needs b-roll, images or music."
+description: "Sourcing visuals when footage is missing: library, then stock, generation or designed graphics; paid ones quoted and approved. Use when making a video from scratch or the brief needs b-roll, images or music."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
   owner: "vidmoat"
   category: "craft"
 ---

@@ -1,9 +1,9 @@
 ---
 name: speed-ramps
-description: "Slow motion and speed ramps done right: speed keyframes, the source-time integral, replays, freezes, reverses. Use for slow-mo, speed ramps, time warps, replays, freeze frames, rewinds or speeding up part of a clip."
+description: "Slow motion and speed ramps: speed keyframes, the source-time integral, replays, freezes, reverses. Use for slow-mo, speed ramps, time warps, replays, freeze frames, rewinds or speeding up part of a clip."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "2.0.0"
+  version: "2.0.1"
   owner: "vidmoat"
   category: "craft"
 ---

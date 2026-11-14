@@ -1,9 +1,9 @@
 ---
 name: captions
-description: "Adding, mapping, styling and checking captions: real transcript words, addCaptions by clipId, presets, safe zones, restyling. Use when the user asks for captions, subtitles, CC, Hormozi, karaoke or word-by-word text."
+description: "Captions from real transcript words: addCaptions by clipId, presets, safe zones, restyling, checking. Use when the user asks for captions, subtitles, CC, Hormozi, karaoke or word-by-word text."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "3.0.0"
+  version: "3.0.1"
   owner: "vidmoat"
   category: "craft"
 ---

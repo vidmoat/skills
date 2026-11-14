@@ -1,9 +1,9 @@
 ---
 name: general-edit
-description: "Productions that fit no specific type: read the timeline and the brief, plan scene purposes and timings, choose treatments for this footage. Use when no more specific skill fits (Director type other)."
+description: "Productions of no specific type: read timeline and brief, plan scene purposes and timings, choose treatments for this footage. Use when no more specific skill fits (Director type other)."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
   owner: "vidmoat"
   category: "craft"
 ---

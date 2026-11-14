@@ -1,9 +1,9 @@
 ---
 name: interactive-design
-description: "Design what sits over an interactive video: hotspot marks, panel look, placement, timing, wording. Use when styling choices, quizzes, polls or hotspots."
+description: "What sits over an interactive video: hotspot marks, panels, placement, timing, wording. Use for styling choices, quizzes, polls or hotspots."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
   owner: "vidmoat"
   category: "craft"
 ---
