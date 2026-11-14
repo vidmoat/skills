@@ -68,7 +68,7 @@ _No community skills yet. See [CONTRIBUTING.md](CONTRIBUTING.md) to propose one.
 | [`general-edit`](skills/vidmoat/general-edit/SKILL.md) | 1.0.2 | Productions of no specific type: read timeline and brief, plan scene purposes and timings, choose treatments for this footage. |
 | [`highlight-reel`](skills/vidmoat/highlight-reel/SKILL.md) | 1.0.1 | Gaming, sports and action highlights: approach, impact, reaction, slowed impacts, a replay, best moment first. |
 | [`interactive-design`](skills/vidmoat/interactive-design/SKILL.md) | 1.0.2 | What sits over an interactive video: hotspot marks, panels, placement, timing, wording. |
-| [`interactive-sites`](skills/vidmoat/interactive-sites/SKILL.md) | 1.0.0 | A hosted site for someone's interactive videos: pages, blocks, theme, publishing. |
+| [`interactive-sites`](skills/vidmoat/interactive-sites/SKILL.md) | 1.0.1 | A hosted site for someone's interactive videos: pages, blocks, theme, publishing. |
 | [`interview-editor`](skills/vidmoat/interview-editor/SKILL.md) | 2.0.1 | Interview & Podcast Editor specialist, consulted for a natural-sounding tightening plan: filler cut on the transcript, breaths kept, varied pauses, hidden splices. |
 | [`j-l-cuts`](skills/vidmoat/j-l-cuts/SKILL.md) | 1.1.0 | Split edits where sound and picture change at different moments: detach, lead or lag, real handles. |
 | [`layered-motion`](skills/vidmoat/layered-motion/SKILL.md) | 1.3.1 | Editable motion graphics: keyframed layer compositions, After Effects style. |

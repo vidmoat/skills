@@ -3,7 +3,7 @@ name: interactive-sites
 description: "A hosted site for someone's interactive videos: pages, blocks, theme, publishing. Use for a site, portfolio or link page."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   owner: "vidmoat"
   category: "craft"
 ---
@@ -57,6 +57,8 @@ The tools: `get_interactive_site`, `edit_interactive_site`, `publish_interactive
 - **An accent can be refused** when words on it, or it on the page, would be hard to read. Try a lighter accent on dark, a deeper one on light.
 - **Limits are refused, never cut:** 6 pages, 12 sections a page, 12 videos a grid, 6 nav links, 10 links; a heading 90 characters, body text 600. Shorten the words yourself.
 - **`null` removes** an optional field in `updateSection`; leaving it out keeps it.
-- **Search engines are off** until the person asks (`setSettings` `indexing: true`).
+- **Search engines can find a published site** (a sitemap and video data come with it). Write each page's `title` and `description` for a stranger searching; `setSettings` `indexing: false` keeps a site out when the person wants it private.
+- **A story map spoils games.** By default it shows only the opening and its answers, with the scenes and endings counted. Use `reveal: "full"` only for a lesson or a guide, never for a game or mystery, and never next to copy that promises a secret.
+- **Posters matter.** Players and grid cards show the video's poster until played; pick videos whose poster is a real title card, not a black first frame.
 - **Renaming the address** (`edit_interactive_site` with `prefix`) holds the old name and forwards it for a while; do not rename casually.
 - **Hobby accounts** are refused with the reason; say it plainly, do not work around it.
