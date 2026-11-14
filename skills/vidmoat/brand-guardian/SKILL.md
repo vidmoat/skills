@@ -1,9 +1,9 @@
 ---
 name: brand-guardian
-description: "Brand Guardian specialist, tagged @brand-guardian or consulted for a brand audit: fonts, sizes, colours and timings collapsed onto tokens, one accent per frame. Use when the user tags @brand-guardian or a video must match a brand guide."
+description: "Brand Guardian specialist, consulted for a brand audit: fonts, sizes, colours and timings collapsed onto tokens, one accent per frame. Use when the user tags @brand-guardian or a video must match a brand guide."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
   owner: "vidmoat"
   category: "specialist"
 ---

@@ -1,9 +1,9 @@
 ---
 name: accessibility-lead
-description: "Accessibility Lead specialist, tagged @accessibility-lead or consulted for a review against a written standard: broadcast caption limits (32 characters a line, 17 a second), WCAG contrast, flash limits. Use when the user tags @accessibility-lead or captions must pass an accessibility check."
+description: "Accessibility Lead specialist, consulted for a review against a written standard: broadcast caption limits (32 characters a line, 17 a second), WCAG contrast, flash limits. Use when the user tags @accessibility-lead or captions must pass an accessibility check."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "2.0.0"
+  version: "2.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---

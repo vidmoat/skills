@@ -1,9 +1,9 @@
 ---
 name: shortform-strategist
-description: "Short-Form Strategist specialist, tagged @shortform-strategist or consulted for a TikTok, Reels or Shorts plan: a 3-second hook, pixel safe zones, burned captions, a loop. Use when the user tags @shortform-strategist or asks why their Reels get skipped."
+description: "Short-Form Strategist specialist, consulted for a TikTok, Reels or Shorts plan: a 3-second hook, pixel safe zones, burned captions, a loop. Use when the user tags @shortform-strategist or asks why their Reels get skipped."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "2.0.0"
+  version: "2.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---

@@ -1,9 +1,9 @@
 ---
 name: doc-storyteller
-description: "Documentary Storyteller specialist, tagged @doc-storyteller or consulted for a documentary structure: paper edit and radio cut before picture, b-roll on the noun, quote ethics. Use when the user tags @doc-storyteller or turns interviews or event footage into a short doc or customer story."
+description: "Documentary Storyteller specialist, consulted for a documentary structure: paper edit and radio cut before picture, b-roll on the noun, quote ethics. Use when the user tags @doc-storyteller or turns interviews or event footage into a short doc or customer story."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "2.0.0"
+  version: "2.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---

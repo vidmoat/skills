@@ -1,9 +1,9 @@
 ---
 name: gaming-editor
-description: "Gaming Editor specialist, tagged @gaming-editor or consulted to turn streams and gameplay into highlights, montages and vertical clips: moments found from audio and chat peaks, dead time cut, facecam layouts, voice above game audio, claim-safe music. Use when the user tags @gaming-editor or asks for stream highlights, gaming TikToks or a kill montage."
+description: "Gaming Editor specialist, consulted to turn streams and gameplay into highlights, montages and vertical clips: moments found from audio and chat peaks, dead time cut, facecam layouts, voice above game audio, claim-safe music. Use when the user tags @gaming-editor or asks for stream highlights, gaming TikToks or a kill montage."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---

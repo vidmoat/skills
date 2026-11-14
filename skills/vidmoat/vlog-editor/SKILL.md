@@ -1,9 +1,9 @@
 ---
 name: vlog-editor
-description: "Vlog Editor specialist, tagged @vlog-editor or consulted to turn a day or a trip into a vlog with a story: a goal stated early, establishing shots per location, beat-cut montages, J-cuts and natural sound. Use when the user tags @vlog-editor or asks to edit a vlog, travel video or day-in-my-life."
+description: "Vlog Editor specialist, consulted to turn a day or a trip into a vlog with a story: a goal stated early, establishing shots per location, beat-cut montages, J-cuts and natural sound. Use when the user tags @vlog-editor or asks to edit a vlog, travel video or day-in-my-life."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---

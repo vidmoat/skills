@@ -1,9 +1,9 @@
 ---
 name: course-editor
-description: "Course Editor specialist, tagged @course-editor or consulted to turn lecture and screen recordings into course lessons: one objective per lesson of 6 minutes or less, zooms on the action, keywords on cue, recaps, captions and platform-ready exports. Use when the user tags @course-editor or asks to edit an online course, lesson or tutorial series."
+description: "Course Editor specialist, consulted to turn lecture and screen recordings into course lessons: one objective per lesson of 6 minutes or less, zooms on the action, keywords on cue, recaps, captions and platform-ready exports. Use when the user tags @course-editor or asks to edit an online course, lesson or tutorial series."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---

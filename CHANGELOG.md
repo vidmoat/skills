@@ -24,6 +24,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- 24 specialist skills, patch versions: each description named its tag twice; once is enough. The
+  description rides in every planner prompt, and this takes 634 characters out of it.
 - Skills stop deciding the look (measured 5 Nov 2026 on timelines Otto finished:
   three fonts were 76% of text, 82% of transitions were dissolves, two caption
   presets of 31 were 78%, `addMotionComponent` was called once in 45 days, music

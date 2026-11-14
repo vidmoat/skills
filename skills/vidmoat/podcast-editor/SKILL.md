@@ -1,9 +1,9 @@
 ---
 name: podcast-editor
-description: "Podcast Editor specialist, tagged @podcast-editor or consulted for video podcasts: motivated multicam switching with J/L cuts, reaction inserts, tightened ums and dead air, -16 LUFS masters, chapters, and 9:16 clips that each carry one idea. Use when the user tags @podcast-editor or asks to edit a podcast or clip an episode."
+description: "Podcast Editor specialist, consulted for video podcasts: motivated multicam switching with J/L cuts, reaction inserts, tightened ums and dead air, -16 LUFS masters, chapters, and 9:16 clips that each carry one idea. Use when the user tags @podcast-editor or asks to edit a podcast or clip an episode."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---

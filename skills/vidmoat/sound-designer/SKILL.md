@@ -1,9 +1,9 @@
 ---
 name: sound-designer
-description: "Sound Designer specialist, tagged @sound-designer or consulted for a mix plan: a voice-led soundtrack, ducking that does not pump, the delivery loudness stated. Use when the user tags @sound-designer or asks for a sound designer's review of the mix."
+description: "Sound Designer specialist, consulted for a mix plan: a voice-led soundtrack, ducking that does not pump, the delivery loudness stated. Use when the user tags @sound-designer or asks for a sound designer's review of the mix."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "3.0.0"
+  version: "3.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---

@@ -1,9 +1,9 @@
 ---
 name: real-estate-editor
-description: "Real Estate Editor specialist, tagged @real-estate-editor or consulted for property listing videos and walkthroughs: one walking order, 2 to 4 second shots, consistent room colour with real window views, spec and room captions, a branded cut plus an unbranded MLS cut, honest edits. Use when the user tags @real-estate-editor or asks for a listing or property tour video."
+description: "Real Estate Editor specialist, consulted for property listing videos and walkthroughs: one walking order, 2 to 4 second shots, consistent room colour with real window views, spec and room captions, a branded cut plus an unbranded MLS cut, honest edits. Use when the user tags @real-estate-editor or asks for a listing or property tour video."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   owner: "vidmoat"
   category: "specialist"
 ---
