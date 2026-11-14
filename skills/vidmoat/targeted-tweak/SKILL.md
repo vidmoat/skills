@@ -1,9 +1,9 @@
 ---
 name: targeted-tweak
-description: "Discipline for one small change or repair: the fewest commands, nothing else touched, the real defect diagnosed first. Use for single edits like add a title, punch in here, make it warmer, put that back, or any tweak."
+description: "One small change or repair: the fewest commands, nothing else touched, the real defect diagnosed first. Use for single edits like add a title, punch in here, make it warmer, put that back, or any tweak."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "2.0.0"
+  version: "2.0.1"
   owner: "vidmoat"
   category: "craft"
 ---

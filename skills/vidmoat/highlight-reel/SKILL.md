@@ -1,9 +1,9 @@
 ---
 name: highlight-reel
-description: "Gaming, sports and action highlights: approach, impact and reaction per moment, slowed impacts, a replay, the best moment first. Use for gaming clips, stream highlights, match highlights, skate, racing or car edits."
+description: "Gaming, sports and action highlights: approach, impact, reaction, slowed impacts, a replay, best moment first. Use for gaming clips, stream highlights, match highlights, skate, racing or car edits."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   owner: "vidmoat"
   category: "craft"
 ---

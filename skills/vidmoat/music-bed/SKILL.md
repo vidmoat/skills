@@ -1,9 +1,9 @@
 ---
 name: music-bed
-description: "Music and sound effects under an edit: a licence-safe track, a bed with fades, ducking under speech, risers and impacts. Use for adding background music or SFX, music too loud over the voice, or ducking."
+description: "Music and SFX under an edit: a licence-safe track, fades, ducking under speech, risers and impacts. Use for adding background music or SFX, music too loud over the voice, or ducking."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "2.1.0"
+  version: "2.1.1"
   owner: "vidmoat"
   category: "craft"
 ---

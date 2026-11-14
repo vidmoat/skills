@@ -1,9 +1,9 @@
 ---
 name: motion-graphics
-description: "Designed graphics with HTML elements, animating the objects inside them on the timeline clock. Use for animated stat cards, infographics, diagrams, UI mockups, logo stings, or moving an object inside a graphic."
+description: "HTML graphics whose inner objects animate on the timeline clock. Use for animated stat cards, infographics, diagrams, UI mockups, logo stings, or moving an object inside a graphic."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.1.1"
+  version: "1.1.2"
   owner: "vidmoat"
   category: "craft"
 ---

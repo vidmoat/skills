@@ -1,9 +1,9 @@
 ---
 name: colour-grade
-description: "Correcting and grading colour: match shots first, then one restrained look, with setColor's real scales and lift, gamma and gain. Use for colour grading or correction, white balance, too dark or washed out, or a cinematic, teal-orange, film or moody look."
+description: "Colour correction and grading: match shots first, then one restrained look, with setColor's real scales. Use for colour grading or correction, white balance, too dark or washed out, or a cinematic, teal-orange, film or moody look."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "2.0.0"
+  version: "2.0.1"
   owner: "vidmoat"
   category: "craft"
 ---

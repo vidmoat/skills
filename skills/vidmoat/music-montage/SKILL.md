@@ -1,9 +1,9 @@
 ---
 name: music-montage
-description: "Edits led by a music track: the track first, a thread through the photos and clips, density that follows the song. Use for montages, travel or wedding recaps and reels set to a song (Director type montage_music); beat-sync owns the beat-grid mechanics."
+description: "Edits led by a song: the track first, a thread through the photos and clips, density that follows it. Use for montages, travel or wedding recaps and reels set to a song (Director type montage_music); beat-sync owns the beat-grid mechanics."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "2.0.1"
+  version: "2.0.2"
   owner: "vidmoat"
   category: "craft"
 ---

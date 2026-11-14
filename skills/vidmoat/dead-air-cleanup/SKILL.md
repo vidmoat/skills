@@ -1,9 +1,9 @@
 ---
 name: dead-air-cleanup
-description: "Removing pauses, silences, filler and retakes without a machine-edited sound: trimSilence, word-timed cuts, breathing room. Use for cut the dead air, remove silences, ums and uhs, bad takes or jump-cut edits."
+description: "Removing pauses, filler and retakes without a machine-edited sound: trimSilence, word-timed cuts, breathing room. Use for cut the dead air, remove silences, ums and uhs, bad takes or jump-cut edits."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
   owner: "vidmoat"
   category: "craft"
 ---

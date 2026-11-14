@@ -1,9 +1,9 @@
 ---
 name: pacing
-description: "Cut rhythm and joins: shot lengths by format, varied rhythm, strong openings, jump cuts, match cuts, b-roll and transitions that mean something. Use when an edit feels slow, boring or jumpy, or for b-roll and transitions."
+description: "Cut rhythm and joins: shot lengths by format, varied rhythm, strong openings, jump and match cuts, meaningful transitions. Use when an edit feels slow, boring or jumpy, or for b-roll and transitions."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
   owner: "vidmoat"
   category: "craft"
 ---

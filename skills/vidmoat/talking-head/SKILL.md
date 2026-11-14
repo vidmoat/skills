@@ -1,9 +1,9 @@
 ---
 name: talking-head
-description: "Editing people talking to camera: transcript-first cuts, designed inserts on what is said, key-word captions, a sound on each pop, a levelled voice. Use for talking heads, vlogs, podcasts and interviews (Director type talking_head)."
+description: "People talking to camera: transcript-first cuts, inserts on what is said, key-word captions, a sound on each pop, a levelled voice. Use for talking heads, vlogs, podcasts and interviews (Director type talking_head)."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "3.1.0"
+  version: "3.1.1"
   owner: "vidmoat"
   category: "craft"
 ---

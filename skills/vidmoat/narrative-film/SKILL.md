@@ -1,9 +1,9 @@
 ---
 name: narrative-film
-description: "Story-led fiction edits: scene order kept, meaningful joins, per-shot correction before one restrained look. Use for short films, scenes and make-it-feel-like-a-movie edits (Director type narrative_film); a look on its own is colour-grade, a documentary is doc-storyteller."
+description: "Story-led fiction: scene order kept, meaningful joins, per-shot correction before one look. Use for short films, scenes and make-it-feel-like-a-movie edits (Director type narrative_film); a look on its own is colour-grade, a documentary is doc-storyteller."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "2.0.0"
+  version: "2.0.1"
   owner: "vidmoat"
   category: "craft"
 ---

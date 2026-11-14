@@ -1,9 +1,9 @@
 ---
 name: beat-sync
-description: "Cutting picture on a measured beat grid: markers, one slice, grouped snapping, transitions and the last cut on the beat. Use for cut to the beat, velocity or CapCut-style edits, AMV, phonk and drop transitions."
+description: "Cutting on a measured beat grid: markers, one slice, grouped snapping, the last cut on the beat. Use for cut to the beat, velocity or CapCut-style edits, AMV, phonk and drop transitions."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
   owner: "vidmoat"
   category: "craft"
 ---

@@ -1,9 +1,9 @@
 ---
 name: camera-motion
-description: "Virtual camera moves: punch-ins, Ken Burns on stills, shake on impacts, rack focus, whip pans and subtle depth. Use for zoom in, punch in, pan and zoom a photo, camera shake, rack focus or stills that feel dead."
+description: "Virtual camera moves: punch-ins, Ken Burns, impact shake, rack focus, whip pans, subtle depth. Use for zoom in, punch in, pan and zoom a photo, camera shake, rack focus or stills that feel dead."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
   owner: "vidmoat"
   category: "craft"
 ---

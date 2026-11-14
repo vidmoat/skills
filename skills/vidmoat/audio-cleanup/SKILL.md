@@ -1,9 +1,9 @@
 ---
 name: audio-cleanup
-description: "Diagnosing and fixing voice and source audio: the right control for hiss, rumble, hum and sibilance, levels and EQ. Use when audio is noisy, muffled, too quiet or too loud, or the user asks to clean up the sound."
+description: "Fixing voice and source audio: the right control for hiss, rumble, hum and sibilance, levels and EQ. Use when audio is noisy, muffled, too quiet or too loud, or the user asks to clean up the sound."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "2.0.0"
+  version: "2.0.1"
   owner: "vidmoat"
   category: "craft"
 ---

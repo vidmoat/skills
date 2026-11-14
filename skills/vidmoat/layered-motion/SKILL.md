@@ -1,9 +1,9 @@
 ---
 name: layered-motion
-description: "Motion graphics people can edit afterwards: compositions of layers with keyframes, After Effects style. Use for lower thirds, animated titles, kinetic type, stat reveals, logo stings and callouts that the person may want to retime or restyle by hand, and when a composition is already on the timeline."
+description: "Editable motion graphics: keyframed layer compositions, After Effects style. Use for lower thirds, animated titles, kinetic type, stat reveals, logo stings and callouts that the person may want to retime or restyle by hand, and when a composition is already on the timeline."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.3.0"
+  version: "1.3.1"
   owner: "vidmoat"
   category: "craft"
 ---

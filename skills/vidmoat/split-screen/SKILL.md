@@ -1,9 +1,9 @@
 ---
 name: split-screen
-description: "Two sources on screen at once: stacked or side-by-side splits, facecam picture in picture, reaction layouts and the audio hierarchy. Use for split screen, side by side, webcam overlays, reactions and duets."
+description: "Two sources on screen: stacked or side-by-side splits, facecam picture in picture, reactions, the audio hierarchy. Use for split screen, side by side, webcam overlays, reactions and duets."
 license: Apache-2.0 (scripts) and CC-BY-4.0 (text); see LICENSE
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   owner: "vidmoat"
   category: "craft"
 ---

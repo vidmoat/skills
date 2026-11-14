@@ -24,6 +24,9 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- 20 craft skills, patch versions: the "what it is" half of each description is shorter; every
+  "Use for/when" half is unchanged. The descriptions ride in every planner prompt, which was at its
+  size ceiling.
 - 24 specialist skills, patch versions: each description named its tag twice; once is enough. The
   description rides in every planner prompt, and this takes 634 characters out of it.
 - Skills stop deciding the look (measured 5 Nov 2026 on timelines Otto finished:
